@@ -1,19 +1,9 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
- * import { faBed, faMapLocationDot, faToilet, faRulerCombined, faStar, faHeart } from '@fortawesome/free-solid-svg-icons';
- * <FontAwesomeIcon size={25} icon={faStar} style={styles.starIcon} />
- * @format
- */
-
 import React from 'react';
 import type {PropsWithChildren} from 'react';
+import EditInfoView from './src/screens/EditInfoView';
+import FeedView from './src/screens/FeedView';
 import {
   SafeAreaView,
-  ScrollView,
-  StatusBar,
   StyleSheet,
   Text,
   useColorScheme,
@@ -67,34 +57,8 @@ function App(): JSX.Element {
 
   return (
     <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
+      <EditInfoView />
+      {/* <FeedView /> */}
     </SafeAreaView>
   );
 }
