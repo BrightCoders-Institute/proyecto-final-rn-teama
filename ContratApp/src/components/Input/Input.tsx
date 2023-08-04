@@ -57,22 +57,23 @@ export const Input: React.FC<InputProps> = ({
         />
         {isShowError && <Text>{errorMessage}</Text>}
       </View>
-      {/* <View style={styles.column}>
-    <Text style={styles.nameInput}>{titleLocation}</Text>
-    <TextInput
-      onBlur={handleBlur}
-      onChangeText={handleChange}
-      onFocus={handleFocus}
-      placeholder={hintLocation}
-      style={[styles.input, 
-        isFocused ? focusedStyle.inputFocused : null,
-        {width: width}
-      ]}
-      value={value}
-      secureTextEntry={isPassword ? true : false}
-    />
-    {isShowError && <Text>{errorMessage}</Text>}
-    </View> */}
+      <View style={styles.column}>
+        <Text style={styles.nameInput}>{titleLocation}</Text>
+        <TextInput
+          onBlur={handleBlur}
+          onChangeText={handleChange}
+          onFocus={handleFocus}
+          placeholder={hintLocation}
+          style={[
+            styles.input,
+            isFocused ? focusedStyle.inputFocused : null,
+            {width: width},
+          ]}
+          value={value}
+          secureTextEntry={isPassword ? true : false}
+        />
+        {isShowError && <Text>{errorMessage}</Text>}
+      </View>
     </View>
   );
 };
