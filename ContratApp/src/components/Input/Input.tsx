@@ -17,14 +17,16 @@ interface InputProps {
 }
 
 export const Input: React.FC<InputProps> = ({
-  titlePhone, titleLocation,
-  hintPhone, hintLocation, 
+  titlePhone,
+  titleLocation,
+  hintPhone,
+  hintLocation,
   width,
   handleChange,
   value,
   isShowError = false,
   errorMessage = '',
-  isPassword
+  isPassword,
 }) => {
   const [isFocused, setIsFocused] = useState(false);
 
@@ -38,23 +40,24 @@ export const Input: React.FC<InputProps> = ({
 
   return (
     <View>
-    <View style={styles.column}>
-      <Text style={styles.nameInput}>{titlePhone}</Text>
-      <TextInput
-        onBlur={handleBlur}
-        onChangeText={handleChange}
-        onFocus={handleFocus}
-        placeholder={hintPhone}
-        style={[styles.input, 
-          isFocused ? focusedStyle.inputFocused : null,
-          {width: width}
-        ]}
-        value={value}
-        secureTextEntry={isPassword ? true : false}
-      />
-      {isShowError && <Text>{errorMessage}</Text>}
-    </View>
-    <View style={styles.column}>
+      <View style={styles.column}>
+        <Text style={styles.nameInput}>{titlePhone}</Text>
+        <TextInput
+          onBlur={handleBlur}
+          onChangeText={handleChange}
+          onFocus={handleFocus}
+          placeholder={hintPhone}
+          style={[
+            styles.input,
+            isFocused ? focusedStyle.inputFocused : null,
+            {width: width},
+          ]}
+          value={value}
+          secureTextEntry={isPassword ? true : false}
+        />
+        {isShowError && <Text>{errorMessage}</Text>}
+      </View>
+      {/* <View style={styles.column}>
     <Text style={styles.nameInput}>{titleLocation}</Text>
     <TextInput
       onBlur={handleBlur}
@@ -69,8 +72,8 @@ export const Input: React.FC<InputProps> = ({
       secureTextEntry={isPassword ? true : false}
     />
     {isShowError && <Text>{errorMessage}</Text>}
+    </View> */}
     </View>
-  </View>
   );
 };
 
