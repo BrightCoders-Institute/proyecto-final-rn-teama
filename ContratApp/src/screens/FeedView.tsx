@@ -5,7 +5,7 @@ import ListCard from '../components/Listcard/ListCard';
 import BtnNavigate from '../components/BtnNavigate/BtnNavigate';
 import ListImgCard from '../components/ListImgCard/ListImgCard';
 
-export const EditInfoView = () => {
+export const FeedView = () => {
   return (
     <View>
       <BtnNavigate />
@@ -15,4 +15,4 @@ export const EditInfoView = () => {
     </View>
   );
 };
-export default EditInfoView;
+export default FeedView;
