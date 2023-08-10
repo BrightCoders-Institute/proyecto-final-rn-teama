@@ -4,7 +4,6 @@ import {styles} from './styles';
 
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {IconDefinition} from '@fortawesome/free-solid-svg-icons';
-import {colors} from '../../../constants/colors';
 
 interface ButtonIconProps {
   icon: IconDefinition;

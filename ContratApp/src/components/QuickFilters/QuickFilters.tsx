@@ -9,6 +9,7 @@ export const QuickFilters = () => {
   return (
     <View style={styles.container}>
       <FlatList
+        showsHorizontalScrollIndicator={false}
         horizontal={true}
         data={testFilters}
         renderItem={filter => (

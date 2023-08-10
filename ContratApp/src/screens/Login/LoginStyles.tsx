@@ -1,10 +1,12 @@
 import {StyleSheet} from 'react-native';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
+import {colors} from '../../../constants/colors';
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: wp('8%'),
+    backgroundColor: colors.white,
   },
   containerLogin: {
     flexDirection: 'row',
@@ -20,7 +22,7 @@ export const styles = StyleSheet.create({
     textDecorationLine: 'underline',
     marginLeft: 5,
     fontWeight: 'bold',
-    color: '#0096C7',
+    color: colors.mainBlue,
   },
   text: {textAlign: 'center', marginVertical: 30, color: 'black'},
   containerImage: {
