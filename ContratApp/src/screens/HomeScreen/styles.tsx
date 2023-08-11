@@ -12,6 +12,7 @@ export const styles = StyleSheet.create({
   },
   buttonContainer: {
     flexDirection: 'row',
+    marginBottom: '25%',
   },
   filtersContainer: {
     marginLeft: '15%',
