@@ -11,6 +11,23 @@ import {Checkbox} from '../Checkbox/Checkbox';
 import {SubTitle} from '../Subtitle/Subtitle';
 import SelectDropdown from 'react-native-select-dropdown';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+//REDUX
+import {useDispatch} from 'react-redux';
+import {setUserType} from '../../store/DataStore';
+import {useSelector} from 'react-redux';
+import {RootState} from '../../types/types';
+
+import {StackNavigationProp} from '@react-navigation/stack';
+import {RootStackParamList} from '../../navigation/Navigator';
+
+type RegisterScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  'Register'
+>;
+
+interface RegisterFormProps {
+  navigation: RegisterScreenNavigationProp;
+}
 
 const validatSchema = Yup.object().shape({
   password: Yup.string()
@@ -22,9 +39,26 @@ const validatSchema = Yup.object().shape({
   checkbox: Yup.boolean().required(),
 });
 
-export const Form = () => {
+export const Form: React.FC<RegisterFormProps> = ({navigation}) => {
   const tipo = ['Busco trabajo', 'Ofrezco trabajo'];
   const handleCheckboxChange = (checked: boolean) => {};
+
+  const dispatch = useDispatch();
+
+  const handleUserType = (userType: number) => {
+    dispatch(setUserType(userType));
+  };
+
+  const {userType} = useSelector((state: RootState) => state.data);
+
+  const handleNavigation = () => {
+    if (userType === 0) {
+      navigation.navigate('WelcomeScreen');
+    } else {
+      navigation.navigate('WelcomeScreenEmployer');
+    }
+  };
+
   return (
     <View>
       <Formik
@@ -82,6 +116,7 @@ export const Form = () => {
                 buttonStyle={styles.dropdown1BtnStyle}
                 onSelect={(selectedItem, index) => {
                   console.log(selectedItem, index);
+                  handleUserType(index);
                 }}
                 renderDropdownIcon={isOpened => {
                   return (
@@ -101,8 +136,10 @@ export const Form = () => {
               />
             </View>
             <Button
-              title="Ingresar"
-              onPress={handleSubmit}
+              title="Crear cuenta"
+              onPress={() => {
+                handleSubmit(), handleNavigation();
+              }}
               isDisabled={dirty}
             />
           </>
