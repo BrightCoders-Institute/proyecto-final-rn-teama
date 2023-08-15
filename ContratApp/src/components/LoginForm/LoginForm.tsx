@@ -8,6 +8,8 @@ import {Input} from '../../components/Input/Input';
 import {SubTitle} from '../../components/Subtitle/Subtitle';
 import {Title} from '../../components/Title/Title';
 import {Button} from '../../components/Button/Button';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {RootStackParamList} from '../../navigation/Navigator';
 
 const validatSchema = Yup.object().shape({
   password: Yup.string().required('Password invalid'),
@@ -15,7 +17,16 @@ const validatSchema = Yup.object().shape({
   checkbox: Yup.boolean().required(),
 });
 
-export const LoginForm = () => {
+type LoginScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  'Login'
+>;
+
+interface LoginScreenProps {
+  navigation: LoginScreenNavigationProp;
+}
+
+export const LoginForm: React.FC<LoginScreenProps> = ({navigation}) => {
   return (
     <View>
       <Formik
@@ -59,7 +70,10 @@ export const LoginForm = () => {
 
             <Button
               title="Iniciar Sesión"
-              onPress={handleSubmit}
+              onPress={() => {
+                handleSubmit;
+                navigation.navigate('Home');
+              }}
               isDisabled={dirty}
             />
           </>

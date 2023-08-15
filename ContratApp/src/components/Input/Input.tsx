@@ -1,52 +1,85 @@
 import React, {useState} from 'react';
-import {
-  TextInput,
-  View,
-  KeyboardTypeOptions,
-  TouchableOpacity,
-} from 'react-native';
-import {styles} from './InputStyles';
+import {TextInput, Text, StyleSheet, View} from 'react-native';
 
-interface props {
-  kboardType: KeyboardTypeOptions;
-  isPassword?: boolean;
+import {styles} from './style';
+
+interface InputProps {
+  titlePhone: string;
+  hintPhone: string;
+  titleLocation: string;
+  hintLocation: string;
   value: string;
-  onChange: (text: string) => void;
+  handleChange: (text: string) => void;
+  isShowError?: boolean;
+  errorMessage?: string;
+  width: number;
+  isPassword?: boolean;
 }
 
-export const Input = ({
-  kboardType,
-  isPassword = false,
-  onChange,
+export const Input: React.FC<InputProps> = ({
+  titlePhone,
+  titleLocation,
+  hintPhone,
+  hintLocation,
+  width,
+  handleChange,
   value,
-}: props) => {
-  const [isFocus, setIsFocus] = useState<boolean>(false);
-  const [hidePasswordValue, setHidePasswordValue] = useState<boolean>(true);
+  isShowError = false,
+  errorMessage = '',
+  isPassword,
+}) => {
+  const [isFocused, setIsFocused] = useState(false);
+
   const handleFocus = () => {
-    setIsFocus(true);
-  };
-  const handleBlur = () => {
-    setIsFocus(false);
+    setIsFocused(true);
   };
 
-  const handleIcon = () => {
-    if (hidePasswordValue === true) {
-      setHidePasswordValue(false);
-    } else {
-      setHidePasswordValue(true);
-    }
+  const handleBlur = () => {
+    setIsFocused(false);
   };
+
   return (
     <View>
-      <TextInput
-        style={isFocus ? styles.onFocusInput : styles.input}
-        onChangeText={onChange}
-        value={value}
-        keyboardType={kboardType}
-        secureTextEntry={hidePasswordValue && isPassword}
-        onFocus={handleFocus}
-        onBlur={handleBlur}
-      />
+      <View style={styles.column}>
+        <Text style={styles.nameInput}>{titlePhone}</Text>
+        <TextInput
+          onBlur={handleBlur}
+          onChangeText={handleChange}
+          onFocus={handleFocus}
+          placeholder={hintPhone}
+          style={[
+            styles.input,
+            isFocused ? focusedStyle.inputFocused : null,
+            {width: width},
+          ]}
+          value={value}
+          secureTextEntry={isPassword ? true : false}
+        />
+        {isShowError && <Text>{errorMessage}</Text>}
+      </View>
+      <View style={styles.column}>
+        <Text style={styles.nameInput}>{titleLocation}</Text>
+        <TextInput
+          onBlur={handleBlur}
+          onChangeText={handleChange}
+          onFocus={handleFocus}
+          placeholder={hintLocation}
+          style={[
+            styles.input,
+            isFocused ? focusedStyle.inputFocused : null,
+            {width: width},
+          ]}
+          value={value}
+          secureTextEntry={isPassword ? true : false}
+        />
+        {isShowError && <Text>{errorMessage}</Text>}
+      </View>
     </View>
   );
 };
+
+const focusedStyle = StyleSheet.create({
+  inputFocused: {
+    borderColor: '#0096C7',
+  },
+});

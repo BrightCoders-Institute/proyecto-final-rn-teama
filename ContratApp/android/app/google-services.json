@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "797435410304",
+    "project_id": "contratapp-749e8",
+    "storage_bucket": "contratapp-749e8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:797435410304:android:0f5763219bbcce70e93365",
+        "android_client_info": {
+          "package_name": "com.contratapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "797435410304-aflf9cuvh4suf8ih1a5kh1pl47rtfi87.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.contratapp",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "797435410304-b0hmsmljs0ravtbj7abfog577q6d6ics.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCV-tjGyyZWRlPFE-YvFRX6XeYCMWJ2iA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "797435410304-b0hmsmljs0ravtbj7abfog577q6d6ics.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
