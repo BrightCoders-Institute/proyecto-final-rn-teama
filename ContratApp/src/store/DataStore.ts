@@ -1,15 +1,23 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
-interface DataState {}
+interface DataState {
+  userType: number;
+}
 
-const initialState: DataState = {};
+const initialState: DataState = {
+  userType: 0,
+};
 
 const dataSlice = createSlice({
   name: 'data',
   initialState,
-  reducers: {},
+  reducers: {
+    setUserType: (state, action: PayloadAction<number>) => {
+      state.userType = action.payload;
+    },
+  },
 });
 
-export const {} = dataSlice.actions;
+export const {setUserType} = dataSlice.actions;
 
 export default dataSlice.reducer;

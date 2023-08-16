@@ -1,17 +1,37 @@
-import { StyleSheet, View, Text } from 'react-native'
-import React from 'react'
+import {StyleSheet, View, Text} from 'react-native';
+import React from 'react';
 
 import {styles} from './style';
+import {ButtonIcon} from '../ButtonIcon/ButtonIcon';
+import {colors} from '../../../constants/colors';
 
-const HeaderForm = (props) => {
+import {faArrowLeft} from '@fortawesome/free-solid-svg-icons';
 
-    const { title } = props
+interface HeaderFormProps {
+  title: string;
+  subTitle?: string;
+  navigation: any;
+}
 
-    return (
-        <View style={styles.background}>
-          <Text style={styles.title}>{title}</Text>
-        </View>
-      );
-    };
+const HeaderForm: React.FC<HeaderFormProps> = ({
+  title,
+  navigation,
+  subTitle,
+}) => {
+  return (
+    <View style={styles.background}>
+      <View style={styles.backBtn}>
+        <ButtonIcon
+          onPress={() => navigation.goBack()}
+          color={colors.white}
+          icon={faArrowLeft}
+          isTransparent={true}
+        />
+      </View>
+      <Text style={styles.title}>{title}</Text>
+      <Text style={styles.subTitle}>{subTitle}</Text>
+    </View>
+  );
+};
 
-export default HeaderForm
+export default HeaderForm;
