@@ -29,7 +29,7 @@ const Register: React.FC<RegistercreenProps> = ({navigation}) => {
         <View style={styles.containerTitle}>
           <Title title="Crear cuenta" />
         </View>
-        <Form />
+        <Form navigation={navigation} />
         <View style={styles.containerLogin}>
           <Text style={styles.text}>¿Ya tienes cuenta?</Text>
           <TouchableOpacity
