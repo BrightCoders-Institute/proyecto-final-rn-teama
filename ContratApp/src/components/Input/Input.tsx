@@ -1,19 +1,30 @@
 import React, {useState} from 'react';
-import {TextInput, Text, StyleSheet, View} from 'react-native';
+import {
+  TextInput,
+  Text,
+  StyleSheet,
+  View,
+  KeyboardTypeOptions,
+  TouchableOpacity,
+} from 'react-native';
 
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {faEye, faEyeSlash} from '@fortawesome/free-solid-svg-icons';
 import {styles} from './style';
+import {colors} from '../../../constants/colors';
 
 interface InputProps {
-  titlePhone: string;
-  hintPhone: string;
-  titleLocation: string;
-  hintLocation: string;
+  titlePhone?: string;
+  hintPhone?: string;
+  titleLocation?: string;
+  hintLocation?: string;
   value: string;
-  handleChange: (text: string) => void;
+  onChange: (text: string) => void;
   isShowError?: boolean;
   errorMessage?: string;
-  width: number;
+  width?: number;
   isPassword?: boolean;
+  kboardType: KeyboardTypeOptions;
 }
 
 export const Input: React.FC<InputProps> = ({
@@ -22,13 +33,15 @@ export const Input: React.FC<InputProps> = ({
   hintPhone,
   hintLocation,
   width,
-  handleChange,
+  onChange,
   value,
   isShowError = false,
   errorMessage = '',
   isPassword,
+  kboardType = 'default',
 }) => {
   const [isFocused, setIsFocused] = useState(false);
+  const [isHide, setIsHide] = useState(true);
 
   const handleFocus = () => {
     setIsFocused(true);
@@ -38,23 +51,47 @@ export const Input: React.FC<InputProps> = ({
     setIsFocused(false);
   };
 
+  const handlePassInput = () => {
+    setIsHide(!isHide);
+  };
+
   return (
     <View>
       <View style={styles.column}>
-        <Text style={styles.nameInput}>{titleLocation}</Text>
-        <TextInput
-          onBlur={handleBlur}
-          onChangeText={handleChange}
-          onFocus={handleFocus}
-          placeholder={hintLocation}
-          style={[
-            styles.input,
-            isFocused ? focusedStyle.inputFocused : null,
-            {width: width},
-          ]}
-          value={value}
-          secureTextEntry={isPassword ? true : false}
-        />
+        {titleLocation ? (
+          <Text style={styles.nameInput}>{titleLocation}</Text>
+        ) : (
+          <View></View>
+        )}
+        <View>
+          <TextInput
+            keyboardType={kboardType}
+            onBlur={handleBlur}
+            onChangeText={onChange}
+            onFocus={handleFocus}
+            placeholder={hintLocation}
+            style={[
+              styles.input,
+              isFocused ? focusedStyle.inputFocused : null,
+              {width: width},
+            ]}
+            value={value}
+            secureTextEntry={isHide}
+          />
+          {isPassword ? (
+            <TouchableOpacity
+              style={styles.passwordIcon}
+              onPress={handlePassInput}>
+              <FontAwesomeIcon
+                icon={isHide ? faEye : faEyeSlash}
+                size={24}
+                color={colors.gray}
+              />
+            </TouchableOpacity>
+          ) : (
+            <View></View>
+          )}
+        </View>
         {isShowError && <Text>{errorMessage}</Text>}
       </View>
     </View>
