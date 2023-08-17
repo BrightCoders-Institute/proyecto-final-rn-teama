@@ -6,6 +6,8 @@ import BtnLogout from '../components/BtnLogout/BtnLogout';
 
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from '../navigation/Navigator';
+import {useDispatch} from 'react-redux';
+import {setLoggedIn} from '../store/DataStore';
 
 type ProfileScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -17,13 +19,19 @@ interface ProfileScreenProps {
 }
 
 export const EditInfoView: React.FC<ProfileScreenProps> = ({navigation}) => {
+  const dispatch = useDispatch();
+
+  const handleLogOut = (isLoggedIn: boolean) => {
+    dispatch(setLoggedIn(isLoggedIn));
+  };
+
   return (
     <View>
       <ScrollView>
         <ImgProfile />
         {/* <FormEmpleado /> */}
         {/* <FormEmpleador /> */}
-        <BtnLogout />
+        <BtnLogout onPress={() => handleLogOut(false)} />
       </ScrollView>
     </View>
   );

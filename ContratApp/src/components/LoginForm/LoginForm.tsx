@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, Text} from 'react-native';
 import {styles} from './LoginFormStyles';
 
@@ -10,6 +10,9 @@ import {Title} from '../../components/Title/Title';
 import {Button} from '../../components/Button/Button';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from '../../navigation/Navigator';
+import {signIn} from '../../auth/SignInUser';
+import {useDispatch} from 'react-redux';
+import {setLoggedIn} from '../../store/DataStore';
 
 const validatSchema = Yup.object().shape({
   password: Yup.string().required('Password invalid'),
@@ -27,6 +30,31 @@ interface LoginScreenProps {
 }
 
 export const LoginForm: React.FC<LoginScreenProps> = ({navigation}) => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const dispatch = useDispatch();
+
+  const handleLoggedIn = (isLoggedIn: boolean) => {
+    dispatch(setLoggedIn(isLoggedIn));
+  };
+
+  const sendData = async (values: any) => {
+    setIsLoading(true);
+    if (values.email && values.password) {
+      if (
+        (await signIn({
+          email: values.email,
+          password: values.password,
+        })) === true
+      ) {
+        handleLoggedIn(true);
+      } else {
+        handleLoggedIn(false);
+      }
+    }
+    setIsLoading(false);
+  };
+
   return (
     <View>
       <Formik
@@ -46,7 +74,7 @@ export const LoginForm: React.FC<LoginScreenProps> = ({navigation}) => {
             <Input
               onChange={handleChange('email')}
               value={values.email}
-              kboardType="email-address"
+              kboardType={'email-address'}
             />
             <View style={styles.subTitleContainer}>
               <SubTitle>
@@ -59,7 +87,7 @@ export const LoginForm: React.FC<LoginScreenProps> = ({navigation}) => {
             <Input
               onChange={handleChange('password')}
               value={values.password}
-              kboardType="default"
+              kboardType={'default'}
               isPassword={true}
             />
             <View style={styles.margin}>
@@ -72,9 +100,9 @@ export const LoginForm: React.FC<LoginScreenProps> = ({navigation}) => {
               title="Iniciar Sesión"
               onPress={() => {
                 handleSubmit;
-                navigation.navigate('Home');
+                sendData(values);
               }}
-              isDisabled={dirty}
+              isDisabled={!dirty}
             />
           </>
         )}

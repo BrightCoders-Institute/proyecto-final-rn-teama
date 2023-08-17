@@ -1,6 +1,10 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+
+//REDUX
+import {useSelector} from 'react-redux';
+import {RootState} from '../types/types';
 
 //SCREENS
 import Login from '../screens/Login/Login';
@@ -34,15 +38,12 @@ const SignUpNavigator = createNativeStackNavigator();
 
 const UserNavigator = createNativeStackNavigator();
 
-const isLogged = false;
-
 export const Navigator = () => {
+  const {isLoggedIn} = useSelector((state: RootState) => state.data);
   return (
     <NavigationContainer>
-      {isLogged ? (
-        <UserNavigator.Navigator
-          initialRouteName="Login"
-          screenOptions={{headerShown: false}}>
+      {isLoggedIn ? (
+        <UserNavigator.Navigator screenOptions={{headerShown: false}}>
           <UserNavigator.Screen name="TabNavigator" component={TabNavigator} />
         </UserNavigator.Navigator>
       ) : (
