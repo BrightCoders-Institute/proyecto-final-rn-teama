@@ -14,6 +14,11 @@ interface DataState {
   employTimePM: string;
   employPriceMin: string;
   employPriceMax: string;
+  email: string;
+  password: string;
+  address: string;
+  phone: string;
+  companyName: string;
 }
 
 const initialState: DataState = {
@@ -30,6 +35,11 @@ const initialState: DataState = {
   employTimePM: '',
   employPriceMin: '',
   employPriceMax: '',
+  email: '',
+  password: '',
+  address: '',
+  phone: '',
+  companyName: '',
 };
 
 const dataSlice = createSlice({
@@ -75,6 +85,21 @@ const dataSlice = createSlice({
     setEmployPriceMax: (state, action: PayloadAction<string>) => {
       state.employPriceMax = action.payload;
     },
+    setEmail: (state, action: PayloadAction<string>) => {
+      state.email = action.payload;
+    },
+    setPassword: (state, action: PayloadAction<string>) => {
+      state.password = action.payload;
+    },
+    setAddress: (state, action: PayloadAction<string>) => {
+      state.address = action.payload;
+    },
+    setPhone: (state, action: PayloadAction<string>) => {
+      state.phone = action.payload;
+    },
+    setCompanyName: (state, action: PayloadAction<string>) => {
+      state.companyName = action.payload;
+    },
   },
 });
 
@@ -92,8 +117,13 @@ export const {
   setEmployTimePM,
   setEmployPriceMin,
   setEmployPriceMax,
+  setEmail,
+  setPassword,
+  setAddress,
+  setPhone,
+  setCompanyName,
 } = dataSlice.actions;
 
 export const dataReducer = dataSlice.reducer;
 
-export default dataReducer;
+export default dataSlice.reducer;

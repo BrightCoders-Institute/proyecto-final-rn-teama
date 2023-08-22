@@ -6,6 +6,8 @@ import UploadPicProfile from '../../../components/UploadPicProfile/UploadPicProf
 
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from '../../../navigation/Navigator';
+import {useSelector} from 'react-redux';
+import {RootState} from '../../../store/Reducers';
 
 type FinishFormRegisterScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -19,6 +21,9 @@ interface FinishFormRegisterScreenProps {
 const FinishFormRegisterScreen: React.FC<FinishFormRegisterScreenProps> = ({
   navigation,
 }) => {
+  const {phone, address, companyName} = useSelector(
+    (state: RootState) => state.dataEmployer,
+  );
   return (
     <View>
       <HeaderForm title="¡Ya casi terminamos!" navigation={navigation} />
