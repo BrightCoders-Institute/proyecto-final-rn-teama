@@ -1,14 +1,13 @@
-import auth from '@react-native-firebase/auth';
+import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import {Alert} from 'react-native';
 
-interface NewFlight {
-  estateOrigin: string;
-  estateDestination: string;
-  countryOrigin: string;
-  countryDestination: string;
-  date: string;
-  tickets: string;
+interface NewEmployer {
+  email: string;
+  password: string;
+  address: string;
+  phone: string;
+  companyName: string;
 }
 
 function generarID(): string {
@@ -25,30 +24,44 @@ function generarID(): string {
   return id;
 }
 
-export const registerFlight = async (props: NewFlight) => {
-  const user = auth().currentUser;
+const addUserInfo = ({uid}: FirebaseAuthTypes.User, employer: NewEmployer) => {
+  firestore()
+    .collection('Users')
+    .doc(uid)
+    .set({
+      employer: employer,
+      uid: uid,
+    })
+    .then(() => {
+      Alert.alert('User added succesfully');
+    })
+    .catch(error => console.log(error));
+};
 
-  const flightData = {
-    stateOrigin: props.estateOrigin || '',
-    stateDestination: props.estateDestination || '',
-    countryOrigin: props.countryOrigin || '',
-    countryDestination: props.countryDestination || '',
-    date: props.date || '',
-    tickets: props.tickets || '',
-    user_id: user?.uid || '',
+export const registerEmployer = async (props: NewEmployer) => {
+  const employerData = {
+    email: props.email || '',
+    password: props.password || '',
+    address: props.address || '',
+    phone: props.phone || '',
+    companyName: props.companyName || '',
     identifier: generarID() || '',
   };
 
   try {
-    const formattedData = JSON.stringify(flightData);
-
-    await firestore()
-      .collection('Flights')
-      .doc()
-      .set(JSON.parse(formattedData));
-
-    Alert.alert('Flight added successfully');
+    const {user} = await auth().createUserWithEmailAndPassword(
+      props.email,
+      props.password,
+    );
+    addUserInfo(user, employerData);
+    Alert.alert('Employer added successfully');
   } catch (error) {
-    console.log(error);
+    if (error.code === 'auth/email-already-in-use') {
+      Alert.alert('The email address is already in use!');
+    }
+
+    if (error.code === 'auth/invalid-email') {
+      Alert.alert('The email address is invalid!');
+    }
   }
 };

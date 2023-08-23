@@ -13,7 +13,7 @@ import SelectDropdown from 'react-native-select-dropdown';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 //REDUX
 import {useDispatch} from 'react-redux';
-import {setUserType} from '../../store/DataStore';
+import {setUserType, setEmail, setPassword} from '../../store/DataStore';
 import {useSelector} from 'react-redux';
 import {RootState} from '../../types/types';
 
@@ -59,6 +59,11 @@ export const Form: React.FC<RegisterFormProps> = ({navigation}) => {
     }
   };
 
+  const handleEmailAndPassword = (email, password) => {
+    dispatch(setEmail(email));
+    dispatch(setPassword(password));
+  };
+
   return (
     <View>
       <Formik
@@ -69,7 +74,9 @@ export const Form: React.FC<RegisterFormProps> = ({navigation}) => {
           checkbox: false,
         }}
         validationSchema={validatSchema}
-        onSubmit={async values => {}}>
+        onSubmit={async values => {
+          handleEmailAndPassword(values.email, values.password);
+        }}>
         {({values, errors, touched, handleChange, handleSubmit, dirty}) => (
           <>
             <View style={styles.subTitleContainer}>

@@ -85,7 +85,7 @@ export const Input: React.FC<InputProps> = ({
               style={styles.passwordIcon}
               onPress={handlePassInput}>
               <FontAwesomeIcon
-                icon={isHide ? faEye : faEyeSlash}
+                icon={isHide ? faEyeSlash : faEye}
                 size={24}
                 color={colors.gray}
               />

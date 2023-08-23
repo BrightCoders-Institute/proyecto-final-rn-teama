@@ -6,8 +6,16 @@ import UploadPicProfile from '../../../components/UploadPicProfile/UploadPicProf
 
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from '../../../navigation/Navigator';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../../../store/Reducers';
+import {
+  setAddress,
+  setCompanyName,
+  setEmail,
+  setPassword,
+  setPhone,
+} from '../../../store/DataStore';
+import {registerEmployer} from '../../../db/RegisterNewEmployer';
 
 type FinishFormRegisterScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -21,9 +29,35 @@ interface FinishFormRegisterScreenProps {
 const FinishFormRegisterScreen: React.FC<FinishFormRegisterScreenProps> = ({
   navigation,
 }) => {
-  const {phone, address, companyName} = useSelector(
-    (state: RootState) => state.dataEmployer,
+  const dispatch = useDispatch();
+
+  const {email, password, phone, address, companyName} = useSelector(
+    (state: RootState) => state.data,
   );
+
+  const clearEmployer = () => {
+    dispatch(setEmail(''));
+    dispatch(setPassword(''));
+    dispatch(setPhone(''));
+    dispatch(setAddress(''));
+    dispatch(setCompanyName(''));
+  };
+
+  const handleFinishButtonPress = () => {
+    const newEmployer = {
+      email,
+      password,
+      phone,
+      address,
+      companyName,
+    };
+    registerEmployer(newEmployer);
+    setTimeout(() => {
+      navigation.navigate('Login');
+    }, 2000);
+    clearEmployer();
+  };
+
   return (
     <View>
       <HeaderForm title="¡Ya casi terminamos!" navigation={navigation} />
@@ -32,7 +66,7 @@ const FinishFormRegisterScreen: React.FC<FinishFormRegisterScreenProps> = ({
         Agrega una foto, esto ayuda a que el profesional sepa con quien esta
         tratando.
       </Text>
-      <ButtonNext text="Finalizar" onPress={() => {}} />
+      <ButtonNext text="Finalizar" onPress={handleFinishButtonPress} />
     </View>
   );
 };

@@ -29,7 +29,6 @@ const WelcomeScreenEmployer: React.FC<WelcomeScreenEmployeeProps> = ({
   );
 
   const handleNext = () => {
-    console.log(phone, address, companyName);
     navigation.navigate('FinishFormRegisterScreen');
   };
   return (
@@ -42,8 +41,7 @@ const WelcomeScreenEmployer: React.FC<WelcomeScreenEmployeeProps> = ({
       <View style={{paddingHorizontal: wp('8%')}}>
         <Input
           titleLocation="Telefono"
-          titlePhone="Telefono"
-          hintPhone="0123456789"
+          hintLocation="3123307896"
           value={phone}
           onChange={value => {
             dispatch(setPhone(value));
@@ -66,7 +64,6 @@ const WelcomeScreenEmployer: React.FC<WelcomeScreenEmployeeProps> = ({
             dispatch(setCompanyName(value));
           }}
         />
-
         <ButtonNext text="Siguiente" onPress={handleNext} />
       </View>
     </View>
