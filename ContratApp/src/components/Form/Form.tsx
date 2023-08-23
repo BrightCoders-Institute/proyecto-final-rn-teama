@@ -140,7 +140,7 @@ export const Form: React.FC<RegisterFormProps> = ({navigation}) => {
               onPress={() => {
                 handleSubmit(), handleNavigation();
               }}
-              isDisabled={dirty}
+              isDisabled={!dirty}
             />
           </>
         )}
