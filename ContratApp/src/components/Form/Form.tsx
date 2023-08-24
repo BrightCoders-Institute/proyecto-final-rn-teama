@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, Text} from 'react-native';
 import {styles} from './FormStyles';
 import {Button} from '../Button/Button';
@@ -19,6 +19,8 @@ import {RootState} from '../../types/types';
 
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from '../../navigation/Navigator';
+import {signUp} from '../../auth/SignUpUser';
+import {LoadingScreen} from '../../screens/LoadingScreen';
 
 type RegisterScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -59,12 +61,33 @@ export const Form: React.FC<RegisterFormProps> = ({navigation}) => {
     }
   };
 
-  const handleEmailAndPassword = (email, password) => {
+  const handleEmailAndPassword = (email: string, password: string) => {
     dispatch(setEmail(email));
     dispatch(setPassword(password));
   };
 
-  return (
+  const [isLoading, setIsLoading] = useState(false);
+
+  const sendData = async (values: any) => {
+    setIsLoading(true);
+    if (values.email && values.password) {
+      if (
+        (await signUp({
+          email: values.email,
+          password: values.password,
+        })) === true
+      ) {
+        handleNavigation();
+        setIsLoading(false);
+      }
+      setIsLoading(false);
+    }
+    setIsLoading(false);
+  };
+
+  return isLoading ? (
+    <LoadingScreen />
+  ) : (
     <View>
       <Formik
         initialValues={{
@@ -145,7 +168,7 @@ export const Form: React.FC<RegisterFormProps> = ({navigation}) => {
             <Button
               title="Crear cuenta"
               onPress={() => {
-                handleSubmit(), handleNavigation();
+                handleSubmit(), sendData(values);
               }}
               isDisabled={!dirty}
             />

@@ -2,16 +2,16 @@ import {View, Text} from 'react-native';
 import React from 'react';
 import HeaderForm from '../../../components/HeaderForm/HeaderForm';
 import {Input} from '../../../components/Input/Input';
-import {ButtonNext} from '../../../components/ButtonNext/ButtonNext';
 import DropDownService from '../../../components/DropDownService/DropDownService';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
 import {useDispatch, useSelector} from 'react-redux';
-import {setEmployPhone, setEmployAddress, setEmployTypeService} from '../../../store/DataStore';
+import {setEmployPhone, setEmployAddress} from '../../../store/DataStore';
 import {RootState} from '../../../store/Reducers';
 
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from '../../../navigation/Navigator';
+import {Button} from '../../../components/Button/Button';
 
 type WelcomeScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -49,6 +49,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({navigation}) => {
           onChange={value => {
             dispatch(setEmployPhone(value));
           }}
+          kboardType={'default'}
         />
         <Input
           titleLocation="Domicilio"
@@ -57,24 +58,15 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({navigation}) => {
           onChange={value => {
             dispatch(setEmployAddress(value));
           }}
+          kboardType={'default'}
         />
-        <DropDownService 
-        // value={employTypeService}
-        // onChange={value => {
-        //   dispatch(setEmployTypeService(value));
-        // }}
-        />
+        <DropDownService />
       </View>
-      <View style={{
-        bottom: 60,
-      }}>
-      <ButtonNext
-        text="Siguiente"
-        onPress={handleNext}
-        // onPress={() => {
-        //   navigation.navigate('TellAboutYouScreen');
-        // }}
-      />
+      <View
+        style={{
+          bottom: 60,
+        }}>
+        <Button title="Siguiente" onPress={handleNext} />
       </View>
     </View>
   );

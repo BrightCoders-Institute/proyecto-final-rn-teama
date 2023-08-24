@@ -5,6 +5,7 @@ import {styles} from './LoginStyles';
 import {LoginForm} from '../../components/LoginForm/LoginForm';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from '../../navigation/Navigator';
+import {LoadingScreen} from '../LoadingScreen';
 
 type LoginScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -15,33 +16,33 @@ interface LoginScreenProps {
   navigation: LoginScreenNavigationProp;
 }
 
+const verdadero = true;
+
 const Login: React.FC<LoginScreenProps> = ({navigation}) => {
   return (
-    <ScrollView>
-      <View style={styles.container}>
-        <View style={styles.containerImage}>
-          <Image
-            source={require('../../assets/ContratApp.png')}
-            style={styles.image}
-            resizeMode="contain"
-          />
-        </View>
-        <View style={styles.containerTitle}>
-          <Title title="Iniciar Sesión" />
-        </View>
-
-        <LoginForm navigation={navigation} />
-
-        <View style={styles.containerLogin}>
-          <Text style={styles.text}>¿No tienes cuenta? </Text>
-          <TouchableOpacity
-            activeOpacity={0.6}
-            onPress={() => navigation.navigate('Register')}>
-            <Text style={styles.textLogin}>Crear cuenta</Text>
-          </TouchableOpacity>
-        </View>
+    <View style={styles.container}>
+      <View style={styles.containerImage}>
+        <Image
+          source={require('../../assets/ContratApp.png')}
+          style={styles.image}
+          resizeMode="contain"
+        />
       </View>
-    </ScrollView>
+      <View style={styles.containerTitle}>
+        <Title title="Iniciar Sesión" />
+      </View>
+
+      <LoginForm navigation={navigation} />
+
+      <View style={styles.containerLogin}>
+        <Text style={styles.text}>¿No tienes cuenta? </Text>
+        <TouchableOpacity
+          activeOpacity={0.6}
+          onPress={() => navigation.navigate('Register')}>
+          <Text style={styles.textLogin}>Crear cuenta</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
   );
 };
 

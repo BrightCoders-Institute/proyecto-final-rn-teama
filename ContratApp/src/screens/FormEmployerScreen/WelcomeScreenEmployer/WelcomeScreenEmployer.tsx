@@ -3,13 +3,13 @@ import React from 'react';
 import HeaderForm from '../../../components/HeaderForm/HeaderForm';
 import {Input} from '../../../components/Input/Input';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
-import {ButtonNext} from '../../../components/ButtonNext/ButtonNext';
 
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from '../../../navigation/Navigator';
 import {useDispatch, useSelector} from 'react-redux';
 import {setPhone, setAddress, setCompanyName} from '../../../store/DataStore';
 import {RootState} from '../../../store/Reducers';
+import {Button} from '../../../components/Button/Button';
 type WelcomeScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
   'WelcomeScreen'
@@ -28,9 +28,6 @@ const WelcomeScreenEmployer: React.FC<WelcomeScreenEmployeeProps> = ({
     (state: RootState) => state.data,
   );
 
-  const handleNext = () => {
-    navigation.navigate('FinishFormRegisterScreen');
-  };
   return (
     <View>
       <HeaderForm
@@ -64,7 +61,12 @@ const WelcomeScreenEmployer: React.FC<WelcomeScreenEmployeeProps> = ({
             dispatch(setCompanyName(value));
           }}
         />
-        <ButtonNext text="Siguiente" onPress={handleNext} />
+        <View style={{paddingHorizontal: wp('8%')}}>
+          <Button
+            title="Siguiente"
+            onPress={() => navigation.navigate('FinishFormRegisterScreen')}
+          />
+        </View>
       </View>
     </View>
   );

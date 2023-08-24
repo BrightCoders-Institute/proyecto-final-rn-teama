@@ -13,6 +13,8 @@ import {RootStackParamList} from '../../navigation/Navigator';
 import {signIn} from '../../auth/SignInUser';
 import {useDispatch} from 'react-redux';
 import {setLoggedIn} from '../../store/DataStore';
+import {LoadingScreen} from '../../screens/LoadingScreen';
+import Snackbar from 'react-native-snackbar';
 
 const validatSchema = Yup.object().shape({
   password: Yup.string().required('Password invalid'),
@@ -48,14 +50,22 @@ export const LoginForm: React.FC<LoginScreenProps> = ({navigation}) => {
         })) === true
       ) {
         handleLoggedIn(true);
+        Snackbar.show({
+          text: 'Login succesful!',
+          backgroundColor: 'green',
+        });
+        setIsLoading(false);
       } else {
         handleLoggedIn(false);
+        setIsLoading(false);
       }
     }
     setIsLoading(false);
   };
 
-  return (
+  return isLoading ? (
+    <LoadingScreen />
+  ) : (
     <View>
       <Formik
         initialValues={{email: '', password: '', checkbox: false}}

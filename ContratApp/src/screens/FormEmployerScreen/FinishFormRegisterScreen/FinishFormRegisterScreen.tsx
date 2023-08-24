@@ -1,8 +1,8 @@
 import {View, Text, StyleSheet} from 'react-native';
 import React from 'react';
 import HeaderForm from '../../../components/HeaderForm/HeaderForm';
-import {ButtonNext} from '../../../components/ButtonNext/ButtonNext';
 import UploadPicProfile from '../../../components/UploadPicProfile/UploadPicProfile';
+import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from '../../../navigation/Navigator';
@@ -16,6 +16,7 @@ import {
   setPhone,
 } from '../../../store/DataStore';
 import {registerEmployer} from '../../../db/RegisterNewEmployer';
+import {Button} from '../../../components/Button/Button';
 
 type FinishFormRegisterScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -66,7 +67,9 @@ const FinishFormRegisterScreen: React.FC<FinishFormRegisterScreenProps> = ({
         Agrega una foto, esto ayuda a que el profesional sepa con quien esta
         tratando.
       </Text>
-      <ButtonNext text="Finalizar" onPress={handleFinishButtonPress} />
+      <View style={{paddingHorizontal: wp('8%')}}>
+        <Button title="Siguiente" onPress={handleFinishButtonPress} />
+      </View>
     </View>
   );
 };
