@@ -6,12 +6,12 @@ export const styles = StyleSheet.create({
     fontWeight: '500',
     height: 50,
     marginVertical: 5,
-    backgroundColor: '#D9D9D9',
-    padding: 10, 
+    backgroundColor: 'transparent',
+    padding: 5, 
     borderRadius: 10,
-    textAlign: 'center',
-    borderWidth: 1,
-    borderColor: 'transparent',
+    textAlign: 'left',
+    borderWidth: 2,
+    borderColor: '#D9D9D9',
   },
   column: {
     flexDirection: 'column',
@@ -30,3 +30,18 @@ export const styles = StyleSheet.create({
     top: '30%',
   },
 });
+
+
+// import { StyleSheet } from "react-native";
+
+// export const styles = StyleSheet.create({
+//     container:{
+//         margin: 20,
+//         marginVertical: 10,
+//     },
+//     nameInput: {
+//         fontSize: 16, 
+//         color: '#676E76',
+//         fontWeight: '500',
+//     },
+// });

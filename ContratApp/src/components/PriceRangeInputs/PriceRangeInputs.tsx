@@ -9,15 +9,13 @@ import {
 } from 'react-native';
 
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {faEye, faEyeSlash} from '@fortawesome/free-solid-svg-icons';
+import {faDollarSign} from '@fortawesome/free-solid-svg-icons';
 import {styles} from './style';
 import {colors} from '../../../constants/colors';
 
 interface InputProps {
-  titlePhone?: string;
-  hintPhone?: string;
-  titleLocation?: string;
-  hintLocation?: string;
+  titleDescription?: string;
+  hintDescription?: string;
   value: string;
   onChange: (text: string) => void;
   isShowError?: boolean;
@@ -27,11 +25,9 @@ interface InputProps {
   kboardType: KeyboardTypeOptions;
 }
 
-export const Input: React.FC<InputProps> = ({
-  titlePhone,
-  titleLocation,
-  hintPhone,
-  hintLocation,
+export const PriceRangeInputs: React.FC<InputProps> = ({
+  titleDescription,
+  hintDescription,
   width,
   onChange,
   value,
@@ -51,25 +47,25 @@ export const Input: React.FC<InputProps> = ({
     setIsFocused(false);
   };
 
-  const handlePassInput = () => {
-    setIsHide(!isHide);
-  };
-
   return (
     <View>
       <View style={styles.column}>
-        {titleLocation ? (
-          <Text style={styles.nameInput}>{titleLocation}</Text>
+        {titleDescription ? (
+          <Text style={styles.nameInput}>{titleDescription}</Text>
         ) : (
           <View></View>
         )}
         <View>
           <TextInput
+            editable
+            multiline
+            numberOfLines={5}
+            maxLength={500}
             keyboardType={kboardType}
             onBlur={handleBlur}
             onChangeText={onChange}
             onFocus={handleFocus}
-            placeholder={hintLocation}
+            placeholder={hintDescription}
             placeholderTextColor="#676E76"
             style={[
               styles.input,
@@ -79,21 +75,9 @@ export const Input: React.FC<InputProps> = ({
             value={value}
             secureTextEntry={isHide}
           />
-          {isPassword ? (
-            <TouchableOpacity
-              style={styles.passwordIcon}
-              onPress={handlePassInput}>
-              <FontAwesomeIcon
-                icon={isHide ? faEye : faEyeSlash}
-                size={24}
-                color={colors.gray}
-              />
-            </TouchableOpacity>
-          ) : (
-            <View></View>
-          )}
         </View>
         {isShowError && <Text>{errorMessage}</Text>}
+        <FontAwesomeIcon size={25} icon={faDollarSign} style={styles.icon} />
       </View>
     </View>
   );
@@ -104,3 +88,5 @@ const focusedStyle = StyleSheet.create({
     borderColor: '#0096C7',
   },
 });
+
+export default PriceRangeInputs;
