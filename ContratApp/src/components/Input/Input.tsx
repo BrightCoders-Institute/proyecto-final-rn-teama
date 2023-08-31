@@ -71,6 +71,7 @@ export const Input: React.FC<InputProps> = ({
             onFocus={handleFocus}
             placeholder={hintLocation}
             placeholderTextColor="#676E76"
+            autoCapitalize='none'
             style={[
               styles.input,
               isFocused ? focusedStyle.inputFocused : null,

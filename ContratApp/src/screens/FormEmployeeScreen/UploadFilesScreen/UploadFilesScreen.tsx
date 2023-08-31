@@ -40,7 +40,7 @@ const UploadFilesScreen: React.FC<UploadFilesScreenNavigationProps> = ({navigati
 // const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
 
 //   useEffect(() => {
-//     // Para obtener la URL de descarga de tu imagen desde Firebase Storage
+//     
 //     const storageRef = storage().ref('some-child');
 //     storageRef.getDownloadURL().then(url => {
 //       setAvatarUrl(url);

@@ -2,8 +2,6 @@ import {StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
     container: {
-        // position: 'absolute',
-        // bottom: 10,
         alignSelf: 'center',
         marginVertical: 40,
         color: '#FFFFFF',

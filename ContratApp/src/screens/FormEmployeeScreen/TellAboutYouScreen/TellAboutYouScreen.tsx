@@ -86,7 +86,6 @@ const TellAboutYouScreen: React.FC<TellAboutYouScreenNavigationProps> = ({
         dispatch(setEmployDescription(value));
       }}
       />
-      {/* <Text style={styles.nameInput}>¿Qué dias te encuentras activo?</Text> */}
       <Input 
       titleLocation="¿Qué dias te encuentras activo?"
       hintLocation="Ejemplo: Lunes - Viernes"
