@@ -3,8 +3,14 @@ import { StyleSheet, Text, View} from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';  
 import { faBed, faMapLocationDot, faToilet, faRulerCombined, faStar, faHeart, faBriefcase } from '@fortawesome/free-solid-svg-icons';
+import {testFilters} from '../../../assets/testFilters';
 
 import {styles} from './style';
+
+//REDUX
+import {useDispatch, useSelector} from 'react-redux';
+import {setEmployTypeService} from '../../store/DataStore';
+import {RootState} from '../../types/types';
 
 const data = [
   { label: 'Servicio 1', value: '1' },
@@ -20,6 +26,17 @@ const data = [
 const DropDownService = () => {
   const [value, setValue] = useState(null);
 
+  // const tipo = ['Busco trabajo', 'Ofrezco trabajo'];
+  const handleCheckboxChange = (checked: boolean) => {};
+
+  const dispatch = useDispatch();
+  
+    // const handleUserType = (employTypeService: string) => {
+    //   dispatch(setEmployTypeService(employTypeService));
+    // };
+  
+  const {employTypeService} = useSelector((state: RootState) => state.data);
+
   return (
     <View style={styles.container}>
     <Text style={styles.nameInput}>Oficio / Servicio que ofrece</Text>
@@ -31,15 +48,15 @@ const DropDownService = () => {
       iconStyle={styles.iconStyle}
       data={data}
       search
-      maxHeight={300}
+      maxHeight={200}
       labelField="label"
       valueField="value"
       placeholder="Seleccione Servicio"
       searchPlaceholder="Buscar..."
-      value={value}
-      onChange={item => {
-        setValue(item.value);
-      }}
+      value={employTypeService}
+        onChange={value => {
+          dispatch(setEmployTypeService(value));
+        }}
       renderLeftIcon={() => (
         <FontAwesomeIcon size={20} icon={faBriefcase} style={styles.icon} />
       )}

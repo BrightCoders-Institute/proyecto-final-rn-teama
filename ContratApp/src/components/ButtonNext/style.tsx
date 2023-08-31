@@ -2,8 +2,8 @@ import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
     container: {
-        position: 'absolute',
-        bottom: 20,
+        position: 'relative',
+        bottom: 0,
         alignSelf: 'center',
       },
     button: {
