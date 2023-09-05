@@ -56,7 +56,7 @@ export const registerEmployer = async (props: NewEmployer) => {
     if (error.code === 'auth/email-already-in-use') {
       Snackbar.show({
         text: 'Email already taken',
-        backgroundColor: colors.mainBlue,
+        backgroundColor: colors.red,
         duration: Snackbar.LENGTH_LONG,
       });
     }
@@ -64,7 +64,7 @@ export const registerEmployer = async (props: NewEmployer) => {
     if (error.code === 'auth/invalid-email') {
       Snackbar.show({
         text: 'The email is invalid',
-        backgroundColor: colors.mainBlue,
+        backgroundColor: colors.red,
         duration: Snackbar.LENGTH_LONG,
       });
     }

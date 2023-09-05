@@ -68,7 +68,7 @@ const FinishFormRegisterScreen: React.FC<FinishFormRegisterScreenProps> = ({
         tratando.
       </Text>
       <View style={{paddingHorizontal: wp('8%')}}>
-        <Button title="Siguiente" onPress={handleFinishButtonPress} />
+        <Button title="Finalizar" onPress={handleFinishButtonPress} />
       </View>
     </View>
   );

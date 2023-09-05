@@ -51,6 +51,7 @@ const WelcomeScreenEmployer: React.FC<WelcomeScreenEmployeeProps> = ({
           onChange={value => {
             dispatch(setAddress(value));
           }}
+          isPassword={false}
         />
 
         <Input

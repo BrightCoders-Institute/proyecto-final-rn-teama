@@ -5,7 +5,6 @@ import {styles} from './LoginStyles';
 import {LoginForm} from '../../components/LoginForm/LoginForm';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from '../../navigation/Navigator';
-import {LoadingScreen} from '../LoadingScreen';
 
 type LoginScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -15,8 +14,6 @@ type LoginScreenNavigationProp = StackNavigationProp<
 interface LoginScreenProps {
   navigation: LoginScreenNavigationProp;
 }
-
-const verdadero = true;
 
 const Login: React.FC<LoginScreenProps> = ({navigation}) => {
   return (
