@@ -1,6 +1,9 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+
+//FIREBASE
+import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
 
 //REDUX
 import {useSelector} from 'react-redux';
@@ -40,6 +43,17 @@ const UserNavigator = createNativeStackNavigator();
 
 export const Navigator = () => {
   const {isLoggedIn} = useSelector((state: RootState) => state.data);
+  const [currentUser, setCurrentUser] = useState<FirebaseAuthTypes.User | null>(
+    null,
+  );
+
+  useEffect(() => {
+    const unsubscribe = auth().onAuthStateChanged(user => {
+      setCurrentUser(user);
+    });
+    return () => unsubscribe();
+  }, []);
+
   return (
     <NavigationContainer>
       {isLoggedIn ? (

@@ -24,7 +24,7 @@ interface InputProps {
   errorMessage?: string;
   width?: number;
   isPassword?: boolean;
-  kboardType: KeyboardTypeOptions;
+  kboardType?: KeyboardTypeOptions;
 }
 
 export const Input: React.FC<InputProps> = ({
@@ -37,11 +37,11 @@ export const Input: React.FC<InputProps> = ({
   value,
   isShowError = false,
   errorMessage = '',
-  isPassword,
+  isPassword = false,
   kboardType = 'default',
 }) => {
   const [isFocused, setIsFocused] = useState(false);
-  const [isHide, setIsHide] = useState(false);
+  const [isHide, setIsHide] = useState(true);
 
   const handleFocus = () => {
     setIsFocused(true);
@@ -71,7 +71,7 @@ export const Input: React.FC<InputProps> = ({
             onFocus={handleFocus}
             placeholder={hintLocation}
             placeholderTextColor="#676E76"
-            autoCapitalize='none'
+            autoCapitalize="none"
             style={[
               styles.input,
               isFocused ? focusedStyle.inputFocused : null,
@@ -85,7 +85,7 @@ export const Input: React.FC<InputProps> = ({
               style={styles.passwordIcon}
               onPress={handlePassInput}>
               <FontAwesomeIcon
-                icon={isHide ? faEye : faEyeSlash}
+                icon={isHide ? faEyeSlash : faEye}
                 size={24}
                 color={colors.gray}
               />

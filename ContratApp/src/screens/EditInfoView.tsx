@@ -8,6 +8,8 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from '../navigation/Navigator';
 import {useDispatch} from 'react-redux';
 import {setLoggedIn} from '../store/DataStore';
+//FIREBASE
+import auth from '@react-native-firebase/auth';
 
 type ProfileScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -23,6 +25,7 @@ export const EditInfoView: React.FC<ProfileScreenProps> = ({navigation}) => {
 
   const handleLogOut = (isLoggedIn: boolean) => {
     dispatch(setLoggedIn(isLoggedIn));
+    auth().signOut();
   };
 
   return (

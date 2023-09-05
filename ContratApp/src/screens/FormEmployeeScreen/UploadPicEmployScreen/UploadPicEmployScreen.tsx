@@ -1,13 +1,14 @@
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text} from 'react-native';
 import React from 'react';
 import HeaderForm from '../../../components/HeaderForm/HeaderForm';
 import UploadPicProfile from '../../../components/UploadPicProfile/UploadPicProfile';
-import {ButtonNext} from '../../../components/ButtonNext/ButtonNext';
-
+import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from '../../../navigation/Navigator';
+import {Button} from '../../../components/Button/Button';
+import {registerEmployer} from '../../../db/RegisterNewEmployer';
 
-import {style} from './style'
+import {style} from './style';
 
 import {useDispatch, useSelector} from 'react-redux';
 import {
@@ -16,12 +17,12 @@ import {
   setEmployPhone,
   setEmployAddress,
   setEmployTypeService,
-  setEmployDescription, 
-  setEmployDaysWork, 
-  setEmployTimeAM, 
-  setEmployTimePM, 
-  setEmployPriceMin, 
-  setEmployPriceMax
+  setEmployDescription,
+  setEmployDaysWork,
+  setEmployTimeAM,
+  setEmployTimePM,
+  setEmployPriceMin,
+  setEmployPriceMax,
 } from '../../../store/DataStore';
 import {RootState} from '../../../store/Reducers';
 
@@ -37,36 +38,34 @@ interface UploadPicEmployScreenNavigationProps {
 const UploadPicEmployScreen: React.FC<UploadPicEmployScreenNavigationProps> = ({
   navigation,
 }) => {
-
   const dispatch = useDispatch();
 
-const {
-  employPhone,
-  employAddress,
-  employTypeService,
-  employDescription, 
-  employDaysWork, 
-  employTimeAM, 
-  employTimePM, 
-  employPriceMin, 
-  employPriceMax
-} = useSelector(
-  (state: RootState) => state.data,
-);
+  const {
+    employPhone,
+    employAddress,
+    employTypeService,
+    employDescription,
+    employDaysWork,
+    employTimeAM,
+    employTimePM,
+    employPriceMin,
+    employPriceMax,
+  } = useSelector((state: RootState) => state.data);
 
-const handleNext = () => {
-  console.log(
-    employPhone, 
-    employAddress, 
-    employTypeService, 
-    employDescription, 
-    employDaysWork, 
-    employTimeAM, 
-    employTimePM, 
-    employPriceMin, 
-    employPriceMax);
-  navigation.navigate('UploadFilesScreen');
-};
+  const handleNext = () => {
+    console.log(
+      employPhone,
+      employAddress,
+      employTypeService,
+      employDescription,
+      employDaysWork,
+      employTimeAM,
+      employTimePM,
+      employPriceMin,
+      employPriceMax,
+    );
+    navigation.navigate('UploadFilesScreen');
+  };
 
   return (
     <View>
@@ -79,8 +78,8 @@ const handleNext = () => {
         Agregar una foto ayuda a generar confiaza y que quieran trabajar
         contigo.
       </Text>
-      <View style={style.buttom}>
-      <ButtonNext text="Finalizar" onPress={() => {}} />
+      <View style={{paddingHorizontal: wp('8%')}}>
+        <Button title="Finalizar" onPress={() => {}} />
       </View>
     </View>
   );
