@@ -5,13 +5,14 @@ export const styles = StyleSheet.create({
     color: '#676E76',
     fontWeight: '500',
     height: 50,
-    marginVertical: 5,
-    backgroundColor: '#D9D9D9',
-    padding: 10, 
+    paddingLeft: 40,
+    marginVertical: -20,
+    backgroundColor: 'transparent',
+    padding: 5, 
     borderRadius: 10,
-    textAlign: 'center',
-    borderWidth: 1,
-    borderColor: 'transparent',
+    textAlign: 'left',
+    borderWidth: 2,
+    borderColor: '#D9D9D9',
   },
   column: {
     flexDirection: 'column',
@@ -19,14 +20,18 @@ export const styles = StyleSheet.create({
     margin: 16,
   },
   nameInput: {
+    paddingLeft: 10,
+    marginBottom: 20,
     fontSize: 16,
     color: '#676E76',
-    fontWeight: '500',
+    fontWeight: '400',
   },
-  passwordIcon: {
+  icon: {
+    color: '#676E76',
     position: 'absolute',
     zIndex: 100,
-    left: '90%',
-    top: '30%',
+    left: '3%',
+    top: '65%',
   },
 });
+
