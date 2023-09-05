@@ -9,19 +9,26 @@ interface SignInProps {
 
 export const signIn = async ({email, password}: SignInProps) => {
   try {
-    const {user} = await auth().signInWithEmailAndPassword(email, password);
-    Snackbar.show({
-      text: 'Login succesful!',
-      backgroundColor: colors.mainBlue,
-    });
+    await auth().signInWithEmailAndPassword(email, password);
     return true;
   } catch (error: any) {
     console.log(error);
-    Snackbar.show({
-      text: error.message,
-      backgroundColor: colors.mainBlue,
-      duration: Snackbar.LENGTH_LONG,
-    });
+
+    if (error.code === 'auth/user-not-found') {
+      Snackbar.show({
+        text: 'User not found',
+        backgroundColor: colors.red,
+        duration: Snackbar.LENGTH_LONG,
+      });
+    }
+
+    if (error.code === 'auth/wrong-password') {
+      Snackbar.show({
+        text: 'Wrong password',
+        backgroundColor: colors.red,
+        duration: Snackbar.LENGTH_LONG,
+      });
+    }
     return false;
   }
 };

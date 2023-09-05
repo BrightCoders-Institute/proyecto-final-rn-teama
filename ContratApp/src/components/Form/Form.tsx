@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, Text} from 'react-native';
 import {styles} from './FormStyles';
 import {Button} from '../Button/Button';
@@ -13,12 +13,14 @@ import SelectDropdown from 'react-native-select-dropdown';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 //REDUX
 import {useDispatch} from 'react-redux';
-import {setUserType} from '../../store/DataStore';
+import {setUserType, setEmail, setPassword} from '../../store/DataStore';
 import {useSelector} from 'react-redux';
 import {RootState} from '../../types/types';
 
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from '../../navigation/Navigator';
+import {signUp} from '../../auth/SignUpUser';
+import {LoadingScreen} from '../../screens/LoadingScreen';
 
 type RegisterScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -59,7 +61,33 @@ export const Form: React.FC<RegisterFormProps> = ({navigation}) => {
     }
   };
 
-  return (
+  const handleEmailAndPassword = (email: string, password: string) => {
+    dispatch(setEmail(email));
+    dispatch(setPassword(password));
+  };
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  const sendData = async (values: any) => {
+    setIsLoading(true);
+    if (values.email && values.password) {
+      if (
+        (await signUp({
+          email: values.email,
+          password: values.password,
+        })) === true
+      ) {
+        handleNavigation();
+        setIsLoading(false);
+      }
+      setIsLoading(false);
+    }
+    setIsLoading(false);
+  };
+
+  return isLoading ? (
+    <LoadingScreen />
+  ) : (
     <View>
       <Formik
         initialValues={{
@@ -69,7 +97,9 @@ export const Form: React.FC<RegisterFormProps> = ({navigation}) => {
           checkbox: false,
         }}
         validationSchema={validatSchema}
-        onSubmit={async values => {}}>
+        onSubmit={async values => {
+          handleEmailAndPassword(values.email, values.password);
+        }}>
         {({values, errors, touched, handleChange, handleSubmit, dirty}) => (
           <>
             <View style={styles.subTitleContainer}>
@@ -138,7 +168,7 @@ export const Form: React.FC<RegisterFormProps> = ({navigation}) => {
             <Button
               title="Crear cuenta"
               onPress={() => {
-                handleSubmit(), handleNavigation();
+                handleSubmit(), sendData(values);
               }}
               isDisabled={!dirty}
             />

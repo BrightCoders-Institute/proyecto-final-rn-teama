@@ -17,29 +17,27 @@ interface RegistercreenProps {
 
 const Register: React.FC<RegistercreenProps> = ({navigation}) => {
   return (
-    <ScrollView>
-      <View style={styles.container}>
-        <View style={styles.containerImage}>
-          <Image
-            source={require('../../assets/ContratApp.png')}
-            style={styles.image}
-            resizeMode="contain"
-          />
-        </View>
-        <View style={styles.containerTitle}>
-          <Title title="Crear cuenta" />
-        </View>
-        <Form navigation={navigation} />
-        <View style={styles.containerLogin}>
-          <Text style={styles.text}>¿Ya tienes cuenta?</Text>
-          <TouchableOpacity
-            activeOpacity={0.6}
-            onPress={() => navigation.navigate('Login')}>
-            <Text style={styles.textLogin}>Ingresar</Text>
-          </TouchableOpacity>
-        </View>
+    <View style={styles.container}>
+      <View style={styles.containerImage}>
+        <Image
+          source={require('../../assets/ContratApp.png')}
+          style={styles.image}
+          resizeMode="contain"
+        />
       </View>
-    </ScrollView>
+      <View style={styles.containerTitle}>
+        <Title title="Crear cuenta" />
+      </View>
+      <Form navigation={navigation} />
+      <View style={styles.containerLogin}>
+        <Text style={styles.text}>¿Ya tienes cuenta?</Text>
+        <TouchableOpacity
+          activeOpacity={0.6}
+          onPress={() => navigation.navigate('Login')}>
+          <Text style={styles.textLogin}>Ingresar</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
   );
 };
 
