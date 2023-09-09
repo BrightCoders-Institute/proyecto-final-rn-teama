@@ -8,16 +8,15 @@ interface props {
 }
 export const Imgcard = ({title, subtitle, img}: props) => {
   return (
-    <View style={styles.item}>
-      <TouchableOpacity style={styles.btnLike}>
-        <Image source={require('../../assets/img/like.png')} />
-      </TouchableOpacity>
-      <Image source={{uri: img}} style={styles.image} />
-      <View style={styles.containertText}>
-        <Text style={styles.title}>{title}</Text>
-        <Text style={styles.subtitle}>{subtitle}</Text>
+    <TouchableOpacity>
+      <View style={styles.item}>
+        <Image source={{uri: img}} style={styles.image} />
+        <View style={styles.containertText}>
+          <Text style={styles.title}>{title}</Text>
+          <Text style={styles.subtitle}>{subtitle}</Text>
+        </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 export default Imgcard;

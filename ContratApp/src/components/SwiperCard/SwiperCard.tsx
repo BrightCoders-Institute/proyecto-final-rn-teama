@@ -48,7 +48,7 @@ export const SwiperCard: React.FC<CardProps> = ({card}) => {
           style={styles.gradientContainer}></LinearGradient>
         <TouchableOpacity
           activeOpacity={0.8}
-          onPress={() => console.log('click card')}>
+          onPress={() => console.log(`click card of: ${card.name}`)}>
           <View style={styles.detailsContainer}>
             <FontAwesomeIcon
               icon={faEllipsis}

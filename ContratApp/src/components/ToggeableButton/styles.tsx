@@ -6,6 +6,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: 10,
     marginHorizontal: 3,
+    marginVertical: 3,
     shadowColor: 'black',
     shadowOffset: {
       width: 0,

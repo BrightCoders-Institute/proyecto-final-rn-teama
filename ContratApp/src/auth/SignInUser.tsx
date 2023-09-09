@@ -12,8 +12,6 @@ export const signIn = async ({email, password}: SignInProps) => {
     await auth().signInWithEmailAndPassword(email, password);
     return true;
   } catch (error: any) {
-    console.log(error);
-
     if (error.code === 'auth/user-not-found') {
       Snackbar.show({
         text: 'User not found',
