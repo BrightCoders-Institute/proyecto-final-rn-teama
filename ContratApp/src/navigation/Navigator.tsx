@@ -23,6 +23,7 @@ import UploadPicEmployScreen from '../screens/FormEmployeeScreen/UploadPicEmploy
 //REGISTER_EMPLOYER_SCREENS
 import WelcomeScreenEmployer from '../screens/FormEmployerScreen/WelcomeScreenEmployer/WelcomeScreenEmployer';
 import FinishFormRegisterScreen from '../screens/FormEmployerScreen/FinishFormRegisterScreen/FinishFormRegisterScreen';
+import {colors} from '../../constants/colors';
 
 export type RootStackParamList = {
   Login: undefined;
@@ -57,7 +58,15 @@ export const Navigator = () => {
   return (
     <NavigationContainer>
       {isLoggedIn ? (
-        <UserNavigator.Navigator screenOptions={{headerShown: false}}>
+        <UserNavigator.Navigator
+          screenOptions={{
+            headerShown: true,
+            title: '',
+            headerTintColor: colors.mainBlue,
+            headerStyle: {
+              backgroundColor: colors.mainBlue,
+            },
+          }}>
           <UserNavigator.Screen name="TabNavigator" component={TabNavigator} />
         </UserNavigator.Navigator>
       ) : (

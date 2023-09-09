@@ -1,0 +1,31 @@
+diff --git a/node_modules/react-tinder-card/index.native.js b/node_modules/react-tinder-card/index.native.js
+index f443f57..c05c0bf 100644
+--- a/node_modules/react-tinder-card/index.native.js
++++ b/node_modules/react-tinder-card/index.native.js
+@@ -98,7 +98,7 @@ const TinderCard = React.forwardRef(
+     settings.swipeThreshold = swipeThreshold
+ 
+     React.useImperativeHandle(ref, () => ({
+-      async swipe (dir = 'right') {
++      async swipe(dir = 'right') {
+         if (onSwipe) onSwipe(dir)
+         const power = 1.3
+         const disturbance = (Math.random() - 0.5) / 2
+@@ -113,7 +113,7 @@ const TinderCard = React.forwardRef(
+         }
+         if (onCardLeftScreen) onCardLeftScreen(dir)
+       },
+-      async restoreCard () {
++      async restoreCard() {
+         await animateBack(setSpringTarget)
+       }
+     }))
+@@ -155,7 +155,7 @@ const TinderCard = React.forwardRef(
+         PanResponder.create({
+           // Ask to be the responder:
+           onStartShouldSetPanResponder: (evt, gestureState) => true,
+-          onStartShouldSetPanResponderCapture: (evt, gestureState) => true,
++          onStartShouldSetPanResponderCapture: (evt, gestureState) => false,
+           onMoveShouldSetPanResponder: (evt, gestureState) => true,
+           onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
+ 
