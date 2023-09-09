@@ -1,10 +1,9 @@
 import React from 'react';
-import {TouchableOpacity, View} from 'react-native';
+import {TouchableOpacity} from 'react-native';
 import {styles} from './styles';
 
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {IconDefinition} from '@fortawesome/free-solid-svg-icons';
-import {colors} from '@react-spring/shared';
 
 interface ButtonIconProps {
   icon: IconDefinition;

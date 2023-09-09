@@ -21,4 +21,9 @@ export const styles = StyleSheet.create({
   dropdownContainer: {
     height: 0,
   },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
