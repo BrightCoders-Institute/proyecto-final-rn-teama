@@ -10,17 +10,17 @@ import {styles} from './style';
 
 import {useDispatch, useSelector} from 'react-redux';
 import {
-  setEmployEmail,
-  setEmployPassword,
-  setEmployPhone,
-  setEmployAddress,
-  setEmployTypeService,
-  setEmployDescription,
-  setEmployDaysWork,
-  setEmployTimeAM,
-  setEmployTimePM,
-  setEmployPriceMin,
-  setEmployPriceMax,
+  setEmployeeEmail,
+  setEmployeePassword,
+  setEmployeePhone,
+  setEmployeeAddress,
+  setEmployeeService,
+  setEmployeeDescription,
+  setEmployeeDaysWork,
+  setEmployeeTimeAM,
+  setEmployeeTimePM,
+  setEmployeePriceMin,
+  setEmployeePriceMax,
 } from '../../../store/DataStore';
 import {RootState} from '../../../store/Reducers';
 
@@ -44,18 +44,29 @@ const TellAboutYouScreen: React.FC<TellAboutYouScreenNavigationProps> = ({
   const dispatch = useDispatch();
 
   const {
-    employPhone,
-    employAddress,
-    employTypeService,
-    employDescription,
-    employDaysWork,
-    employTimeAM,
-    employTimePM,
-    employPriceMin,
-    employPriceMax,
+    employeePhone,
+    employeeAddress,
+    employeeService,
+    employeeDescription,
+    employeeDaysWork,
+    employeeTimeAM,
+    employeeTimePM,
+    employeePriceMin,
+    employeePriceMax,
   } = useSelector((state: RootState) => state.data);
 
   const handleNext = () => {
+    console.log(
+      employeePhone,
+      employeeAddress,
+      employeeService,
+      employeeDescription,
+      employeeDaysWork,
+      employeeTimeAM,
+      employeeTimePM,
+      employeePriceMin,
+      employeePriceMax,
+    );
     navigation.navigate('UploadFilesScreen');
   };
 
@@ -65,18 +76,18 @@ const TellAboutYouScreen: React.FC<TellAboutYouScreenNavigationProps> = ({
       <JobDescriptionTextarea
         titleDescription="Describe tu oficio y experiencia"
         hintDescription="Ingresa descripción"
-        value={employDescription}
+        value={employeeDescription}
         onChange={value => {
-          dispatch(setEmployDescription(value));
+          dispatch(setEmployeeDescription(value));
         }}
         kboardType={'default'}
       />
       <Input
         titleLocation="¿Qué dias te encuentras activo?"
         hintLocation="Ejemplo: Lunes - Viernes"
-        value={employDaysWork}
+        value={employeeDaysWork}
         onChange={value => {
-          dispatch(setEmployDaysWork(value));
+          dispatch(setEmployeeDaysWork(value));
         }}
         kboardType={'default'}
       />
@@ -85,18 +96,18 @@ const TellAboutYouScreen: React.FC<TellAboutYouScreenNavigationProps> = ({
         <WorkScheduleInputs
           titleDescription="AM"
           hintDescription="Inicio de labores"
-          value={employTimeAM}
+          value={employeeTimeAM}
           onChange={value => {
-            dispatch(setEmployTimeAM(value));
+            dispatch(setEmployeeTimeAM(value));
           }}
           kboardType={'default'}
         />
         <WorkScheduleInputs
           titleDescription="PM"
           hintDescription="Termino de labores"
-          value={employTimePM}
+          value={employeeTimePM}
           onChange={value => {
-            dispatch(setEmployTimePM(value));
+            dispatch(setEmployeeTimePM(value));
           }}
           kboardType={'default'}
         />
@@ -108,18 +119,18 @@ const TellAboutYouScreen: React.FC<TellAboutYouScreenNavigationProps> = ({
         <PriceRangeInputs
           titleDescription="Rango Minimo"
           hintDescription="Ejemplo 500"
-          value={employPriceMin}
+          value={employeePriceMin}
           onChange={value => {
-            dispatch(setEmployPriceMin(value));
+            dispatch(setEmployeePriceMin(value));
           }}
           kboardType={'default'}
         />
         <PriceRangeInputs
           titleDescription="Rango Maximo"
           hintDescription="Ejemplo 50,000"
-          value={employPriceMax}
+          value={employeePriceMax}
           onChange={value => {
-            dispatch(setEmployPriceMax(value));
+            dispatch(setEmployeePriceMax(value));
           }}
           kboardType={'default'}
         />
