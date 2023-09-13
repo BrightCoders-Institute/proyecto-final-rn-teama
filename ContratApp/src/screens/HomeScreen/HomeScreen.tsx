@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {KeyboardAvoidingView, Platform, View} from 'react-native';
+import {View} from 'react-native';
 import {ButtonIcon} from '../../components/ButtonIcon/ButtonIcon';
 import {DropdownSearch} from '../../components/DropdownSearch/DropdownSearch';
 import {MainSwiper} from '../../components/MainSwiper/MainSwiper';
@@ -14,8 +14,16 @@ import {
   faInfo,
 } from '@fortawesome/free-solid-svg-icons';
 import {colors} from '../../../constants/colors';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {RootStackParamList} from '../../navigation/Navigator';
 
-export const HomeScreen = () => {
+type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
+
+interface HomeScreenProps {
+  navigation: HomeScreenNavigationProp;
+}
+
+export const HomeScreen: React.FC<HomeScreenProps> = ({navigation}) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const openModal = () => {
@@ -34,14 +42,18 @@ export const HomeScreen = () => {
       <View style={styles.filtersContainer}>
         <QuickFilters />
       </View>
-      <MainSwiper />
+      <MainSwiper navigation={navigation} />
       <View style={styles.buttonContainer}>
         <ButtonIcon
           icon={faThumbsUp}
           color={colors.mainBlue}
           onPress={() => {}}
         />
-        <ButtonIcon icon={faInfo} color={colors.gray} onPress={openModal} />
+        <ButtonIcon
+          icon={faInfo}
+          color={colors.gray}
+          onPress={() => navigation.navigate('MoreDetailsScreen')}
+        />
         <ButtonIcon icon={faThumbsDown} color={colors.red} onPress={() => {}} />
       </View>
       <ModalCustom

@@ -6,8 +6,16 @@ import TinderCard from 'react-tinder-card';
 
 import {testData} from '../../../assets/testData';
 import {SwiperCard} from '../SwiperCard/SwiperCard';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {RootStackParamList} from '../../navigation/Navigator';
 
-export const MainSwiper = () => {
+type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
+
+interface MainSwiperProps {
+  navigation: HomeScreenNavigationProp;
+}
+
+export const MainSwiper: React.FC<MainSwiperProps> = ({navigation}) => {
   const characters = testData;
   const [lastDirection, setLastDirection] = useState();
 
@@ -27,7 +35,7 @@ export const MainSwiper = () => {
             key={character.name}
             onSwipe={dir => swiped(dir, character.name)}
             onCardLeftScreen={() => outOfFrame(character.name)}>
-            <SwiperCard card={character} />
+            <SwiperCard card={character} navigation={navigation} />
           </TinderCard>
         ))}
       </View>
