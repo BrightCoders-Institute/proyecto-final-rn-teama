@@ -15,16 +15,30 @@ export const signUp = async ({email, password}: SignUpProps) => {
     if (error.code === 'auth/email-already-in-use') {
       Snackbar.show({
         text: 'Email already taken',
-        backgroundColor: colors.mainBlue,
+        backgroundColor: colors.red,
         duration: Snackbar.LENGTH_LONG,
+        action: {
+          text: 'Aceptar',
+          textColor: colors.white,
+          onPress: () => {
+            Snackbar.dismiss();
+          },
+        },
       });
     }
 
     if (error.code === 'auth/invalid-email') {
       Snackbar.show({
         text: 'The email is invalid',
-        backgroundColor: colors.mainBlue,
+        backgroundColor: colors.red,
         duration: Snackbar.LENGTH_LONG,
+        action: {
+          text: 'Aceptar',
+          textColor: colors.white,
+          onPress: () => {
+            Snackbar.dismiss();
+          },
+        },
       });
     }
     return false;

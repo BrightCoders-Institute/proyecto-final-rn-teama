@@ -1,4 +1,4 @@
-import {View, Text} from 'react-native';
+import {View, Text, ScrollView} from 'react-native';
 import React from 'react';
 import HeaderForm from '../../../components/HeaderForm/HeaderForm';
 import JobDescriptionTextarea from '../../../components/JobDescriptionTextarea/JobDescriptionTextarea';
@@ -27,7 +27,6 @@ import {RootState} from '../../../store/Reducers';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from '../../../navigation/Navigator';
 import {Button} from '../../../components/Button/Button';
-import {Input} from '../../../components/Input/Input';
 
 type TellAboutScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -67,11 +66,11 @@ const TellAboutYouScreen: React.FC<TellAboutYouScreenNavigationProps> = ({
       employeePriceMin,
       employeePriceMax,
     );
-    navigation.navigate('UploadFilesScreen');
+    navigation.navigate('UploadPicEmployScreen');
   };
 
   return (
-    <View>
+    <ScrollView>
       <HeaderForm title="Háblanos más de tí" navigation={navigation} />
       <JobDescriptionTextarea
         titleDescription="Describe tu oficio y experiencia"
@@ -82,9 +81,9 @@ const TellAboutYouScreen: React.FC<TellAboutYouScreenNavigationProps> = ({
         }}
         kboardType={'default'}
       />
-      <Input
-        titleLocation="¿Qué dias te encuentras activo?"
-        hintLocation="Ejemplo: Lunes - Viernes"
+      <JobDescriptionTextarea
+        titleDescription="¿Qué dias te encuentras activo?"
+        hintDescription="Ejemplo: Lunes - Viernes"
         value={employeeDaysWork}
         onChange={value => {
           dispatch(setEmployeeDaysWork(value));
@@ -135,10 +134,11 @@ const TellAboutYouScreen: React.FC<TellAboutYouScreenNavigationProps> = ({
           kboardType={'default'}
         />
       </View>
+      <View style={{marginVertical: 10}}></View>
       <View style={{paddingHorizontal: wp('8%')}}>
         <Button title="Siguiente" onPress={handleNext} />
       </View>
-    </View>
+    </ScrollView>
   );
 };
 

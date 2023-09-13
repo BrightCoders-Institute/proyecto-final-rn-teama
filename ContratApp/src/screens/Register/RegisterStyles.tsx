@@ -22,8 +22,9 @@ export const styles = StyleSheet.create({
     textDecorationLine: 'underline',
     marginLeft: 5,
     color: colors.mainBlue,
+    fontSize: 16,
   },
-  text: {textAlign: 'center', marginVertical: 30, color: 'black'},
+  text: {textAlign: 'center', marginVertical: 30, color: 'black', fontSize: 16},
   title: {
     color: '#575757',
     fontFamily: 'Audiowide',
