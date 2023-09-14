@@ -41,12 +41,13 @@ export const EditInfoView: React.FC<ProfileScreenProps> = ({navigation}) => {
 
   return (
     <View>
-      <ScrollView>
+      {/* <ScrollView>
         <ImgProfile />
         {/* <FormEmpleado /> */}
-        {/* <FormEmpleador /> */}
-        <BtnLogout onPress={() => handleLogOut(false)} />
-      </ScrollView>
+      {/* <FormEmpleador />
+      {/* </ScrollView> */}
+      <BtnLogout onPress={() => handleLogOut(false)} />
+      <RequestServiceEmployerScreen navigation={navigation} />
     </View>
   );
 };
