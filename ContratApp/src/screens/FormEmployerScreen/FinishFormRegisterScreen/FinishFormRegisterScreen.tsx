@@ -14,6 +14,7 @@ import {
   setEmail,
   setPassword,
   setPhone,
+  setUserType,
 } from '../../../store/DataStore';
 import {registerEmployer} from '../../../db/RegisterNewEmployer';
 import {Button} from '../../../components/Button/Button';
@@ -32,13 +33,14 @@ const FinishFormRegisterScreen: React.FC<FinishFormRegisterScreenProps> = ({
 }) => {
   const dispatch = useDispatch();
 
-  const {email, password, phone, address, companyName} = useSelector(
+  const {email, password, userType, phone, address, companyName} = useSelector(
     (state: RootState) => state.data,
   );
 
   const clearEmployer = () => {
     dispatch(setEmail(''));
     dispatch(setPassword(''));
+    dispatch(setUserType(0));
     dispatch(setPhone(''));
     dispatch(setAddress(''));
     dispatch(setCompanyName(''));
@@ -48,6 +50,7 @@ const FinishFormRegisterScreen: React.FC<FinishFormRegisterScreenProps> = ({
     const newEmployer = {
       email,
       password,
+      userType,
       phone,
       address,
       companyName,

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text} from 'react-native';
 import {styles} from './styles';
 
@@ -27,6 +27,7 @@ export const MainSwiper: React.FC<MainSwiperProps> = ({navigation}) => {
   const outOfFrame = (name: any) => {
     console.log(name + ' left the screen!');
   };
+
   return (
     <>
       <View style={styles.cardContainer}>
