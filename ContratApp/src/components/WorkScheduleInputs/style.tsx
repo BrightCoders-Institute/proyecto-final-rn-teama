@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
     padding: 5, 
     borderRadius: 10,
     textAlign: 'left',
-    borderWidth: 2,
+    borderWidth: 2, 
     borderColor: '#D9D9D9',
   },
   column: {
@@ -34,4 +34,3 @@ export const styles = StyleSheet.create({
     top: '65%',
   },
 });
-

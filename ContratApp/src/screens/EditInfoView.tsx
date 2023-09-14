@@ -2,6 +2,7 @@ import React from 'react';
 import {View, ScrollView} from 'react-native';
 import ImgProfile from '../components/ImgProfile/ImgProfile';
 import FormEmpleado from '../components/form/formEmpleado/FormEmpleado';
+import FormEmpleador from '../components/form/formEmpleado/FormEmpleado';
 import BtnLogout from '../components/BtnLogout/BtnLogout';
 
 import {StackNavigationProp} from '@react-navigation/stack';
@@ -10,6 +11,7 @@ import {useDispatch} from 'react-redux';
 import {setLoggedIn} from '../store/DataStore';
 //FIREBASE
 import auth from '@react-native-firebase/auth';
+import RequestServiceEmployerScreen from './RequestServiceEmployerScreen/RequestServiceEmployerScreen';
 
 type ProfileScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -30,12 +32,13 @@ export const EditInfoView: React.FC<ProfileScreenProps> = ({navigation}) => {
 
   return (
     <View>
-      <ScrollView>
+      {/* <ScrollView>
         <ImgProfile />
         {/* <FormEmpleado /> */}
-        {/* <FormEmpleador /> */}
-        <BtnLogout onPress={() => handleLogOut(false)} />
-      </ScrollView>
+        {/* <FormEmpleador />
+        <BtnLogout onPress={() => handleLogOut(false)} /> */}
+      {/* </ScrollView> */}
+        <RequestServiceEmployerScreen />
     </View>
   );
 };
