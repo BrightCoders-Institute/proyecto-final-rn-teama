@@ -15,6 +15,7 @@ import {useDispatch} from 'react-redux';
 import {setLoggedIn} from '../../store/DataStore';
 import {LoadingScreen} from '../../screens/LoadingScreen';
 import Snackbar from 'react-native-snackbar';
+import {colors} from '../../../constants/colors';
 
 const validatSchema = Yup.object().shape({
   password: Yup.string().required('Password invalid'),
@@ -53,6 +54,13 @@ export const LoginForm: React.FC<LoginScreenProps> = ({navigation}) => {
         Snackbar.show({
           text: 'Login succesful!',
           backgroundColor: 'green',
+          action: {
+            text: 'Aceptar',
+            textColor: colors.white,
+            onPress: () => {
+              Snackbar.dismiss();
+            },
+          },
         });
         setIsLoading(false);
       } else {

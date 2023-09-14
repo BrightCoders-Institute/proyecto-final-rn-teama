@@ -1,7 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {UserData} from '../interfaces/UserData';
 
+import {colors} from '../../constants/colors';
 //FIREBASE
 import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
 
@@ -14,6 +16,7 @@ import Login from '../screens/Login/Login';
 import Register from '../screens/Register/Register';
 import {HomeScreen as Home} from '../screens/HomeScreen/HomeScreen';
 import TabNavigator from './TabNavigator';
+import MoreDetailsScreen from '../screens/MoreDetailsScreen/MoreDetailsScreen';
 
 //REGISTER_EMPLOYEE_SCREENS
 import WelcomeScreen from '../screens/FormEmployeeScreen/WelcomeScreen/WelcomeScreen';
@@ -23,7 +26,6 @@ import UploadPicEmployScreen from '../screens/FormEmployeeScreen/UploadPicEmploy
 //REGISTER_EMPLOYER_SCREENS
 import WelcomeScreenEmployer from '../screens/FormEmployerScreen/WelcomeScreenEmployer/WelcomeScreenEmployer';
 import FinishFormRegisterScreen from '../screens/FormEmployerScreen/FinishFormRegisterScreen/FinishFormRegisterScreen';
-import {colors} from '../../constants/colors';
 
 export type RootStackParamList = {
   Login: undefined;
@@ -36,6 +38,7 @@ export type RootStackParamList = {
   UploadFilesScreen: undefined;
   UploadPicEmployScreen: undefined;
   FinishFormRegisterScreen: undefined;
+  MoreDetailsScreen: undefined;
 };
 
 const SignUpNavigator = createNativeStackNavigator();
@@ -55,19 +58,30 @@ export const Navigator = () => {
     return () => unsubscribe();
   }, []);
 
+  const testUser = {userType: 1, name: 'Valeria Piciosa Hermosa'};
+
   return (
     <NavigationContainer>
       {isLoggedIn ? (
         <UserNavigator.Navigator
           screenOptions={{
-            headerShown: true,
-            title: '',
-            headerTintColor: colors.mainBlue,
-            headerStyle: {
-              backgroundColor: colors.mainBlue,
-            },
+            headerShown: false,
           }}>
           <UserNavigator.Screen name="TabNavigator" component={TabNavigator} />
+          <UserNavigator.Screen
+            name="MoreDetailsScreen"
+            component={MoreDetailsScreen}
+            options={{
+              title: 'Más información',
+              headerBackVisible: true,
+              headerShown: true,
+              headerTitleAlign: 'center',
+              headerTintColor: colors.white,
+              headerStyle: {
+                backgroundColor: colors.mainBlue,
+              },
+            }}
+          />
         </UserNavigator.Navigator>
       ) : (
         <SignUpNavigator.Navigator

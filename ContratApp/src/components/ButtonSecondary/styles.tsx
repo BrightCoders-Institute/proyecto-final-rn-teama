@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
     borderRadius: 15,
   },
   btn__text: {
-    color: 'white',
+    color: colors.mainBlue,
     fontSize: 20,
     fontWeight: '500',
     textAlign: 'center',
@@ -18,7 +18,7 @@ export const styles = StyleSheet.create({
     backgroundColor: 'gray',
   },
   btn__active: {
-    backgroundColor: colors.mainBlue,
+    backgroundColor: colors.lighterGray,
   },
   row: {
     flexDirection: 'row',

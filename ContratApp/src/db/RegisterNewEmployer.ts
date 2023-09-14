@@ -27,7 +27,7 @@ function generarID(): string {
 
 const addUserInfo = ({uid}: FirebaseAuthTypes.User, employer: NewEmployer) => {
   firestore()
-    .collection('Users')
+    .collection('Employers')
     .doc(uid)
     .set({
       employer: employer,

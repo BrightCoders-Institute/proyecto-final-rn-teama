@@ -1,5 +1,5 @@
 import React from 'react';
-import {TouchableOpacity, Text, View, Image} from 'react-native';
+import {TouchableOpacity, Text, View} from 'react-native';
 import {styles} from './styles';
 
 interface Props {
@@ -8,7 +8,7 @@ interface Props {
   isDisabled?: boolean;
 }
 
-export const Button = (props: Props) => {
+export const ButtonSecondary = (props: Props) => {
   return (
     <TouchableOpacity
       style={[

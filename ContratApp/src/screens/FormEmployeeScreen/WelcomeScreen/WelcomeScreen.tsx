@@ -6,7 +6,7 @@ import DropDownService from '../../../components/DropDownService/DropDownService
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
 import {useDispatch, useSelector} from 'react-redux';
-import {setEmployPhone, setEmployAddress} from '../../../store/DataStore';
+import {setEmployeePhone, setEmployeeAddress} from '../../../store/DataStore';
 import {RootState} from '../../../store/Reducers';
 
 import {StackNavigationProp} from '@react-navigation/stack';
@@ -25,12 +25,12 @@ interface WelcomeScreenProps {
 const WelcomeScreen: React.FC<WelcomeScreenProps> = ({navigation}) => {
   const dispatch = useDispatch();
 
-  const {employPhone, employAddress, employTypeService} = useSelector(
+  const {employeePhone, employeeAddress, employeeService} = useSelector(
     (state: RootState) => state.data,
   );
 
   const handleNext = () => {
-    console.log(employPhone, employAddress, employTypeService);
+    console.log(employeePhone, employeeAddress, employeeService);
     navigation.navigate('TellAboutYouScreen');
   };
 
@@ -45,18 +45,18 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({navigation}) => {
         <Input
           titleLocation="Telefono"
           hintLocation="0123456789"
-          value={employPhone}
+          value={employeePhone}
           onChange={value => {
-            dispatch(setEmployPhone(value));
+            dispatch(setEmployeePhone(value));
           }}
           kboardType={'default'}
         />
         <Input
           titleLocation="Domicilio"
           hintLocation="Street #123, City"
-          value={employAddress}
+          value={employeeAddress}
           onChange={value => {
-            dispatch(setEmployAddress(value));
+            dispatch(setEmployeeAddress(value));
           }}
           kboardType={'default'}
         />

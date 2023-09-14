@@ -9,7 +9,6 @@ import {EditInfoView as Profile} from '../screens/EditInfoView';
 import {FeedView as Feed} from '../screens/FeedView';
 import {styles} from './TabNavigatorStyle';
 import {colors} from '../../constants/colors';
-import {isSearchBarAvailableForCurrentPlatform} from 'react-native-screens';
 
 const Tabs = createBottomTabNavigator();
 
@@ -23,7 +22,12 @@ const TabNavigator = () => {
   return (
     <Tabs.Navigator
       screenOptions={{
-        headerShown: false,
+        headerShown: true,
+        headerTitleAlign: 'center',
+        headerTintColor: colors.white,
+        headerStyle: {
+          backgroundColor: colors.mainBlue,
+        },
         tabBarShowLabel: false,
         tabBarStyle: styles.tabBar,
       }}

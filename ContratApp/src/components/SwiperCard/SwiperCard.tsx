@@ -11,17 +11,22 @@ import {styles} from './styles';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faFileCircleXmark, faEllipsis} from '@fortawesome/free-solid-svg-icons';
 import LinearGradient from 'react-native-linear-gradient';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {RootStackParamList} from '../../navigation/Navigator';
 
 const {height} = Dimensions.get('window');
+
+type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
 
 interface CardProps {
   card: {
     photo: string;
     name: string;
   };
+  navigation: HomeScreenNavigationProp;
 }
 
-export const SwiperCard: React.FC<CardProps> = ({card}) => {
+export const SwiperCard: React.FC<CardProps> = ({card, navigation}) => {
   return (
     <View style={styles.card}>
       {card.photo ? (
@@ -48,7 +53,10 @@ export const SwiperCard: React.FC<CardProps> = ({card}) => {
           style={styles.gradientContainer}></LinearGradient>
         <TouchableOpacity
           activeOpacity={0.8}
-          onPress={() => console.log(`click card of: ${card.name}`)}>
+          onPress={() => {
+            console.log(`click card of: ${card.name}`);
+            navigation.navigate('MoreDetailsScreen');
+          }}>
           <View style={styles.detailsContainer}>
             <FontAwesomeIcon
               icon={faEllipsis}

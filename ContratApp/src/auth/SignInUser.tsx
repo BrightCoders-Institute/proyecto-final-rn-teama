@@ -17,6 +17,13 @@ export const signIn = async ({email, password}: SignInProps) => {
         text: 'User not found',
         backgroundColor: colors.red,
         duration: Snackbar.LENGTH_LONG,
+        action: {
+          text: 'Aceptar',
+          textColor: colors.white,
+          onPress: () => {
+            Snackbar.dismiss();
+          },
+        },
       });
     }
 
@@ -25,6 +32,13 @@ export const signIn = async ({email, password}: SignInProps) => {
         text: 'Wrong password',
         backgroundColor: colors.red,
         duration: Snackbar.LENGTH_LONG,
+        action: {
+          text: 'Aceptar',
+          textColor: colors.white,
+          onPress: () => {
+            Snackbar.dismiss();
+          },
+        },
       });
     }
     return false;

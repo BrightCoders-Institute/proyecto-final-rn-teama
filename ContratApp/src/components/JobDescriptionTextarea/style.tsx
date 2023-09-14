@@ -7,7 +7,7 @@ export const styles = StyleSheet.create({
     height: 50,
     marginVertical: 5,
     backgroundColor: 'transparent',
-    padding: 5, 
+    paddingHorizontal: 20,
     borderRadius: 10,
     textAlign: 'left',
     borderWidth: 2,
@@ -21,7 +21,7 @@ export const styles = StyleSheet.create({
   nameInput: {
     fontSize: 16,
     color: '#676E76',
-    fontWeight: '500',
+    fontWeight: '800',
   },
   passwordIcon: {
     position: 'absolute',

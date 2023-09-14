@@ -64,22 +64,42 @@ export const Input: React.FC<InputProps> = ({
           <View></View>
         )}
         <View>
-          <TextInput
-            keyboardType={kboardType}
-            onBlur={handleBlur}
-            onChangeText={onChange}
-            onFocus={handleFocus}
-            placeholder={hintLocation}
-            placeholderTextColor="#676E76"
-            autoCapitalize="none"
-            style={[
-              styles.input,
-              isFocused ? focusedStyle.inputFocused : null,
-              {width: width},
-            ]}
-            value={value}
-            secureTextEntry={isHide}
-          />
+          {isPassword ? (
+            <TextInput
+              keyboardType={kboardType}
+              onBlur={handleBlur}
+              onChangeText={onChange}
+              onFocus={handleFocus}
+              placeholder={hintLocation}
+              placeholderTextColor="#676E76"
+              autoCapitalize="none"
+              style={[
+                styles.input,
+                isFocused ? focusedStyle.inputFocused : null,
+                {width: width},
+              ]}
+              value={value}
+              secureTextEntry={isHide}
+            />
+          ) : (
+            <TextInput
+              keyboardType={kboardType}
+              onBlur={handleBlur}
+              onChangeText={onChange}
+              onFocus={handleFocus}
+              placeholder={hintLocation}
+              placeholderTextColor="#676E76"
+              autoCapitalize="none"
+              style={[
+                styles.input,
+                isFocused ? focusedStyle.inputFocused : null,
+                {width: width},
+              ]}
+              value={value}
+              secureTextEntry={false}
+            />
+          )}
+
           {isPassword ? (
             <TouchableOpacity
               style={styles.passwordIcon}

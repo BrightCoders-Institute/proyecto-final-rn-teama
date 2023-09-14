@@ -23,8 +23,9 @@ export const styles = StyleSheet.create({
     marginLeft: 5,
     fontWeight: 'bold',
     color: colors.mainBlue,
+    fontSize: 16,
   },
-  text: {textAlign: 'center', marginVertical: 30, color: 'black'},
+  text: {textAlign: 'center', marginVertical: 30, color: 'black', fontSize: 16},
   containerImage: {
     height: wp('30%'),
     justifyContent: 'center',
