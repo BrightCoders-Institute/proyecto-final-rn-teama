@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {View, ScrollView} from 'react-native';
 import ImgProfile from '../components/ImgProfile/ImgProfile';
 import FormEmpleado from '../components/form/formEmpleado/FormEmpleado';
+import FormEmpleador from '../components/form/formEmpleado/FormEmpleado';
 import BtnLogout from '../components/BtnLogout/BtnLogout';
 
 import {StackNavigationProp} from '@react-navigation/stack';
@@ -12,6 +13,7 @@ import {UserData} from '../interfaces/UserData';
 //FIREBASE
 import auth from '@react-native-firebase/auth';
 import {fetchUserData} from '../db/fetchCollections';
+import RequestServiceEmployerScreen from './RequestServiceEmployerScreen/RequestServiceEmployerScreen';
 
 type ProfileScreenNavigationProp = StackNavigationProp<
   RootStackParamList,

@@ -9,42 +9,39 @@ import {styles} from './style';
 //REDUX
 import {useDispatch, useSelector} from 'react-redux';
 import {setEmployeeService} from '../../store/DataStore';
-import {RootState} from '../../store/Reducers';
+import {testFilters} from '../../../assets/testFilters';
 
-const data = [
-  {label: 'Servicio 1', value: '1'},
-  {label: 'Servicio 2', value: '2'},
-  {label: 'Servicio 3', value: '3'},
-  {label: 'Servicio 4', value: '4'},
-  {label: 'Servicio 5', value: '5'},
-  {label: 'Servicio 6', value: '6'},
-  {label: 'Servicio 7', value: '7'},
-  {label: 'Servicio 8', value: '8'},
-];
+interface DropdownServiceProps {
+  category: string;
+  width: number;
+  titleDropdown?: string;
+}
 
-const DropDownService = () => {
+export const DropDownService: React.FC<DropdownServiceProps> = ({
+  titleDropdown,
+  category,
+  width,
+}) => {
   const dispatch = useDispatch();
-
-  // const {employeeService} = useSelector((state: RootState) => state.data);
 
   return (
     <View style={styles.container}>
-      <Text style={styles.nameInput}>Oficio / Servicio que ofrece</Text>
+      <Text style={styles.nameInput}>{titleDropdown}</Text>
       <Dropdown
         style={styles.dropdown}
         placeholderStyle={styles.placeholderStyle}
         selectedTextStyle={styles.selectedTextStyle}
         inputSearchStyle={styles.inputSearchStyle}
         iconStyle={styles.iconStyle}
-        data={data}
+        data={testFilters}
         search
         maxHeight={200}
-        labelField="label"
-        valueField="value"
+        labelField="name"
+        valueField="name"
         placeholder="Seleccione Servicio"
         searchPlaceholder="Buscar..."
         onChange={value => {
-          dispatch(setEmployeeService(value.label));
+          dispatch(setEmployeeService(value.name));
         }}
         renderLeftIcon={() => (
           <FontAwesomeIcon size={20} icon={faBriefcase} style={styles.icon} />
@@ -53,5 +50,3 @@ const DropDownService = () => {
     </View>
   );
 };
-
-export default DropDownService;
