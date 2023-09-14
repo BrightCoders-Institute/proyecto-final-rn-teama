@@ -3,17 +3,17 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 interface DataState {
   userType: number;
   isLoggedIn: boolean;
-  employEmail: string;
-  employPassword: string;
-  employPhone: string;
-  employAddress: string;
-  employTypeService: string;
-  employDescription: string;
-  employDaysWork: string;
-  employTimeAM: string;
-  employTimePM: string;
-  employPriceMin: string;
-  employPriceMax: string;
+  employeeEmail: string;
+  employeePassword: string;
+  employeePhone: string;
+  employeeAddress: string;
+  employeeService: string;
+  employeeDescription: string;
+  employeeDaysWork: string;
+  employeeTimeAM: string;
+  employeeTimePM: string;
+  employeePriceMin: string;
+  employeePriceMax: string;
   email: string;
   password: string;
   address: string;
@@ -24,17 +24,17 @@ interface DataState {
 const initialState: DataState = {
   userType: 0,
   isLoggedIn: false,
-  employEmail: '',
-  employPassword: '',
-  employPhone: '',
-  employAddress: '',
-  employTypeService: '',
-  employDescription: '',
-  employDaysWork: '',
-  employTimeAM: '',
-  employTimePM: '',
-  employPriceMin: '',
-  employPriceMax: '',
+  employeeEmail: '',
+  employeePassword: '',
+  employeePhone: '',
+  employeeAddress: '',
+  employeeService: '',
+  employeeDescription: '',
+  employeeDaysWork: '',
+  employeeTimeAM: '',
+  employeeTimePM: '',
+  employeePriceMin: '',
+  employeePriceMax: '',
   email: '',
   password: '',
   address: '',
@@ -52,38 +52,38 @@ const dataSlice = createSlice({
     setLoggedIn: (state, action: PayloadAction<boolean>) => {
       state.isLoggedIn = action.payload;
     },
-    setEmployEmail: (state, action: PayloadAction<string>) => {
-      state.employEmail = action.payload;
+    setEmployeeEmail: (state, action: PayloadAction<string>) => {
+      state.employeeEmail = action.payload;
     },
-    setEmployPassword: (state, action: PayloadAction<string>) => {
-      state.employPassword = action.payload;
+    setEmployeePassword: (state, action: PayloadAction<string>) => {
+      state.employeePassword = action.payload;
     },
-    setEmployPhone: (state, action: PayloadAction<string>) => {
-      state.employPhone = action.payload;
+    setEmployeePhone: (state, action: PayloadAction<string>) => {
+      state.employeePhone = action.payload;
     },
-    setEmployAddress: (state, action: PayloadAction<string>) => {
-      state.employAddress = action.payload;
+    setEmployeeAddress: (state, action: PayloadAction<string>) => {
+      state.employeeAddress = action.payload;
     },
-    setEmployTypeService: (state, action: PayloadAction<string>) => {
-      state.employTypeService = action.payload;
+    setEmployeeService: (state, action: PayloadAction<string>) => {
+      state.employeeService = action.payload;
     },
-    setEmployDescription: (state, action: PayloadAction<string>) => {
-      state.employDescription = action.payload;
+    setEmployeeDescription: (state, action: PayloadAction<string>) => {
+      state.employeeDescription = action.payload;
     },
-    setEmployDaysWork: (state, action: PayloadAction<string>) => {
-      state.employDaysWork = action.payload;
+    setEmployeeDaysWork: (state, action: PayloadAction<string>) => {
+      state.employeeDaysWork = action.payload;
     },
-    setEmployTimeAM: (state, action: PayloadAction<string>) => {
-      state.employTimeAM = action.payload;
+    setEmployeeTimeAM: (state, action: PayloadAction<string>) => {
+      state.employeeTimeAM = action.payload;
     },
-    setEmployTimePM: (state, action: PayloadAction<string>) => {
-      state.employTimePM = action.payload;
+    setEmployeeTimePM: (state, action: PayloadAction<string>) => {
+      state.employeeTimePM = action.payload;
     },
-    setEmployPriceMin: (state, action: PayloadAction<string>) => {
-      state.employPriceMin = action.payload;
+    setEmployeePriceMin: (state, action: PayloadAction<string>) => {
+      state.employeePriceMin = action.payload;
     },
-    setEmployPriceMax: (state, action: PayloadAction<string>) => {
-      state.employPriceMax = action.payload;
+    setEmployeePriceMax: (state, action: PayloadAction<string>) => {
+      state.employeePriceMax = action.payload;
     },
     setEmail: (state, action: PayloadAction<string>) => {
       state.email = action.payload;
@@ -104,19 +104,19 @@ const dataSlice = createSlice({
 });
 
 export const {
-  setUserType, 
+  setUserType,
   setLoggedIn,
-  setEmployEmail,
-  setEmployPassword,
-  setEmployPhone,
-  setEmployAddress,
-  setEmployTypeService,
-  setEmployDescription,
-  setEmployDaysWork,
-  setEmployTimeAM,
-  setEmployTimePM,
-  setEmployPriceMin,
-  setEmployPriceMax,
+  setEmployeeEmail,
+  setEmployeePassword,
+  setEmployeePhone,
+  setEmployeeAddress,
+  setEmployeeService,
+  setEmployeeDescription,
+  setEmployeeDaysWork,
+  setEmployeeTimeAM,
+  setEmployeeTimePM,
+  setEmployeePriceMin,
+  setEmployeePriceMax,
   setEmail,
   setPassword,
   setAddress,

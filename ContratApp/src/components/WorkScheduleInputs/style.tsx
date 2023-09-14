@@ -5,11 +5,11 @@ export const styles = StyleSheet.create({
     color: '#676E76',
     fontWeight: '500',
     height: 50,
-    paddingLeft: 40,
+    paddingHorizontal: 50,
     marginVertical: -20,
     backgroundColor: 'transparent',
-    padding: 5, 
-    borderRadius: 10,
+    padding: 5,
+    borderRadius: 15,
     textAlign: 'left',
     borderWidth: 2,
     borderColor: '#D9D9D9',
@@ -34,4 +34,3 @@ export const styles = StyleSheet.create({
     top: '65%',
   },
 });
-

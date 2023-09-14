@@ -12,19 +12,20 @@ import {style} from './style';
 
 import {useDispatch, useSelector} from 'react-redux';
 import {
-  setEmployEmail,
-  setEmployPassword,
-  setEmployPhone,
-  setEmployAddress,
-  setEmployTypeService,
-  setEmployDescription,
-  setEmployDaysWork,
-  setEmployTimeAM,
-  setEmployTimePM,
-  setEmployPriceMin,
-  setEmployPriceMax,
+  setEmployeeEmail,
+  setEmployeePassword,
+  setEmployeePhone,
+  setEmployeeAddress,
+  setEmployeeService,
+  setEmployeeDescription,
+  setEmployeeDaysWork,
+  setEmployeeTimeAM,
+  setEmployeeTimePM,
+  setEmployeePriceMin,
+  setEmployeePriceMax,
 } from '../../../store/DataStore';
 import {RootState} from '../../../store/Reducers';
+import {registerEmployee} from '../../../db/RegisterNewEmployee';
 
 type UploadPicEmployScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -41,30 +42,53 @@ const UploadPicEmployScreen: React.FC<UploadPicEmployScreenNavigationProps> = ({
   const dispatch = useDispatch();
 
   const {
-    employPhone,
-    employAddress,
-    employTypeService,
-    employDescription,
-    employDaysWork,
-    employTimeAM,
-    employTimePM,
-    employPriceMin,
-    employPriceMax,
+    email,
+    password,
+    employeePhone,
+    employeeAddress,
+    employeeService,
+    employeeDescription,
+    employeeDaysWork,
+    employeeTimeAM,
+    employeeTimePM,
+    employeePriceMin,
+    employeePriceMax,
   } = useSelector((state: RootState) => state.data);
 
-  const handleNext = () => {
-    console.log(
-      employPhone,
-      employAddress,
-      employTypeService,
-      employDescription,
-      employDaysWork,
-      employTimeAM,
-      employTimePM,
-      employPriceMin,
-      employPriceMax,
-    );
-    navigation.navigate('UploadFilesScreen');
+  const clearEmployer = () => {
+    dispatch(setEmployeeEmail(''));
+    dispatch(setEmployeePassword(''));
+    dispatch(setEmployeePhone(''));
+    dispatch(setEmployeeAddress(''));
+    dispatch(setEmployeeService(''));
+    dispatch(setEmployeeDescription(''));
+    dispatch(setEmployeeDaysWork(''));
+    dispatch(setEmployeeTimeAM(''));
+    dispatch(setEmployeeTimePM(''));
+    dispatch(setEmployeePriceMin(''));
+    dispatch(setEmployeePriceMax(''));
+  };
+
+  const handleFinishButtonPress = () => {
+    const newEmployee = {
+      email,
+      password,
+      employeePhone,
+      employeeAddress,
+      employeeService,
+      employeeDescription,
+      employeeDaysWork,
+      employeeTimeAM,
+      employeeTimePM,
+      employeePriceMin,
+      employeePriceMax,
+    };
+
+    registerEmployee(newEmployee);
+    setTimeout(() => {
+      navigation.navigate('Login');
+    }, 2000);
+    clearEmployer();
   };
 
   return (
@@ -79,7 +103,7 @@ const UploadPicEmployScreen: React.FC<UploadPicEmployScreenNavigationProps> = ({
         contigo.
       </Text>
       <View style={{paddingHorizontal: wp('8%')}}>
-        <Button title="Finalizar" onPress={() => {}} />
+        <Button title="Finalizar" onPress={handleFinishButtonPress} />
       </View>
     </View>
   );

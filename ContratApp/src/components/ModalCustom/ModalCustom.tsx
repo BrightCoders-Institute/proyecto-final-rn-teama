@@ -6,6 +6,7 @@ import {style} from './style';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faThumbsUp} from '@fortawesome/free-solid-svg-icons';
 import {colors} from '../../../constants/colors';
+import {ButtonSecondary} from '../ButtonSecondary/ButtonSecondary';
 
 interface ModalCustomProps {
   visible: boolean;
@@ -38,12 +39,8 @@ const ModalCustom: React.FC<ModalCustomProps> = props => {
           <Text style={style.title}>{props.title}</Text>
           <Text style={style.message}>{props.message}</Text>
           <View style={style.btns_row}>
-            <Button title="Cerrar" onPress={props.onClose} isSecondary={true} />
-            <Button
-              title="Continuar"
-              onPress={props.onAccept}
-              isSecondary={false}
-            />
+            <ButtonSecondary title="Cerrar" onPress={props.onClose} />
+            <Button title="Continuar" onPress={props.onAccept} />
           </View>
         </View>
       </View>

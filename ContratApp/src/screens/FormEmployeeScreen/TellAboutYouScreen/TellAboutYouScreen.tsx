@@ -1,4 +1,4 @@
-import {View, Text} from 'react-native';
+import {View, Text, ScrollView} from 'react-native';
 import React from 'react';
 import HeaderForm from '../../../components/HeaderForm/HeaderForm';
 import JobDescriptionTextarea from '../../../components/JobDescriptionTextarea/JobDescriptionTextarea';
@@ -10,24 +10,23 @@ import {styles} from './style';
 
 import {useDispatch, useSelector} from 'react-redux';
 import {
-  setEmployEmail,
-  setEmployPassword,
-  setEmployPhone,
-  setEmployAddress,
-  setEmployTypeService,
-  setEmployDescription,
-  setEmployDaysWork,
-  setEmployTimeAM,
-  setEmployTimePM,
-  setEmployPriceMin,
-  setEmployPriceMax,
+  setEmployeeEmail,
+  setEmployeePassword,
+  setEmployeePhone,
+  setEmployeeAddress,
+  setEmployeeService,
+  setEmployeeDescription,
+  setEmployeeDaysWork,
+  setEmployeeTimeAM,
+  setEmployeeTimePM,
+  setEmployeePriceMin,
+  setEmployeePriceMax,
 } from '../../../store/DataStore';
 import {RootState} from '../../../store/Reducers';
 
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from '../../../navigation/Navigator';
 import {Button} from '../../../components/Button/Button';
-import {Input} from '../../../components/Input/Input';
 
 type TellAboutScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -44,39 +43,50 @@ const TellAboutYouScreen: React.FC<TellAboutYouScreenNavigationProps> = ({
   const dispatch = useDispatch();
 
   const {
-    employPhone,
-    employAddress,
-    employTypeService,
-    employDescription,
-    employDaysWork,
-    employTimeAM,
-    employTimePM,
-    employPriceMin,
-    employPriceMax,
+    employeePhone,
+    employeeAddress,
+    employeeService,
+    employeeDescription,
+    employeeDaysWork,
+    employeeTimeAM,
+    employeeTimePM,
+    employeePriceMin,
+    employeePriceMax,
   } = useSelector((state: RootState) => state.data);
 
   const handleNext = () => {
-    navigation.navigate('UploadFilesScreen');
+    console.log(
+      employeePhone,
+      employeeAddress,
+      employeeService,
+      employeeDescription,
+      employeeDaysWork,
+      employeeTimeAM,
+      employeeTimePM,
+      employeePriceMin,
+      employeePriceMax,
+    );
+    navigation.navigate('UploadPicEmployScreen');
   };
 
   return (
-    <View>
+    <ScrollView>
       <HeaderForm title="Háblanos más de tí" navigation={navigation} />
       <JobDescriptionTextarea
         titleDescription="Describe tu oficio y experiencia"
         hintDescription="Ingresa descripción"
-        value={employDescription}
+        value={employeeDescription}
         onChange={value => {
-          dispatch(setEmployDescription(value));
+          dispatch(setEmployeeDescription(value));
         }}
         kboardType={'default'}
       />
-      <Input
-        titleLocation="¿Qué dias te encuentras activo?"
-        hintLocation="Ejemplo: Lunes - Viernes"
-        value={employDaysWork}
+      <JobDescriptionTextarea
+        titleDescription="¿Qué dias te encuentras activo?"
+        hintDescription="Ejemplo: Lunes - Viernes"
+        value={employeeDaysWork}
         onChange={value => {
-          dispatch(setEmployDaysWork(value));
+          dispatch(setEmployeeDaysWork(value));
         }}
         kboardType={'default'}
       />
@@ -85,18 +95,18 @@ const TellAboutYouScreen: React.FC<TellAboutYouScreenNavigationProps> = ({
         <WorkScheduleInputs
           titleDescription="AM"
           hintDescription="Inicio de labores"
-          value={employTimeAM}
+          value={employeeTimeAM}
           onChange={value => {
-            dispatch(setEmployTimeAM(value));
+            dispatch(setEmployeeTimeAM(value));
           }}
           kboardType={'default'}
         />
         <WorkScheduleInputs
           titleDescription="PM"
           hintDescription="Termino de labores"
-          value={employTimePM}
+          value={employeeTimePM}
           onChange={value => {
-            dispatch(setEmployTimePM(value));
+            dispatch(setEmployeeTimePM(value));
           }}
           kboardType={'default'}
         />
@@ -108,26 +118,27 @@ const TellAboutYouScreen: React.FC<TellAboutYouScreenNavigationProps> = ({
         <PriceRangeInputs
           titleDescription="Rango Minimo"
           hintDescription="Ejemplo 500"
-          value={employPriceMin}
+          value={employeePriceMin}
           onChange={value => {
-            dispatch(setEmployPriceMin(value));
+            dispatch(setEmployeePriceMin(value));
           }}
           kboardType={'default'}
         />
         <PriceRangeInputs
           titleDescription="Rango Maximo"
           hintDescription="Ejemplo 50,000"
-          value={employPriceMax}
+          value={employeePriceMax}
           onChange={value => {
-            dispatch(setEmployPriceMax(value));
+            dispatch(setEmployeePriceMax(value));
           }}
           kboardType={'default'}
         />
       </View>
+      <View style={{marginVertical: 10}}></View>
       <View style={{paddingHorizontal: wp('8%')}}>
         <Button title="Siguiente" onPress={handleNext} />
       </View>
-    </View>
+    </ScrollView>
   );
 };
 

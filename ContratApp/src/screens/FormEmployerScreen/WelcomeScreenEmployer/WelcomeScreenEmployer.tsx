@@ -43,6 +43,7 @@ const WelcomeScreenEmployer: React.FC<WelcomeScreenEmployeeProps> = ({
           onChange={value => {
             dispatch(setPhone(value));
           }}
+          isPassword={false}
         />
         <Input
           titleLocation="Direccion"
@@ -61,6 +62,7 @@ const WelcomeScreenEmployer: React.FC<WelcomeScreenEmployeeProps> = ({
           onChange={value => {
             dispatch(setCompanyName(value));
           }}
+          isPassword={false}
         />
         <View style={{paddingHorizontal: wp('8%')}}>
           <Button
