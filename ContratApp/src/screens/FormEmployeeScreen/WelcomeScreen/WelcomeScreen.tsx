@@ -60,7 +60,9 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({navigation}) => {
           }}
           kboardType={'default'}
         />
-        <DropDownService />
+        <DropDownService 
+        titleDropdown='Oficio / Servicio que ofrece'
+        />
       </View>
       <View
         style={{
