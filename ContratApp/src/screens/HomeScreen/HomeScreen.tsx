@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View} from 'react-native';
 import {ButtonIcon} from '../../components/ButtonIcon/ButtonIcon';
 import {DropdownSearch} from '../../components/DropdownSearch/DropdownSearch';
@@ -23,6 +23,15 @@ interface HomeScreenProps {
   navigation: HomeScreenNavigationProp;
 }
 
+import auth from '@react-native-firebase/auth';
+import {
+  fetchEmployees,
+  fetchEmployers,
+  fetchUserData,
+} from '../../db/fetchCollections';
+
+import firestore from '@react-native-firebase/firestore';
+
 export const HomeScreen: React.FC<HomeScreenProps> = ({navigation}) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
@@ -33,6 +42,10 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({navigation}) => {
   const closeModal = () => {
     setIsModalOpen(false);
   };
+
+  useEffect(() => {
+    fetchUserData();
+  }, []);
 
   return (
     <View style={styles.container}>

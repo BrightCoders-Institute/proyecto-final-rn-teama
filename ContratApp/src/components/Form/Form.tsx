@@ -61,6 +61,14 @@ export const Form: React.FC<RegisterFormProps> = ({navigation}) => {
     }
   };
 
+  const selectUserType = () => {
+    if (userType === 0) {
+      return 'Employees';
+    } else {
+      return 'Employers';
+    }
+  };
+
   const handleEmailAndPassword = (email: string, password: string) => {
     dispatch(setEmail(email));
     dispatch(setPassword(password));
@@ -75,6 +83,7 @@ export const Form: React.FC<RegisterFormProps> = ({navigation}) => {
         (await signUp({
           email: values.email,
           password: values.password,
+          userType: selectUserType(),
         })) === true
       ) {
         handleNavigation();
