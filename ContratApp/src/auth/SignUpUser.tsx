@@ -1,4 +1,5 @@
 import auth from '@react-native-firebase/auth';
+import updateProfile from '@react-native-firebase/auth';
 import Snackbar from 'react-native-snackbar';
 import {colors} from '../../constants/colors';
 

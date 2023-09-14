@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {KeyboardAvoidingView, Platform, View} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {View} from 'react-native';
 import {ButtonIcon} from '../../components/ButtonIcon/ButtonIcon';
 import {DropdownSearch} from '../../components/DropdownSearch/DropdownSearch';
 import {MainSwiper} from '../../components/MainSwiper/MainSwiper';
@@ -15,6 +15,15 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import {colors} from '../../../constants/colors';
 
+import auth from '@react-native-firebase/auth';
+import {
+  fetchEmployees,
+  fetchEmployers,
+  fetchUserData,
+} from '../../db/fetchCollections';
+
+import firestore from '@react-native-firebase/firestore';
+
 export const HomeScreen = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
@@ -25,6 +34,10 @@ export const HomeScreen = () => {
   const closeModal = () => {
     setIsModalOpen(false);
   };
+
+  useEffect(() => {
+    fetchUserData();
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -41,7 +54,7 @@ export const HomeScreen = () => {
           color={colors.mainBlue}
           onPress={() => {}}
         />
-        <ButtonIcon icon={faInfo} color={colors.gray} onPress={openModal} />
+        <ButtonIcon icon={faInfo} color={colors.gray} onPress={() => {}} />
         <ButtonIcon icon={faThumbsDown} color={colors.red} onPress={() => {}} />
       </View>
       <ModalCustom
