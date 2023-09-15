@@ -11,6 +11,7 @@ import {setLoggedIn} from '../store/DataStore';
 //FIREBASE
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
+import NewJobHomeScreen from './NewJobHomeScreen/NewJobHomeScreen';
 
 type ProfileScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -57,12 +58,13 @@ export const EditInfoView: React.FC<ProfileScreenProps> = ({navigation}) => {
 
   return (
     <View>
-      <ScrollView>
-        <ImgProfile />
+      {/* <ScrollView> */}
+        {/* <ImgProfile /> */}
         {/* <FormEmpleado /> */}
         {/* <FormEmpleador /> */}
-        <BtnLogout onPress={() => handleLogOut(false)} />
-      </ScrollView>
+        {/* <BtnLogout onPress={() => handleLogOut(false)} /> */}
+      {/* </ScrollView> */}
+      <NewJobHomeScreen />
     </View>
   );
 };
