@@ -9,14 +9,28 @@ import {SwiperCard} from '../SwiperCard/SwiperCard';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from '../../navigation/Navigator';
 
+import {UserData} from '../../interfaces/UserData';
+import {ButtonIcon} from '../ButtonIcon/ButtonIcon';
+
+import {
+  faThumbsUp,
+  faThumbsDown,
+  faInfo,
+} from '@fortawesome/free-solid-svg-icons';
+import {colors} from '../../../constants/colors';
+import {fetchUserData} from '../../db/fetchCollections';
+
 type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
 
 interface MainSwiperProps {
   navigation: HomeScreenNavigationProp;
+  userData: UserData[] | [];
 }
 
-export const MainSwiper: React.FC<MainSwiperProps> = ({navigation}) => {
-  const characters = testData;
+export const MainSwiper: React.FC<MainSwiperProps> = ({
+  navigation,
+  userData,
+}) => {
   const [lastDirection, setLastDirection] = useState();
 
   const swiped = (direction: any, nameToDelete: any) => {
@@ -27,16 +41,15 @@ export const MainSwiper: React.FC<MainSwiperProps> = ({navigation}) => {
   const outOfFrame = (name: any) => {
     console.log(name + ' left the screen!');
   };
-
   return (
-    <>
+    <View>
       <View style={styles.cardContainer}>
-        {characters.map(character => (
+        {userData.map(user => (
           <TinderCard
-            key={character.name}
-            onSwipe={dir => swiped(dir, character.name)}
-            onCardLeftScreen={() => outOfFrame(character.name)}>
-            <SwiperCard card={character} navigation={navigation} />
+            key={user.companyName || user.name}
+            onSwipe={dir => swiped(dir, user.companyName || user.name)}
+            onCardLeftScreen={() => outOfFrame(user.companyName || user.name)}>
+            <SwiperCard card={user} navigation={navigation} />
           </TinderCard>
         ))}
       </View>
@@ -45,6 +58,25 @@ export const MainSwiper: React.FC<MainSwiperProps> = ({navigation}) => {
       ) : (
         <Text style={styles.infoText} />
       )}
-    </>
+      <View style={styles.buttonContainer}>
+        <ButtonIcon
+          icon={faThumbsUp}
+          color={colors.mainBlue}
+          onPress={() => {}}
+        />
+        <ButtonIcon
+          icon={faInfo}
+          color={colors.gray}
+          onPress={() => navigation.navigate('MoreDetailsScreen')}
+        />
+        <ButtonIcon
+          icon={faThumbsDown}
+          color={colors.red}
+          onPress={() => {
+            fetchUserData();
+          }}
+        />
+      </View>
+    </View>
   );
 };

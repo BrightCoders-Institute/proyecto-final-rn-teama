@@ -2,6 +2,7 @@ export interface RootState {
     data: {
         userType: number;
         isLoggedIn: boolean;
+        employName: string;
         employEmail: string;
         employPassword: string;
         employPhone: string;

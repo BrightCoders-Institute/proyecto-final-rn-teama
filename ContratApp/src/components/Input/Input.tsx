@@ -14,10 +14,8 @@ import {styles} from './style';
 import {colors} from '../../../constants/colors';
 
 interface InputProps {
-  titlePhone?: string;
-  hintPhone?: string;
   titleLocation?: string;
-  hintLocation?: string;
+  hint?: string;
   value: string;
   onChange: (text: string) => void;
   isShowError?: boolean;
@@ -28,10 +26,8 @@ interface InputProps {
 }
 
 export const Input: React.FC<InputProps> = ({
-  titlePhone,
   titleLocation,
-  hintPhone,
-  hintLocation,
+  hint,
   width,
   onChange,
   value,
@@ -70,13 +66,14 @@ export const Input: React.FC<InputProps> = ({
               onBlur={handleBlur}
               onChangeText={onChange}
               onFocus={handleFocus}
-              placeholder={hintLocation}
-              placeholderTextColor="#676E76"
+              placeholder={hint}
+              placeholderTextColor={colors.placeholderGray}
               autoCapitalize="none"
               style={[
                 styles.input,
                 isFocused ? focusedStyle.inputFocused : null,
                 {width: width},
+                {color: colors.black},
               ]}
               value={value}
               secureTextEntry={isHide}
@@ -87,13 +84,14 @@ export const Input: React.FC<InputProps> = ({
               onBlur={handleBlur}
               onChangeText={onChange}
               onFocus={handleFocus}
-              placeholder={hintLocation}
-              placeholderTextColor="#676E76"
+              placeholder={hint}
+              placeholderTextColor={colors.placeholderGray}
               autoCapitalize="none"
               style={[
                 styles.input,
                 isFocused ? focusedStyle.inputFocused : null,
                 {width: width},
+                {color: colors.black},
               ]}
               value={value}
               secureTextEntry={false}
@@ -122,6 +120,6 @@ export const Input: React.FC<InputProps> = ({
 
 const focusedStyle = StyleSheet.create({
   inputFocused: {
-    borderColor: '#0096C7',
+    borderColor: colors.mainBlue,
   },
 });

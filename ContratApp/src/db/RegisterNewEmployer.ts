@@ -26,12 +26,12 @@ function generarID(): string {
   return id;
 }
 
-const addUserInfo = ({ uid }: FirebaseAuthTypes.User, employer: NewEmployer) => {
+const addUserInfo = ({ uid }: FirebaseAuthTypes.User, userData: NewEmployer) => {
   firestore()
-    .collection('Employers')
+    .collection('Users')
     .doc(uid)
     .set({
-      employer: employer,
+      userData: userData,
       uid: uid,
     })
     .catch(error => console.log(error));
@@ -39,7 +39,7 @@ const addUserInfo = ({ uid }: FirebaseAuthTypes.User, employer: NewEmployer) => 
 
 export const registerEmployer = async (props: NewEmployer) => {
   const employerData = {
-    userType: props.userType || 0,
+    userType: props.userType,
     address: props.address || '',
     phone: props.phone || '',
     companyName: props.companyName || '',

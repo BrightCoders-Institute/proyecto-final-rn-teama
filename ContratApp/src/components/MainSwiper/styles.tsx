@@ -53,4 +53,8 @@ export const styles = StyleSheet.create({
     display: 'flex',
     zIndex: -100,
   },
+  buttonContainer: {
+    flexDirection: 'row',
+    marginBottom: '25%',
+  },
 });

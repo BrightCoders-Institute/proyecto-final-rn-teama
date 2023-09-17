@@ -14,15 +14,14 @@ import LinearGradient from 'react-native-linear-gradient';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from '../../navigation/Navigator';
 
+import {UserData} from '../../interfaces/UserData';
+
 const {height} = Dimensions.get('window');
 
 type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
 
 interface CardProps {
-  card: {
-    photo: string;
-    name: string;
-  };
+  card: UserData;
   navigation: HomeScreenNavigationProp;
 }
 
@@ -44,7 +43,7 @@ export const SwiperCard: React.FC<CardProps> = ({card, navigation}) => {
       )}
       <View style={styles.columnBottom}>
         <View style={styles.descriptionContainer}>
-          <Text style={styles.cardText}>{card.name}</Text>
+          <Text style={styles.cardText}>{card.name || card.companyName}</Text>
         </View>
         <LinearGradient
           colors={['rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, 1)']}
