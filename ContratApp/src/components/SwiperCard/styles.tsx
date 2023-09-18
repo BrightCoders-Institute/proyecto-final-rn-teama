@@ -62,6 +62,7 @@ export const styles = StyleSheet.create({
   ellipsisIcon: {
     color: colors.black,
     alignSelf: 'center',
+    fontSize: 16,
   },
   gradientContainer: {
     position: 'absolute',

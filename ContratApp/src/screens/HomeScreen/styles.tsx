@@ -10,10 +10,6 @@ export const styles = StyleSheet.create({
     width: '100%',
     backgroundColor: colors.white,
   },
-  buttonContainer: {
-    flexDirection: 'row',
-    marginBottom: '25%',
-  },
   filtersContainer: {
     marginLeft: '15%',
     marginTop: 50,

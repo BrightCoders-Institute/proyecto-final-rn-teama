@@ -36,7 +36,6 @@ const validatSchema = Yup.object().shape({
     .min(4, 'Should be min of 4 characters')
     .max(16, 'Should be max of 16 characters')
     .required('Password invalid'),
-  firstName: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!'),
   email: Yup.string().email('Invalid email').required('Required'),
   checkbox: Yup.boolean().required(),
 });
@@ -61,6 +60,14 @@ export const Form: React.FC<RegisterFormProps> = ({navigation}) => {
     }
   };
 
+  const selectUserType = () => {
+    if (userType === 0) {
+      return 'Employees';
+    } else {
+      return 'Employers';
+    }
+  };
+
   const handleEmailAndPassword = (email: string, password: string) => {
     dispatch(setEmail(email));
     dispatch(setPassword(password));
@@ -75,6 +82,7 @@ export const Form: React.FC<RegisterFormProps> = ({navigation}) => {
         (await signUp({
           email: values.email,
           password: values.password,
+          userType: selectUserType(),
         })) === true
       ) {
         handleNavigation();
@@ -93,7 +101,6 @@ export const Form: React.FC<RegisterFormProps> = ({navigation}) => {
         initialValues={{
           email: '',
           password: '',
-          firstName: '',
           checkbox: false,
         }}
         validationSchema={validatSchema}
@@ -114,6 +121,7 @@ export const Form: React.FC<RegisterFormProps> = ({navigation}) => {
               onChange={handleChange('email')}
               value={values.email}
               kboardType="email-address"
+              hint="ejemplo@gmail.com"
             />
             <View style={styles.subTitleContainer}>
               <SubTitle>
@@ -128,6 +136,7 @@ export const Form: React.FC<RegisterFormProps> = ({navigation}) => {
               value={values.password}
               kboardType="default"
               isPassword={true}
+              hint={'●●●●●●●●'}
             />
             <View style={styles.margin}>
               <View style={styles.subTitleContainer}>
@@ -145,7 +154,6 @@ export const Form: React.FC<RegisterFormProps> = ({navigation}) => {
                 defaultButtonText={'Selecciona una opción'}
                 buttonStyle={styles.dropdown1BtnStyle}
                 onSelect={(selectedItem, index) => {
-                  console.log(selectedItem, index);
                   handleUserType(index);
                 }}
                 renderDropdownIcon={isOpened => {

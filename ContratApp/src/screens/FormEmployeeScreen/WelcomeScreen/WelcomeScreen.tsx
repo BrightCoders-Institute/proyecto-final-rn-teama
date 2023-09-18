@@ -1,4 +1,4 @@
-import {View, Text} from 'react-native';
+import {View} from 'react-native';
 import React from 'react';
 import HeaderForm from '../../../components/HeaderForm/HeaderForm';
 import {Input} from '../../../components/Input/Input';
@@ -6,7 +6,11 @@ import DropDownService from '../../../components/DropDownService/DropDownService
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
 import {useDispatch, useSelector} from 'react-redux';
-import {setEmployeePhone, setEmployeeAddress} from '../../../store/DataStore';
+import {
+  setEmployeePhone,
+  setEmployeeAddress,
+  setEmployeeName,
+} from '../../../store/DataStore';
 import {RootState} from '../../../store/Reducers';
 
 import {StackNavigationProp} from '@react-navigation/stack';
@@ -25,9 +29,8 @@ interface WelcomeScreenProps {
 const WelcomeScreen: React.FC<WelcomeScreenProps> = ({navigation}) => {
   const dispatch = useDispatch();
 
-  const {employeePhone, employeeAddress, employeeService} = useSelector(
-    (state: RootState) => state.data,
-  );
+  const {employeePhone, employeeAddress, employeeService, employeeName} =
+    useSelector((state: RootState) => state.data);
 
   const handleNext = () => {
     console.log(employeePhone, employeeAddress, employeeService);
@@ -43,8 +46,17 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({navigation}) => {
       />
       <View style={{paddingHorizontal: wp('8%')}}>
         <Input
+          titleLocation="Nombre completo"
+          hint="Armando Hoyos Martínez"
+          value={employeeName}
+          onChange={value => {
+            dispatch(setEmployeeName(value));
+          }}
+          kboardType={'default'}
+        />
+        <Input
           titleLocation="Telefono"
-          hintLocation="0123456789"
+          hint="0123456789"
           value={employeePhone}
           onChange={value => {
             dispatch(setEmployeePhone(value));
@@ -53,7 +65,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({navigation}) => {
         />
         <Input
           titleLocation="Domicilio"
-          hintLocation="Street #123, City"
+          hint="Street #123, City"
           value={employeeAddress}
           onChange={value => {
             dispatch(setEmployeeAddress(value));

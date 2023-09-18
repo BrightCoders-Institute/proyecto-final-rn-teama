@@ -13,19 +13,27 @@ import {colors} from '../../../constants/colors';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faUser} from '@fortawesome/free-regular-svg-icons';
 import {Button} from '../../components/Button/Button';
-import {UserData} from '../../interfaces/UserData';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from '../../navigation/Navigator';
+import {ButtonSecondary} from '../../components/ButtonSecondary/ButtonSecondary';
+
+import {MoreDetailsData} from '../../interfaces/MoreDetailsData';
 
 type MoreDetailsScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
   'MoreDetailsScreen'
 >;
 
-interface MoreDetailsSProps {
+interface MoreDetailsProps {
   navigation: MoreDetailsScreenNavigationProp;
+  route: MoreDetailsData;
 }
-const MoreDetailsScreen: React.FC<MoreDetailsSProps> = ({navigation}) => {
+const MoreDetailsScreen: React.FC<MoreDetailsProps> = ({
+  navigation,
+  route,
+}: MoreDetailsProps) => {
+  const userData = route.params;
+
   const scrollY = new Animated.Value(0);
   const minHeaderHeight = 150;
   const maxHeaderHeight = 300;
@@ -52,21 +60,22 @@ const MoreDetailsScreen: React.FC<MoreDetailsSProps> = ({navigation}) => {
         <View style={styles.content}>
           <Text style={styles.placeholderText}>{dummyText}</Text>
           <View style={styles.btns_row}>
-            <Button
+            <ButtonSecondary
               title="Rechazar"
               onPress={() => {
                 navigation.navigate('Home');
               }}
-              isSecondary={true}
             />
-            <Button title="Aceptar" onPress={() => {}} isSecondary={false} />
+            <Button title="Aceptar" onPress={() => {}} />
           </View>
         </View>
       </ScrollView>
 
       <Animated.View
         style={[styles.header, {height: headerHeightInterpolated}]}>
-        <Text style={styles.headerText}>Don Delfin Espino</Text>
+        <Text style={styles.headerText}>
+          {userData.name || userData.companyName}
+        </Text>
         <View style={{flexDirection: 'column'}}>
           <View
             style={{
