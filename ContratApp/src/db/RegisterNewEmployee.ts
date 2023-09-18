@@ -1,9 +1,11 @@
-import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
+import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import Snackbar from 'react-native-snackbar';
-import {colors} from '../../constants/colors';
+import { colors } from '../../constants/colors';
 
 interface NewEmployee {
+  userType: number;
+  employeeName: string;
   employeePhone: string;
   employeeAddress: string;
   employeeService: string;
@@ -31,12 +33,12 @@ function generarID(): string {
   return id;
 }
 
-const addUserInfo = ({uid}: FirebaseAuthTypes.User, employee: NewEmployee) => {
+const addUserInfo = ({ uid }: FirebaseAuthTypes.User, userData: NewEmployee) => {
   firestore()
-    .collection('Employees')
+    .collection('Users')
     .doc(uid)
     .set({
-      employee: employee,
+      userData: userData,
       uid: uid,
     })
     .catch(error => console.log(error));
@@ -44,6 +46,8 @@ const addUserInfo = ({uid}: FirebaseAuthTypes.User, employee: NewEmployee) => {
 
 export const registerEmployee = async (props: NewEmployee) => {
   const employeeData = {
+    identifier: generarID() || '',
+    name: props.employeeName || '',
     phone: props.employeePhone || '',
     address: props.employeeAddress || '',
     service: props.employeeService || '',
@@ -53,7 +57,7 @@ export const registerEmployee = async (props: NewEmployee) => {
     timePM: props.employeeTimePM || '',
     priceMin: props.employeePriceMin || '',
     priceMax: props.employeePriceMax || '',
-    identifier: generarID() || '',
+    userType: props.userType || 0,
   };
 
   console.log(employeeData);

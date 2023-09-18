@@ -12,12 +12,14 @@ import {
   setAddress,
   setCompanyName,
   setEmail,
+  setLoggedIn,
   setPassword,
   setPhone,
   setUserType,
 } from '../../../store/DataStore';
 import {registerEmployer} from '../../../db/RegisterNewEmployer';
 import {Button} from '../../../components/Button/Button';
+import {signIn} from '../../../auth/SignInUser';
 
 type FinishFormRegisterScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -33,6 +35,10 @@ const FinishFormRegisterScreen: React.FC<FinishFormRegisterScreenProps> = ({
 }) => {
   const dispatch = useDispatch();
 
+  const handleLoggedIn = (isLoggedIn: boolean) => {
+    dispatch(setLoggedIn(isLoggedIn));
+  };
+
   const {email, password, userType, phone, address, companyName} = useSelector(
     (state: RootState) => state.data,
   );
@@ -46,7 +52,7 @@ const FinishFormRegisterScreen: React.FC<FinishFormRegisterScreenProps> = ({
     dispatch(setCompanyName(''));
   };
 
-  const handleFinishButtonPress = () => {
+  const handleFinishButtonPress = async () => {
     const newEmployer = {
       email,
       password,
@@ -56,9 +62,14 @@ const FinishFormRegisterScreen: React.FC<FinishFormRegisterScreenProps> = ({
       companyName,
     };
     registerEmployer(newEmployer);
-    setTimeout(() => {
-      navigation.navigate('Login');
-    }, 2000);
+    if (
+      (await signIn({
+        email: newEmployer.email,
+        password: newEmployer.password,
+      })) === true
+    ) {
+      handleLoggedIn(true);
+    }
     clearEmployer();
   };
 

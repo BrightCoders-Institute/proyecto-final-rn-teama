@@ -93,6 +93,7 @@ export const LoginForm: React.FC<LoginScreenProps> = ({navigation}) => {
               onChange={handleChange('email')}
               value={values.email}
               kboardType={'email-address'}
+              hint={'ejemplo@gmail.com'}
             />
             <View style={styles.subTitleContainer}>
               <SubTitle>
@@ -105,8 +106,9 @@ export const LoginForm: React.FC<LoginScreenProps> = ({navigation}) => {
             <Input
               onChange={handleChange('password')}
               value={values.password}
-              kboardType={'default'}
+              kboardType="default"
               isPassword={true}
+              hint={'●●●●●●●●'}
             />
             <View style={styles.margin}>
               <View style={styles.subTitleContainer}>

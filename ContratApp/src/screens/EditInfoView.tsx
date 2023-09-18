@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, ScrollView} from 'react-native';
 import ImgProfile from '../components/ImgProfile/ImgProfile';
 import FormEmpleado from '../components/form/formEmpleado/FormEmpleado';
@@ -8,10 +8,10 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from '../navigation/Navigator';
 import {useDispatch} from 'react-redux';
 import {setLoggedIn} from '../store/DataStore';
+import {UserData} from '../interfaces/UserData';
 //FIREBASE
 import auth from '@react-native-firebase/auth';
-import firestore from '@react-native-firebase/firestore';
-import NewJobHomeScreen from './NewJobHomeScreen/NewJobHomeScreen';
+import {fetchUserData} from '../db/fetchCollections';
 
 type ProfileScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -23,6 +23,7 @@ interface ProfileScreenProps {
 }
 
 export const EditInfoView: React.FC<ProfileScreenProps> = ({navigation}) => {
+  const [userData, setUserData] = useState({});
   const dispatch = useDispatch();
 
   const handleLogOut = (isLoggedIn: boolean) => {
@@ -30,41 +31,20 @@ export const EditInfoView: React.FC<ProfileScreenProps> = ({navigation}) => {
     auth().signOut();
   };
 
-  // const [documentData, setDocumentData] = useState<any | null>(null);
-  // const [loading, setLoading] = useState(true);
-
-  // const fetchUserInfo = async () => {
-  //   const uid = auth().currentUser?.uid;
-  //   const documentRef = firestore().collection('Employees').doc(uid);
-
-  //   documentRef
-  //     .get()
-  //     .then(documentSnapshot => {
-  //       if (documentSnapshot.exists) {
-  //         const data = documentSnapshot.data();
-  //         setDocumentData(data);
-  //       } else {
-  //         console.log('Document does not exist');
-  //       }
-  //     })
-  //     .catch(error => {
-  //       console.error('Error fetching document:', error);
-  //     })
-  //     .finally(() => {
-  //       setLoading(false);
-  //       console.log(documentData);
-  //     });
-  // };
+  useEffect(() => {
+    const data = fetchUserData();
+    setUserData(data);
+    console.log(userData);
+  }, []);
 
   return (
     <View>
-      {/* <ScrollView> */}
-        {/* <ImgProfile /> */}
+      <ScrollView>
+        <ImgProfile />
         {/* <FormEmpleado /> */}
         {/* <FormEmpleador /> */}
-        {/* <BtnLogout onPress={() => handleLogOut(false)} /> */}
-      {/* </ScrollView> */}
-      <NewJobHomeScreen />
+        <BtnLogout onPress={() => handleLogOut(false)} />
+      </ScrollView>
     </View>
   );
 };

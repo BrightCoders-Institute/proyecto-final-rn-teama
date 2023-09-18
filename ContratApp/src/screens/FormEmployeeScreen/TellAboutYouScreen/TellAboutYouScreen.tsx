@@ -10,11 +10,7 @@ import {styles} from './style';
 
 import {useDispatch, useSelector} from 'react-redux';
 import {
-  setEmployeeEmail,
-  setEmployeePassword,
-  setEmployeePhone,
-  setEmployeeAddress,
-  setEmployeeService,
+  setEmployeeName,
   setEmployeeDescription,
   setEmployeeDaysWork,
   setEmployeeTimeAM,
@@ -43,9 +39,7 @@ const TellAboutYouScreen: React.FC<TellAboutYouScreenNavigationProps> = ({
   const dispatch = useDispatch();
 
   const {
-    employeePhone,
-    employeeAddress,
-    employeeService,
+    employeeName,
     employeeDescription,
     employeeDaysWork,
     employeeTimeAM,
@@ -55,17 +49,6 @@ const TellAboutYouScreen: React.FC<TellAboutYouScreenNavigationProps> = ({
   } = useSelector((state: RootState) => state.data);
 
   const handleNext = () => {
-    console.log(
-      employeePhone,
-      employeeAddress,
-      employeeService,
-      employeeDescription,
-      employeeDaysWork,
-      employeeTimeAM,
-      employeeTimePM,
-      employeePriceMin,
-      employeePriceMax,
-    );
     navigation.navigate('UploadPicEmployScreen');
   };
 
@@ -90,27 +73,6 @@ const TellAboutYouScreen: React.FC<TellAboutYouScreenNavigationProps> = ({
         }}
         kboardType={'default'}
       />
-      <View style={styles.checkBox}>
-        <Text style={styles.nameInput}>Horario</Text>
-        <WorkScheduleInputs
-          titleDescription="AM"
-          hintDescription="Inicio de labores"
-          value={employeeTimeAM}
-          onChange={value => {
-            dispatch(setEmployeeTimeAM(value));
-          }}
-          kboardType={'default'}
-        />
-        <WorkScheduleInputs
-          titleDescription="PM"
-          hintDescription="Termino de labores"
-          value={employeeTimePM}
-          onChange={value => {
-            dispatch(setEmployeeTimePM(value));
-          }}
-          kboardType={'default'}
-        />
-      </View>
       <View style={styles.checkBox}>
         <Text style={styles.nameInput}>
           Precio aproximado por tus servicios

@@ -16,9 +16,11 @@ import {
   faThumbsUp,
   faThumbsDown,
   faInfo,
+  faInfoCircle,
 } from '@fortawesome/free-solid-svg-icons';
 import {colors} from '../../../constants/colors';
 import {fetchUserData} from '../../db/fetchCollections';
+import ModalCustom from '../ModalCustom/ModalCustom';
 
 type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
 
@@ -32,6 +34,15 @@ export const MainSwiper: React.FC<MainSwiperProps> = ({
   userData,
 }) => {
   const [lastDirection, setLastDirection] = useState();
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   const swiped = (direction: any, nameToDelete: any) => {
     console.log('removing: ' + nameToDelete);
@@ -65,11 +76,7 @@ export const MainSwiper: React.FC<MainSwiperProps> = ({
           color={colors.mainBlue}
           onPress={() => {}}
         />
-        <ButtonIcon
-          icon={faInfo}
-          color={colors.gray}
-          onPress={() => navigation.navigate('MoreDetailsScreen', userData[0])}
-        />
+        <ButtonIcon icon={faInfo} color={colors.gray} onPress={openModal} />
         <ButtonIcon
           icon={faThumbsDown}
           color={colors.red}
@@ -78,6 +85,15 @@ export const MainSwiper: React.FC<MainSwiperProps> = ({
           }}
         />
       </View>
+      <ModalCustom
+        icon={faInfoCircle}
+        title="Mira los detalles"
+        message="Haz click en el apartado de más información en la tarjeta para ver los detalles"
+        btnAcceptMsg="Aceptar"
+        visible={isModalOpen}
+        onClose={closeModal}
+        onAccept={closeModal}
+      />
     </View>
   );
 };
