@@ -14,19 +14,26 @@ import LinearGradient from 'react-native-linear-gradient';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from '../../navigation/Navigator';
 
+import {UserData} from '../../interfaces/UserData';
+
 const {height} = Dimensions.get('window');
 
 type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
 
 interface CardProps {
-  card: {
-    photo: string;
-    name: string;
-  };
+  card: UserData;
   navigation: HomeScreenNavigationProp;
 }
 
 export const SwiperCard: React.FC<CardProps> = ({card, navigation}) => {
+  const isEmployee = () => {
+    if (card.userType === 1) {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
   return (
     <View style={styles.card}>
       {card.photo ? (
@@ -44,7 +51,7 @@ export const SwiperCard: React.FC<CardProps> = ({card, navigation}) => {
       )}
       <View style={styles.columnBottom}>
         <View style={styles.descriptionContainer}>
-          <Text style={styles.cardText}>{card.name}</Text>
+          <Text style={styles.cardText}>{card.companyName || card.name}</Text>
         </View>
         <LinearGradient
           colors={['rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, 1)']}
@@ -54,8 +61,7 @@ export const SwiperCard: React.FC<CardProps> = ({card, navigation}) => {
         <TouchableOpacity
           activeOpacity={0.8}
           onPress={() => {
-            console.log(`click card of: ${card.name}`);
-            navigation.navigate('MoreDetailsScreen');
+            navigation.navigate('MoreDetailsScreen', card);
           }}>
           <View style={styles.detailsContainer}>
             <FontAwesomeIcon
@@ -63,14 +69,21 @@ export const SwiperCard: React.FC<CardProps> = ({card, navigation}) => {
               size={height * 0.03}
               style={styles.ellipsisIcon}
             />
-            <Text style={{color: 'black', fontWeight: 'bold'}}>
-              Experiencia:
-            </Text>
+            {isEmployee() ? (
+              <Text style={{color: 'black', fontWeight: 'bold', fontSize: 18}}>
+                Experiencia:
+              </Text>
+            ) : (
+              <Text style={{color: 'black', fontWeight: 'bold', fontSize: 18}}>
+                Detalles:
+              </Text>
+            )}
             <Text>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque id
+              {card.employDescription}
+              {/* Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque id
               porro saepe accusamus! Voluptas, blanditiis nobis! Aperiam
               repudiandae tempore blanditiis, repellendus, nesciunt recusandae
-              placeat totam soluta, unde perspiciatis corporis libero.
+              placeat totam soluta, unde perspiciatis corporis libero. */}
             </Text>
           </View>
         </TouchableOpacity>

@@ -1,17 +1,8 @@
 import React, {useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {Text, View} from 'react-native';
 import {Dropdown} from 'react-native-element-dropdown';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {
-  faBed,
-  faMapLocationDot,
-  faToilet,
-  faRulerCombined,
-  faStar,
-  faHeart,
-  faBriefcase,
-} from '@fortawesome/free-solid-svg-icons';
-import {testFilters} from '../../../assets/testFilters';
+import {faBriefcase} from '@fortawesome/free-solid-svg-icons';
 
 import {styles} from './style';
 
@@ -32,18 +23,9 @@ const data = [
 ];
 
 const DropDownService = () => {
-  // const [value, setValue] = useState(null);
-
-  // const tipo = ['Busco trabajo', 'Ofrezco trabajo'];
-  const handleCheckboxChange = (checked: boolean) => {};
-
   const dispatch = useDispatch();
 
-  // const handleUserType = (employTypeService: string) => {
-  //   dispatch(setEmployTypeService(employTypeService));
-  // };
-
-  const {employeeService} = useSelector((state: RootState) => state.data);
+  // const {employeeService} = useSelector((state: RootState) => state.data);
 
   return (
     <View style={styles.container}>
@@ -61,7 +43,6 @@ const DropDownService = () => {
         valueField="value"
         placeholder="Seleccione Servicio"
         searchPlaceholder="Buscar..."
-        value={employeeService}
         onChange={value => {
           dispatch(setEmployeeService(value.label));
         }}

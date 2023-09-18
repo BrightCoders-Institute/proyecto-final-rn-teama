@@ -4,6 +4,7 @@ import Snackbar from 'react-native-snackbar';
 import { colors } from '../../constants/colors';
 
 interface NewEmployer {
+  userType: number;
   address: string;
   phone: string;
   companyName: string;
@@ -25,12 +26,12 @@ function generarID(): string {
   return id;
 }
 
-const addUserInfo = ({uid}: FirebaseAuthTypes.User, employer: NewEmployer) => {
+const addUserInfo = ({ uid }: FirebaseAuthTypes.User, userData: NewEmployer) => {
   firestore()
-    .collection('Employers')
+    .collection('Users')
     .doc(uid)
     .set({
-      employer: employer,
+      userData: userData,
       uid: uid,
     })
     .catch(error => console.log(error));
@@ -38,6 +39,7 @@ const addUserInfo = ({uid}: FirebaseAuthTypes.User, employer: NewEmployer) => {
 
 export const registerEmployer = async (props: NewEmployer) => {
   const employerData = {
+    userType: props.userType,
     address: props.address || '',
     phone: props.phone || '',
     companyName: props.companyName || '',
@@ -45,13 +47,13 @@ export const registerEmployer = async (props: NewEmployer) => {
   };
 
   try {
-    if(currentUser)
-    addUserInfo(currentUser, employerData);
+    if (currentUser)
+      addUserInfo(currentUser, employerData);
     Snackbar.show({
-        text: 'Account created',
-        backgroundColor: 'green',
-        duration: Snackbar.LENGTH_LONG,
-      });
+      text: 'Account created',
+      backgroundColor: 'green',
+      duration: Snackbar.LENGTH_LONG,
+    });
   } catch (error: any) {
     if (error.code === 'auth/email-already-in-use') {
       Snackbar.show({

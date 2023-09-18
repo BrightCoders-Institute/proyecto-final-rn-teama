@@ -1,31 +1,12 @@
 import {StyleSheet, Dimensions} from 'react-native';
 import {colors} from '../../../constants/colors';
 const {height} = Dimensions.get('window');
+const {width} = Dimensions.get('screen');
 
 export const styles = StyleSheet.create({
-  buttonsContainer: {
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    flexDirection: 'row',
-    paddingHorizontal: '15%',
-  },
-  copyright: {
-    textAlign: 'center',
-    fontSize: 10,
-    color: 'black',
-    paddingBottom: 20,
-    fontFamily: 'Avenir',
-  },
-  overlayWrapper: {
-    flexDirection: 'column',
-    alignItems: 'flex-end',
-    justifyContent: 'flex-start',
-    marginTop: 30,
-    marginLeft: -30,
-  },
   cardContainer: {
-    width: '70%',
-    height: height - 500,
+    width: width - 100,
+    height: height - 450,
   },
   card: {
     position: 'absolute',
@@ -52,5 +33,10 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     display: 'flex',
     zIndex: -100,
+  },
+  buttonsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginBottom: '5%',
   },
 });

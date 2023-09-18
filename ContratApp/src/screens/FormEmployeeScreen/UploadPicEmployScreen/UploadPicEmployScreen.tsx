@@ -6,12 +6,13 @@ import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from '../../../navigation/Navigator';
 import {Button} from '../../../components/Button/Button';
-import {registerEmployer} from '../../../db/RegisterNewEmployer';
 
 import {style} from './style';
 
 import {useDispatch, useSelector} from 'react-redux';
 import {
+  setUserType,
+  setEmployeeName,
   setEmployeeEmail,
   setEmployeePassword,
   setEmployeePhone,
@@ -23,9 +24,11 @@ import {
   setEmployeeTimePM,
   setEmployeePriceMin,
   setEmployeePriceMax,
+  setLoggedIn,
 } from '../../../store/DataStore';
 import {RootState} from '../../../store/Reducers';
 import {registerEmployee} from '../../../db/RegisterNewEmployee';
+import {signIn} from '../../../auth/SignInUser';
 
 type UploadPicEmployScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -41,9 +44,15 @@ const UploadPicEmployScreen: React.FC<UploadPicEmployScreenNavigationProps> = ({
 }) => {
   const dispatch = useDispatch();
 
+  const handleLoggedIn = (isLoggedIn: boolean) => {
+    dispatch(setLoggedIn(isLoggedIn));
+  };
+
   const {
+    userType,
     email,
     password,
+    employeeName,
     employeePhone,
     employeeAddress,
     employeeService,
@@ -56,6 +65,8 @@ const UploadPicEmployScreen: React.FC<UploadPicEmployScreenNavigationProps> = ({
   } = useSelector((state: RootState) => state.data);
 
   const clearEmployer = () => {
+    dispatch(setUserType(0));
+    dispatch(setEmployeeName(''));
     dispatch(setEmployeeEmail(''));
     dispatch(setEmployeePassword(''));
     dispatch(setEmployeePhone(''));
@@ -69,10 +80,12 @@ const UploadPicEmployScreen: React.FC<UploadPicEmployScreenNavigationProps> = ({
     dispatch(setEmployeePriceMax(''));
   };
 
-  const handleFinishButtonPress = () => {
+  const handleFinishButtonPress = async () => {
     const newEmployee = {
+      userType,
       email,
       password,
+      employeeName,
       employeePhone,
       employeeAddress,
       employeeService,
@@ -85,9 +98,14 @@ const UploadPicEmployScreen: React.FC<UploadPicEmployScreenNavigationProps> = ({
     };
 
     registerEmployee(newEmployee);
-    setTimeout(() => {
-      navigation.navigate('Login');
-    }, 2000);
+    if (
+      (await signIn({
+        email: newEmployee.email,
+        password: newEmployee.password,
+      })) === true
+    ) {
+      handleLoggedIn(true);
+    }
     clearEmployer();
   };
 

@@ -1,8 +1,9 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface DataState {
   userType: number;
   isLoggedIn: boolean;
+  employeeName: string;
   employeeEmail: string;
   employeePassword: string;
   employeePhone: string;
@@ -24,6 +25,7 @@ interface DataState {
 const initialState: DataState = {
   userType: 0,
   isLoggedIn: false,
+  employeeName: '',
   employeeEmail: '',
   employeePassword: '',
   employeePhone: '',
@@ -51,6 +53,9 @@ const dataSlice = createSlice({
     },
     setLoggedIn: (state, action: PayloadAction<boolean>) => {
       state.isLoggedIn = action.payload;
+    },
+    setEmployeeName: (state, action: PayloadAction<string>) => {
+      state.employeeName = action.payload;
     },
     setEmployeeEmail: (state, action: PayloadAction<string>) => {
       state.employeeEmail = action.payload;
@@ -106,6 +111,7 @@ const dataSlice = createSlice({
 export const {
   setUserType,
   setLoggedIn,
+  setEmployeeName,
   setEmployeeEmail,
   setEmployeePassword,
   setEmployeePhone,

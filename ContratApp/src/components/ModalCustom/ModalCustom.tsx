@@ -4,16 +4,19 @@ import {Button} from '../Button/Button';
 import {style} from './style';
 
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {faThumbsUp} from '@fortawesome/free-solid-svg-icons';
+import {IconDefinition} from '@fortawesome/free-solid-svg-icons';
 import {colors} from '../../../constants/colors';
 import {ButtonSecondary} from '../ButtonSecondary/ButtonSecondary';
 
 interface ModalCustomProps {
   visible: boolean;
+  icon?: IconDefinition;
   onClose: () => void;
   onAccept: () => void;
   title: string;
   message: string;
+  btnAcceptMsg: string;
+  btnCloseMsg?: string;
 }
 
 const ModalCustom: React.FC<ModalCustomProps> = props => {
@@ -30,17 +33,28 @@ const ModalCustom: React.FC<ModalCustomProps> = props => {
           justifyContent: 'center',
         }}>
         <View style={style.container}>
-          <FontAwesomeIcon
-            icon={faThumbsUp}
-            size={65}
-            color={colors.mainBlue}
-            style={{marginBottom: 20}}
-          />
+          {props.icon ? (
+            <FontAwesomeIcon
+              icon={props.icon}
+              size={65}
+              color={colors.mainBlue}
+              style={{marginBottom: 20}}
+            />
+          ) : (
+            <></>
+          )}
           <Text style={style.title}>{props.title}</Text>
           <Text style={style.message}>{props.message}</Text>
           <View style={style.btns_row}>
-            <ButtonSecondary title="Cerrar" onPress={props.onClose} />
-            <Button title="Continuar" onPress={props.onAccept} />
+            {props.btnCloseMsg ? (
+              <ButtonSecondary
+                title={props.btnCloseMsg}
+                onPress={props.onClose}
+              />
+            ) : (
+              <></>
+            )}
+            <Button title={props.btnAcceptMsg} onPress={props.onAccept} />
           </View>
         </View>
       </View>
