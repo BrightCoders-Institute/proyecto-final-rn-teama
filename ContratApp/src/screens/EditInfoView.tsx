@@ -64,7 +64,6 @@ export const EditInfoView: React.FC<ProfileScreenProps> = ({navigation}) => {
       {/* <FormEmpleador />
         <BtnLogout onPress={() => handleLogOut(false)} /> */}
       {/* </ScrollView> */}
-      <RequestServiceEmployerScreen />
     </View>
   );
 };
