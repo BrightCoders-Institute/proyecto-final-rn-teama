@@ -1,6 +1,10 @@
 export interface UserData {
-  name: string;
   userType: number;
+  photo?: string;
+  phone?: string;
+  address?: string;
+  name?: string;
+  companyName?: string;
   employTypeService?: string;
   employAddress?: string;
   employPriceMin?: string;

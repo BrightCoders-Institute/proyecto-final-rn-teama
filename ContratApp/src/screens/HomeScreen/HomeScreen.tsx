@@ -8,12 +8,6 @@ import {styles} from './styles';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 import ModalCustom from '../../components/ModalCustom/ModalCustom';
 
-import {
-  faThumbsUp,
-  faThumbsDown,
-  faInfo,
-} from '@fortawesome/free-solid-svg-icons';
-import {colors} from '../../../constants/colors';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from '../../navigation/Navigator';
 
@@ -23,16 +17,18 @@ interface HomeScreenProps {
   navigation: HomeScreenNavigationProp;
 }
 
-import auth from '@react-native-firebase/auth';
 import {
-  fetchEmployees,
-  fetchEmployers,
   fetchUserData,
+  fetchDataByUserType,
+  fetchUserType,
 } from '../../db/fetchCollections';
-
-import firestore from '@react-native-firebase/firestore';
+import {UserData} from '../../interfaces/UserData';
+import EmptySwiperMessage from '../../components/EmptySwiperMsg/EmptySwiperMessage';
 
 export const HomeScreen: React.FC<HomeScreenProps> = ({navigation}) => {
+  // const [userType, setUserType] = useState(undefined);
+  const [usersData, setUsersData] = useState<UserData[] | []>([]);
+  const [hasData, setHasData] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const openModal = () => {
@@ -44,34 +40,42 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({navigation}) => {
   };
 
   useEffect(() => {
-    fetchUserData();
+    const fetchData = async () => {
+      try {
+        const res = await fetchDataByUserType();
+        const resUserType = await fetchUserType();
+        setUsersData(res);
+        console.log(res);
+      } catch (error) {
+        console.error('An error happened:', error);
+      }
+    };
+    fetchData();
+    if (usersData === []) {
+      setHasData(false);
+    } else {
+      setHasData(true);
+    }
   }, []);
 
   return (
     <View style={styles.container}>
-      <View style={styles.dropdownContainer}>
+      {/* <View style={styles.dropdownContainer}>
         <DropdownSearch category={''} width={wp('70%')} />
       </View>
       <View style={styles.filtersContainer}>
         <QuickFilters />
-      </View>
-      <MainSwiper navigation={navigation} />
-      <View style={styles.buttonContainer}>
-        <ButtonIcon
-          icon={faThumbsUp}
-          color={colors.mainBlue}
-          onPress={() => {}}
-        />
-        <ButtonIcon
-          icon={faInfo}
-          color={colors.gray}
-          onPress={() => navigation.navigate('MoreDetailsScreen')}
-        />
-        <ButtonIcon icon={faThumbsDown} color={colors.red} onPress={() => {}} />
-      </View>
+      </View> */}
+      {hasData ? (
+        <MainSwiper navigation={navigation} userData={usersData} />
+      ) : (
+        <EmptySwiperMessage isNoData={true} isEmployee={true} />
+      )}
       <ModalCustom
         title="¡Estás ContrApptado!"
         message="Ahora podrás ver la información de contacto en el apartado de elementos guardados."
+        btnAcceptMsg="Continuar"
+        btnCloseMsg="Cerrar"
         visible={isModalOpen}
         onClose={closeModal}
         onAccept={() => {

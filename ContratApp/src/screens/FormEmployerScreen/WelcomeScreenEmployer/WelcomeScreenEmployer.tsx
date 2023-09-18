@@ -37,8 +37,17 @@ const WelcomeScreenEmployer: React.FC<WelcomeScreenEmployeeProps> = ({
       />
       <View style={{paddingHorizontal: wp('8%')}}>
         <Input
+          titleLocation="Nombre de la empresa o propio"
+          hint="Ejemplo S.A de C.V / Juan Pérez"
+          value={companyName}
+          onChange={value => {
+            dispatch(setCompanyName(value));
+          }}
+          isPassword={false}
+        />
+        <Input
           titleLocation="Telefono"
-          hintLocation="3123307896"
+          hint="3123307896"
           value={phone}
           onChange={value => {
             dispatch(setPhone(value));
@@ -47,20 +56,10 @@ const WelcomeScreenEmployer: React.FC<WelcomeScreenEmployeeProps> = ({
         />
         <Input
           titleLocation="Direccion"
-          hintLocation="Street #123, City"
+          hint="Street #123, City"
           value={address}
           onChange={value => {
             dispatch(setAddress(value));
-          }}
-          isPassword={false}
-        />
-
-        <Input
-          titleLocation="Nombre de la empresa"
-          hintLocation="Example S.A de C.V"
-          value={companyName}
-          onChange={value => {
-            dispatch(setCompanyName(value));
           }}
           isPassword={false}
         />
