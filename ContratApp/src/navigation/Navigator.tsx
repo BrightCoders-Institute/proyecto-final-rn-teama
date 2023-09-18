@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {colors} from '../../constants/colors';
+import {UserData} from '../interfaces/UserData';
 //FIREBASE
 import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
 
@@ -36,7 +37,7 @@ export type RootStackParamList = {
   UploadFilesScreen: undefined;
   UploadPicEmployScreen: undefined;
   FinishFormRegisterScreen: undefined;
-  MoreDetailsScreen: undefined;
+  MoreDetailsScreen: UserData;
 };
 
 const SignUpNavigator = createNativeStackNavigator();

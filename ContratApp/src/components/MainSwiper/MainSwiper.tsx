@@ -58,7 +58,8 @@ export const MainSwiper: React.FC<MainSwiperProps> = ({
       ) : (
         <Text style={styles.infoText} />
       )}
-      <View style={styles.buttonContainer}>
+
+      <View style={styles.buttonsContainer}>
         <ButtonIcon
           icon={faThumbsUp}
           color={colors.mainBlue}
@@ -67,7 +68,7 @@ export const MainSwiper: React.FC<MainSwiperProps> = ({
         <ButtonIcon
           icon={faInfo}
           color={colors.gray}
-          onPress={() => navigation.navigate('MoreDetailsScreen')}
+          onPress={() => navigation.navigate('MoreDetailsScreen', userData[0])}
         />
         <ButtonIcon
           icon={faThumbsDown}
