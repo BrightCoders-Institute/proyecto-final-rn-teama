@@ -1,14 +1,14 @@
 import React from 'react';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {faHomeAlt, faUser, faThumbsUp} from '@fortawesome/free-solid-svg-icons';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faHomeAlt, faUser, faThumbsUp } from '@fortawesome/free-solid-svg-icons';
 
 //SCREENS
-import {HomeScreen as Home} from '../screens/HomeScreen/HomeScreen';
-import {EditInfoView as Profile} from '../screens/EditInfoView';
-import {FeedView as Feed} from '../screens/FeedView';
-import {styles} from './TabNavigatorStyle';
-import {colors} from '../../constants/colors';
+import { HomeScreen as Home } from '../screens/HomeScreen/HomeScreen';
+import { ProfileScreen } from '../screens/ProfileScreen/ProfileScreen';
+import { FeedView as Feed } from '../screens/FeedView';
+import { styles } from './TabNavigatorStyle';
+import { colors } from '../../constants/colors';
 
 const Tabs = createBottomTabNavigator();
 
@@ -34,9 +34,9 @@ const TabNavigator = () => {
       initialRouteName={'Home'}>
       <Tabs.Screen
         name="Profile"
-        component={Profile}
+        component={ProfileScreen}
         options={{
-          tabBarIcon: ({focused}) => (
+          tabBarIcon: ({ focused }) => (
             <FontAwesomeIcon
               icon={faUser}
               size={getIconSize(focused)}
@@ -49,7 +49,7 @@ const TabNavigator = () => {
         name="Home"
         component={Home}
         options={{
-          tabBarIcon: ({focused}) => (
+          tabBarIcon: ({ focused }) => (
             <FontAwesomeIcon
               icon={faHomeAlt}
               size={getIconSize(focused)}
@@ -62,7 +62,7 @@ const TabNavigator = () => {
         name="Feed"
         component={Feed}
         options={{
-          tabBarIcon: ({focused}) => (
+          tabBarIcon: ({ focused }) => (
             <FontAwesomeIcon
               icon={faThumbsUp}
               size={getIconSize(focused)}

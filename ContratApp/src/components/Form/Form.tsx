@@ -1,26 +1,26 @@
-import React, {useState} from 'react';
-import {View, Text} from 'react-native';
-import {styles} from './FormStyles';
-import {Button} from '../Button/Button';
+import React, { useState } from 'react';
+import { View, Text } from 'react-native';
+import { styles } from './FormStyles';
+import { Button } from '../Button/Button';
 
 import * as Yup from 'yup';
-import {Formik} from 'formik';
-import {Title} from '../Title/Title';
-import {Input} from '../Input/Input';
-import {Checkbox} from '../Checkbox/Checkbox';
-import {SubTitle} from '../Subtitle/Subtitle';
+import { Formik } from 'formik';
+import { Title } from '../Title/Title';
+import { Input } from '../Input/Input';
+import { Checkbox } from '../Checkbox/Checkbox';
+import { SubTitle } from '../Subtitle/Subtitle';
 import SelectDropdown from 'react-native-select-dropdown';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 //REDUX
-import {useDispatch} from 'react-redux';
-import {setUserType, setEmail, setPassword} from '../../store/DataStore';
-import {useSelector} from 'react-redux';
-import {RootState} from '../../types/types';
+import { useDispatch } from 'react-redux';
+import { setUserType, setEmail, setPassword } from '../../store/DataStore';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../types/types';
 
-import {StackNavigationProp} from '@react-navigation/stack';
-import {RootStackParamList} from '../../navigation/Navigator';
-import {signUp} from '../../auth/SignUpUser';
-import {LoadingScreen} from '../../screens/LoadingScreen';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../../navigation/Navigator';
+import { signUp } from '../../auth/SignUpUser';
+import { LoadingScreen } from '../../screens/LoadingScreen';
 
 type RegisterScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -40,9 +40,9 @@ const validatSchema = Yup.object().shape({
   checkbox: Yup.boolean().required(),
 });
 
-export const Form: React.FC<RegisterFormProps> = ({navigation}) => {
+export const Form: React.FC<RegisterFormProps> = ({ navigation }) => {
   const tipo = ['Busco trabajo', 'Ofrezco trabajo'];
-  const handleCheckboxChange = (checked: boolean) => {};
+  const handleCheckboxChange = (checked: boolean) => { };
 
   const dispatch = useDispatch();
 
@@ -50,7 +50,7 @@ export const Form: React.FC<RegisterFormProps> = ({navigation}) => {
     dispatch(setUserType(userType));
   };
 
-  const {userType} = useSelector((state: RootState) => state.data);
+  const { userType } = useSelector((state: RootState) => state.data);
 
   const handleNavigation = () => {
     if (userType === 0) {
@@ -82,7 +82,6 @@ export const Form: React.FC<RegisterFormProps> = ({navigation}) => {
         (await signUp({
           email: values.email,
           password: values.password,
-          userType: selectUserType(),
         })) === true
       ) {
         handleNavigation();
@@ -107,7 +106,7 @@ export const Form: React.FC<RegisterFormProps> = ({navigation}) => {
         onSubmit={async values => {
           handleEmailAndPassword(values.email, values.password);
         }}>
-        {({values, errors, touched, handleChange, handleSubmit, dirty}) => (
+        {({ values, errors, touched, handleChange, handleSubmit, dirty }) => (
           <>
             <View style={styles.subTitleContainer}>
               <SubTitle>

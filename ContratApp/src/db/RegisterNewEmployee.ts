@@ -2,36 +2,20 @@ import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import Snackbar from 'react-native-snackbar';
 import { colors } from '../../constants/colors';
+import { generarID } from './generarId';
 
 interface NewEmployee {
   userType: number;
-  employeeName: string;
-  employeePhone: string;
-  employeeAddress: string;
-  employeeService: string;
-  employeeDescription: string;
-  employeeDaysWork: string;
-  employeeTimeAM: string;
-  employeeTimePM: string;
-  employeePriceMin: string;
-  employeePriceMax: string;
+  name: string;
+  phone: string;
+  address: string;
+  service: string;
+  description: string;
+  daysWork: string;
+  location: string;
 }
 
 const currentUser = auth().currentUser;
-
-function generarID(): string {
-  const caracteres =
-    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  const longitud = 8;
-  let id = '';
-
-  for (let i = 0; i < longitud; i++) {
-    const indiceAleatorio = Math.floor(Math.random() * caracteres.length);
-    id += caracteres.charAt(indiceAleatorio);
-  }
-
-  return id;
-}
 
 const addUserInfo = ({ uid }: FirebaseAuthTypes.User, userData: NewEmployee) => {
   firestore()
@@ -46,19 +30,17 @@ const addUserInfo = ({ uid }: FirebaseAuthTypes.User, userData: NewEmployee) => 
 
 export const registerEmployee = async (props: NewEmployee) => {
   const employeeData = {
-    identifier: generarID() || '',
-    name: props.employeeName || '',
-    phone: props.employeePhone || '',
-    address: props.employeeAddress || '',
-    service: props.employeeService || '',
-    description: props.employeeDescription || '',
-    daysWork: props.employeeDaysWork || '',
-    timeAM: props.employeeTimeAM || '',
-    timePM: props.employeeTimePM || '',
-    priceMin: props.employeePriceMin || '',
-    priceMax: props.employeePriceMax || '',
     userType: props.userType || 0,
-  };
+    name: props.name || '',
+    phone: props.phone || '',
+    address: props.address || '',
+    service: props.service || '',
+    description: props.description || '',
+    daysWork: props.daysWork || '',
+    location: props.location || '',
+    identifier: generarID() || ''
+  }
+
 
   console.log(employeeData);
 

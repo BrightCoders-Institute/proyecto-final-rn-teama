@@ -1,21 +1,21 @@
-import {View} from 'react-native';
+import { View } from 'react-native';
 import React from 'react';
 import HeaderForm from '../../../components/HeaderForm/HeaderForm';
-import {Input} from '../../../components/Input/Input';
-import DropDownService from '../../../components/DropDownService/DropDownService';
-import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
+import { Input } from '../../../components/Input/Input';
+import { DropDownService } from '../../../components/DropDownService/DropDownService';
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
-import {useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   setEmployeePhone,
   setEmployeeAddress,
   setEmployeeName,
 } from '../../../store/DataStore';
-import {RootState} from '../../../store/Reducers';
+import { RootState } from '../../../store/Reducers';
 
-import {StackNavigationProp} from '@react-navigation/stack';
-import {RootStackParamList} from '../../../navigation/Navigator';
-import {Button} from '../../../components/Button/Button';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../../../navigation/Navigator';
+import { Button } from '../../../components/Button/Button';
 
 type WelcomeScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -26,14 +26,13 @@ interface WelcomeScreenProps {
   navigation: WelcomeScreenNavigationProp;
 }
 
-const WelcomeScreen: React.FC<WelcomeScreenProps> = ({navigation}) => {
+const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ navigation }) => {
   const dispatch = useDispatch();
 
-  const {employeePhone, employeeAddress, employeeService, employeeName} =
+  const { employeePhone, employeeAddress, employeeService, employeeName } =
     useSelector((state: RootState) => state.data);
 
   const handleNext = () => {
-    console.log(employeePhone, employeeAddress, employeeService);
     navigation.navigate('TellAboutYouScreen');
   };
 
@@ -44,7 +43,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({navigation}) => {
         subTitle="Busca trabajo ahora mismo"
         navigation={navigation}
       />
-      <View style={{paddingHorizontal: wp('8%')}}>
+      <View style={{ paddingHorizontal: wp('8%') }}>
         <Input
           titleLocation="Nombre completo"
           hint="Armando Hoyos Martínez"
@@ -72,11 +71,12 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({navigation}) => {
           }}
           kboardType={'default'}
         />
-        <DropDownService />
+        <DropDownService titleDropdown="Oficio / Servicio que ofrece" />
       </View>
       <View
         style={{
           bottom: 60,
+          paddingHorizontal: wp('8%')
         }}>
         <Button title="Siguiente" onPress={handleNext} />
       </View>

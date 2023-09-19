@@ -9,9 +9,6 @@ export const ImgProfile = () => {
         style={styles.imgprofile}
         source={require('../../assets/img/img-1.png')}
       />
-      <TouchableOpacity style={styles.button}>
-        <Text>Cambiar foto</Text>
-      </TouchableOpacity>
     </View>
   );
 };
