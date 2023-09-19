@@ -1,17 +1,14 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   TextInput,
   Text,
   StyleSheet,
   View,
-  KeyboardTypeOptions,
-  TouchableOpacity,
+  KeyboardTypeOptions
 } from 'react-native';
 
-import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {faEye, faEyeSlash} from '@fortawesome/free-solid-svg-icons';
-import {styles} from './style';
-import {colors} from '../../../constants/colors';
+import { styles } from './style';
+import { colors } from '../../../constants/colors';
 
 interface InputProps {
   titleDescription?: string;
@@ -33,7 +30,6 @@ export const JobDescriptionTextarea: React.FC<InputProps> = ({
   value,
   isShowError = false,
   errorMessage = '',
-  isPassword,
   kboardType = 'default',
 }) => {
   const [isFocused, setIsFocused] = useState(false);
@@ -70,7 +66,7 @@ export const JobDescriptionTextarea: React.FC<InputProps> = ({
             style={[
               styles.input,
               isFocused ? focusedStyle.inputFocused : null,
-              {width: width},
+              { width: width, color: colors.black },
             ]}
             value={value}
             secureTextEntry={isHide}
@@ -85,6 +81,7 @@ export const JobDescriptionTextarea: React.FC<InputProps> = ({
 const focusedStyle = StyleSheet.create({
   inputFocused: {
     borderColor: '#0096C7',
+    backgroundColor: colors.lightGray
   },
 });
 

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   TextInput,
   Text,
@@ -8,10 +8,10 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {faEye, faEyeSlash} from '@fortawesome/free-solid-svg-icons';
-import {styles} from './style';
-import {colors} from '../../../constants/colors';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { styles } from './style';
+import { colors } from '../../../constants/colors';
 
 interface InputProps {
   titleLocation?: string;
@@ -72,8 +72,8 @@ export const Input: React.FC<InputProps> = ({
               style={[
                 styles.input,
                 isFocused ? focusedStyle.inputFocused : null,
-                {width: width},
-                {color: colors.black},
+                { width: width },
+                { color: colors.black },
               ]}
               value={value}
               secureTextEntry={isHide}
@@ -90,8 +90,8 @@ export const Input: React.FC<InputProps> = ({
               style={[
                 styles.input,
                 isFocused ? focusedStyle.inputFocused : null,
-                {width: width},
-                {color: colors.black},
+                { width: width },
+                { color: colors.black },
               ]}
               value={value}
               secureTextEntry={false}

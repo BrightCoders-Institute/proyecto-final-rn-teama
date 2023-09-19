@@ -5,30 +5,23 @@ import firestore from '@react-native-firebase/firestore';
 const uid = auth().currentUser?.uid;
 
 export const fetchUserData = async () => {
-    firestore()
-        .collection('Users')
-        .doc(uid)
-        .get()
-        .then(documentSnapshot => {
-            if (documentSnapshot.exists) {
-                return documentSnapshot.data()?.userData;
-            } else {
-                console.log('User has no info');
-            }
-        });
-}
-export const fetchUserType = async () => {
-    firestore()
-        .collection('Users')
-        .doc(uid)
-        .get()
-        .then(documentSnapshot => {
-            if (documentSnapshot.exists) {
-                return documentSnapshot.data()?.userData.userType;
-            } else {
-                console.log('User has no info');
-            }
-        });
+    console.log(uid);
+    try {
+        const userSnapshot = await firestore()
+            .collection('Users')
+            .doc(uid)
+            .get();
+        if (userSnapshot.exists) {
+            const userData = userSnapshot.data()?.userData;
+            return userData;
+        } else {
+            console.log('User has no info');
+        }
+    } catch (error) {
+        console.error('Error fetching data: ', error);
+        throw error;
+    }
+
 }
 
 export const fetchEmployers = async () => {

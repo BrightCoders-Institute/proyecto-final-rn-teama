@@ -11,10 +11,7 @@ interface DataState {
   employeeService: string;
   employeeDescription: string;
   employeeDaysWork: string;
-  employeeTimeAM: string;
-  employeeTimePM: string;
-  employeePriceMin: string;
-  employeePriceMax: string;
+  employeeLocation: string;
   email: string;
   password: string;
   address: string;
@@ -32,11 +29,8 @@ const initialState: DataState = {
   employeeAddress: '',
   employeeService: '',
   employeeDescription: '',
+  employeeLocation: '',
   employeeDaysWork: '',
-  employeeTimeAM: '',
-  employeeTimePM: '',
-  employeePriceMin: '',
-  employeePriceMax: '',
   email: '',
   password: '',
   address: '',
@@ -69,6 +63,9 @@ const dataSlice = createSlice({
     setEmployeeAddress: (state, action: PayloadAction<string>) => {
       state.employeeAddress = action.payload;
     },
+    setEmployeeLocation: (state, action: PayloadAction<string>) => {
+      state.employeeLocation = action.payload;
+    },
     setEmployeeService: (state, action: PayloadAction<string>) => {
       state.employeeService = action.payload;
     },
@@ -77,18 +74,6 @@ const dataSlice = createSlice({
     },
     setEmployeeDaysWork: (state, action: PayloadAction<string>) => {
       state.employeeDaysWork = action.payload;
-    },
-    setEmployeeTimeAM: (state, action: PayloadAction<string>) => {
-      state.employeeTimeAM = action.payload;
-    },
-    setEmployeeTimePM: (state, action: PayloadAction<string>) => {
-      state.employeeTimePM = action.payload;
-    },
-    setEmployeePriceMin: (state, action: PayloadAction<string>) => {
-      state.employeePriceMin = action.payload;
-    },
-    setEmployeePriceMax: (state, action: PayloadAction<string>) => {
-      state.employeePriceMax = action.payload;
     },
     setEmail: (state, action: PayloadAction<string>) => {
       state.email = action.payload;
@@ -118,11 +103,8 @@ export const {
   setEmployeeAddress,
   setEmployeeService,
   setEmployeeDescription,
+  setEmployeeLocation,
   setEmployeeDaysWork,
-  setEmployeeTimeAM,
-  setEmployeeTimePM,
-  setEmployeePriceMin,
-  setEmployeePriceMax,
   setEmail,
   setPassword,
   setAddress,

@@ -8,16 +8,16 @@ import { styles } from './style';
 
 //REDUX
 import { useDispatch, useSelector } from 'react-redux';
-import { setEmployeeService } from '../../store/DataStore';
 import { testFilters } from '../../../assets/testFilters';
+import { setJobType } from '../../store/JobStore';
 
-interface DropdownServiceProps {
+interface DropDownJob {
   category?: string;
   width?: number;
   titleDropdown?: string;
 }
 
-export const DropDownService: React.FC<DropdownServiceProps> = ({
+export const DropDownJob: React.FC<DropDownJob> = ({
   titleDropdown,
   category,
   width = 100,
@@ -41,7 +41,7 @@ export const DropDownService: React.FC<DropdownServiceProps> = ({
         placeholder="Seleccione Servicio"
         searchPlaceholder="Buscar..."
         onChange={value => {
-          dispatch(setEmployeeService(value.name))
+          dispatch(setJobType(value.name))
         }}
         renderLeftIcon={() => (
           <FontAwesomeIcon size={20} icon={faBriefcase} style={styles.icon} />

@@ -30,7 +30,7 @@ export type RootStackParamList = {
   Login: undefined;
   Register: undefined;
   Home: undefined;
-  Profile: undefined;
+  ProfileScreen: undefined;
   WelcomeScreen: undefined;
   WelcomeScreenEmployer: undefined;
   TellAboutYouScreen: undefined;

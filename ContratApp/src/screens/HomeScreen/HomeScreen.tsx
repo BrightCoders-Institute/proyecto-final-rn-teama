@@ -1,15 +1,14 @@
-import React, {useState, useEffect} from 'react';
-import {View} from 'react-native';
-import {ButtonIcon} from '../../components/ButtonIcon/ButtonIcon';
-import {DropdownSearch} from '../../components/DropdownSearch/DropdownSearch';
-import {MainSwiper} from '../../components/MainSwiper/MainSwiper';
-import {QuickFilters} from '../../components/QuickFilters/QuickFilters';
-import {styles} from './styles';
-import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
+import React, { useState, useEffect } from 'react';
+import { View } from 'react-native';
+import { ButtonIcon } from '../../components/ButtonIcon/ButtonIcon';
+import { DropdownSearch } from '../../components/DropdownSearch/DropdownSearch';
+import { MainSwiper } from '../../components/MainSwiper/MainSwiper';
+import { QuickFilters } from '../../components/QuickFilters/QuickFilters';
+import { styles } from './styles';
 import ModalCustom from '../../components/ModalCustom/ModalCustom';
 
-import {StackNavigationProp} from '@react-navigation/stack';
-import {RootStackParamList} from '../../navigation/Navigator';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../../navigation/Navigator';
 
 type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
 
@@ -17,17 +16,13 @@ interface HomeScreenProps {
   navigation: HomeScreenNavigationProp;
 }
 
-import {
-  fetchUserData,
-  fetchDataByUserType,
-  fetchUserType,
-} from '../../db/fetchCollections';
-import {UserData} from '../../interfaces/UserData';
+import { fetchDataByUserType } from '../../db/fetchCollections';
+import { UserData } from '../../interfaces/UserData';
 import EmptySwiperMessage from '../../components/EmptySwiperMsg/EmptySwiperMessage';
 
-export const HomeScreen: React.FC<HomeScreenProps> = ({navigation}) => {
+export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
   // const [userType, setUserType] = useState(undefined);
-  const [usersData, setUsersData] = useState<UserData[] | []>([]);
+  let [usersData, setUsersData] = useState<UserData[] | []>([]);
   const [hasData, setHasData] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
@@ -43,7 +38,6 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({navigation}) => {
     const fetchData = async () => {
       try {
         const res = await fetchDataByUserType();
-        const resUserType = await fetchUserType();
         setUsersData(res);
         console.log(res);
       } catch (error) {
@@ -51,10 +45,10 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({navigation}) => {
       }
     };
     fetchData();
-    if (usersData === []) {
-      setHasData(false);
-    } else {
+    if (usersData) {
       setHasData(true);
+    } else {
+      setHasData(false);
     }
   }, []);
 

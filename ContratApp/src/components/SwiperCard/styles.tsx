@@ -1,13 +1,14 @@
-import {StyleSheet, Dimensions} from 'react-native';
-import {colors} from '../../../constants/colors';
-const {height} = Dimensions.get('window');
+import { StyleSheet, Dimensions } from 'react-native';
+import { colors } from '../../../constants/colors';
+const { height } = Dimensions.get('window');
+const { width } = Dimensions.get('screen');
 
 export const styles = StyleSheet.create({
   card: {
     height: height - 500,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: colors.white,
+    backgroundColor: colors.lighterGray,
     borderRadius: 15,
     shadowColor: colors.black,
     shadowOffset: {
@@ -49,7 +50,6 @@ export const styles = StyleSheet.create({
     color: colors.white,
     textAlign: 'center',
     fontSize: 30,
-    fontFamily: 'Roboto-Bold',
     fontWeight: 'bold',
     textShadowColor: colors.black,
     textShadowRadius: 10,
@@ -59,16 +59,31 @@ export const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
   },
-  ellipsisIcon: {
-    color: colors.black,
-    alignSelf: 'center',
-    fontSize: 16,
-  },
   gradientContainer: {
     position: 'absolute',
     height: '50%',
     width: '100%',
     borderBottomLeftRadius: 15,
     borderBottomRightRadius: 15,
+  },
+  column: {
+    flexDirection: 'column',
+    width: '100%',
+  },
+  title: {
+    color: colors.black,
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
+  subtitle: {
+    color: colors.gray,
+    fontWeight: 'normal',
+    fontSize: 16,
+    textAlign: 'justify',
+  },
+  tag: {
+    position: 'absolute',
+    alignSelf: 'flex-end',
+    marginBottom: '120%',
   },
 });

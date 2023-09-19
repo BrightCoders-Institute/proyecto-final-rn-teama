@@ -1,55 +1,55 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface JobState {
-    userId: string;
     title: string;
-    budget: number;
-    finishDate: string;
-    serviceType: string;
+    budget: string;
+    limitDate: string;
+    jobType: string;
     description: string;
+    location: string;
 }
 
 const initialState: JobState = {
-    userId: '',
     title: '',
-    budget: 0,
-    finishDate: '',
-    serviceType: '',
+    budget: '',
+    limitDate: '',
+    jobType: '',
     description: '',
+    location: ''
 };
 
 const jobSlice = createSlice({
     name: 'job',
     initialState,
     reducers: {
-        setUserId: (state, action: PayloadAction<string>) => {
-            state.userId = action.payload;
-        },
         setTitle: (state, action: PayloadAction<string>) => {
             state.title = action.payload;
         },
-        setBudget: (state, action: PayloadAction<number>) => {
+        setBudget: (state, action: PayloadAction<string>) => {
             state.budget = action.payload;
         },
-        setFinishDate: (state, action: PayloadAction<string>) => {
-            state.finishDate = action.payload;
+        setlimitDate: (state, action: PayloadAction<string>) => {
+            state.limitDate = action.payload;
         },
-        setSeviceType: (state, action: PayloadAction<string>) => {
-            state.serviceType = action.payload;
+        setJobType: (state, action: PayloadAction<string>) => {
+            state.jobType = action.payload;
         },
         setDescription: (state, action: PayloadAction<string>) => {
             state.description = action.payload;
+        },
+        setLocation: (state, action: PayloadAction<string>) => {
+            state.location = action.payload;
         },
     },
 });
 
 export const {
-    setUserId,
     setTitle,
     setBudget,
-    setFinishDate,
-    setSeviceType,
-    setDescription
+    setlimitDate,
+    setJobType,
+    setDescription,
+    setLocation
 } = jobSlice.actions;
 
 export const dataReducer = jobSlice.reducer;

@@ -1,15 +1,15 @@
-import {View, Text} from 'react-native';
+import { View, Text } from 'react-native';
 import React from 'react';
 import HeaderForm from '../../../components/HeaderForm/HeaderForm';
 import UploadPicProfile from '../../../components/UploadPicProfile/UploadPicProfile';
-import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
-import {StackNavigationProp} from '@react-navigation/stack';
-import {RootStackParamList} from '../../../navigation/Navigator';
-import {Button} from '../../../components/Button/Button';
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../../../navigation/Navigator';
+import { Button } from '../../../components/Button/Button';
 
-import {style} from './style';
+import { style } from './style';
 
-import {useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   setUserType,
   setEmployeeName,
@@ -20,15 +20,12 @@ import {
   setEmployeeService,
   setEmployeeDescription,
   setEmployeeDaysWork,
-  setEmployeeTimeAM,
-  setEmployeeTimePM,
-  setEmployeePriceMin,
-  setEmployeePriceMax,
   setLoggedIn,
+  setEmployeeLocation,
 } from '../../../store/DataStore';
-import {RootState} from '../../../store/Reducers';
-import {registerEmployee} from '../../../db/RegisterNewEmployee';
-import {signIn} from '../../../auth/SignInUser';
+import { RootState } from '../../../store/Reducers';
+import { registerEmployee } from '../../../db/RegisterNewEmployee';
+import { signIn } from '../../../auth/SignInUser';
 
 type UploadPicEmployScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -58,13 +55,10 @@ const UploadPicEmployScreen: React.FC<UploadPicEmployScreenNavigationProps> = ({
     employeeService,
     employeeDescription,
     employeeDaysWork,
-    employeeTimeAM,
-    employeeTimePM,
-    employeePriceMin,
-    employeePriceMax,
+    employeeLocation
   } = useSelector((state: RootState) => state.data);
 
-  const clearEmployer = () => {
+  const clearEmployee = () => {
     dispatch(setUserType(0));
     dispatch(setEmployeeName(''));
     dispatch(setEmployeeEmail(''));
@@ -74,10 +68,7 @@ const UploadPicEmployScreen: React.FC<UploadPicEmployScreenNavigationProps> = ({
     dispatch(setEmployeeService(''));
     dispatch(setEmployeeDescription(''));
     dispatch(setEmployeeDaysWork(''));
-    dispatch(setEmployeeTimeAM(''));
-    dispatch(setEmployeeTimePM(''));
-    dispatch(setEmployeePriceMin(''));
-    dispatch(setEmployeePriceMax(''));
+    dispatch(setEmployeeLocation(''));
   };
 
   const handleFinishButtonPress = async () => {
@@ -91,10 +82,7 @@ const UploadPicEmployScreen: React.FC<UploadPicEmployScreenNavigationProps> = ({
       employeeService,
       employeeDescription,
       employeeDaysWork,
-      employeeTimeAM,
-      employeeTimePM,
-      employeePriceMin,
-      employeePriceMax,
+      employeeLocation
     };
 
     registerEmployee(newEmployee);
@@ -106,7 +94,7 @@ const UploadPicEmployScreen: React.FC<UploadPicEmployScreenNavigationProps> = ({
     ) {
       handleLoggedIn(true);
     }
-    clearEmployer();
+    clearEmployee();
   };
 
   return (
@@ -120,7 +108,7 @@ const UploadPicEmployScreen: React.FC<UploadPicEmployScreenNavigationProps> = ({
         Agregar una foto ayuda a generar confiaza y que quieran trabajar
         contigo.
       </Text>
-      <View style={{paddingHorizontal: wp('8%')}}>
+      <View style={{ paddingHorizontal: wp('8%') }}>
         <Button title="Finalizar" onPress={handleFinishButtonPress} />
       </View>
     </View>

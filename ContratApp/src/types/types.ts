@@ -10,9 +10,14 @@ export interface RootState {
         employTypeService: string;
         employDescription: string;
         employDaysWork: string;
-        employTimeAM: string;
-        employTimePM: string;
-        employPriceMin: string;
-        employPriceMax: string;
+        employeeLocation: string;
+    },
+    job: {
+        title: string;
+        budget: number;
+        limitDate: string;
+        jobType: string;
+        description: string;
+        location: string;
     }
 }
