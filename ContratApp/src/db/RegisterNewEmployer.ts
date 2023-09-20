@@ -9,6 +9,7 @@ interface NewEmployer {
   address: string;
   phone: string;
   companyName: string;
+  email: string;
 }
 
 const currentUser = auth().currentUser;
@@ -31,6 +32,7 @@ export const registerEmployer = async (props: NewEmployer) => {
     phone: props.phone || '',
     companyName: props.companyName || '',
     identifier: generarID() || '',
+    email: currentUser?.email || ''
   };
 
   try {

@@ -38,6 +38,7 @@ export const MainSwiperJobs: React.FC<MainSwiperJobsProps> = ({
 }) => {
   const [lastDirection, setLastDirection] = useState();
   let [currentUserId, setUserIdentifier] = useState();
+  let [employerId, setEmployerId] = useState();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isModalOpen2, setIsModalOpen2] = useState<boolean>(false);
   const [isModalOpen3, setIsModalOpen3] = useState<boolean>(false);
@@ -49,7 +50,6 @@ export const MainSwiperJobs: React.FC<MainSwiperJobsProps> = ({
     const fetchUserId = async () => {
       try {
         let currentId = await fetchUserIdentifier();
-        console.log(currentId);
         setUserIdentifier(currentId);
       } catch (error) {
         console.log(error);
@@ -93,18 +93,21 @@ export const MainSwiperJobs: React.FC<MainSwiperJobsProps> = ({
 
   const swipedRight = async (job: any) => {
     if (!job) return;
-    // console.log('Job: ', job.title, 'swiped right');
     let employerAcceptedUsers = await fetchEmployerAcceptedUsers(job.userId);
+    setEmployerId(job.userId);
     employerAcceptedUsers.map((employee: any) => {
       if (employee.uid == currentUserId) {
-        console.log('MATCH!');
         openMatchModal();
         return true;
       } else {
         return false;
       }
     })
-    // firestore().collection('Jobs').doc(uid).collection("accepted").add(job);
+    firestore().collection('Users').doc(uid).collection("jobs").add(job);
+  }
+
+  const handleContactNavigation = () => {
+    navigation.navigate('ContactInformationScreen', employerId);
   }
 
   const swiped = (direction: any, job: any) => {
@@ -180,7 +183,7 @@ export const MainSwiperJobs: React.FC<MainSwiperJobsProps> = ({
         btnCloseMsg='Cerrar'
         visible={isMatchModalOpen}
         onClose={closeModalMatch}
-        onAccept={closeModalMatch} //TODO: Redirect to contact info
+        onAccept={handleContactNavigation} //TODO: Redirect to contact info
       />
     </View>
   );

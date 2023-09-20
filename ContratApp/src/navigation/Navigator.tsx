@@ -18,6 +18,7 @@ import TabNavigator from './TabNavigator';
 import MoreDetailsScreen from '../screens/MoreDetailsScreen/MoreDetailsScreen';
 import { JobDetailsScreen } from '../screens/MoreDetailsScreen/JobDetailsScreen';
 import CreateJobScreen from '../screens/CreateJobScreen/CreateJobScreen';
+import ContactInformationScreen from '../screens/ContactInformationScreen/ContactInformationScreen';
 
 //REGISTER_EMPLOYEE_SCREENS
 import WelcomeScreen from '../screens/FormEmployeeScreen/WelcomeScreen/WelcomeScreen';
@@ -44,6 +45,7 @@ export type RootStackParamList = {
   MoreDetailsScreen: UserData;
   JobDetailsScreen: JobData;
   CreateJobScreen: undefined;
+  ContactInformationScreen: undefined;
 };
 
 const SignUpNavigator = createNativeStackNavigator();
@@ -90,6 +92,20 @@ export const Navigator = () => {
             component={JobDetailsScreen}
             options={{
               title: 'Más información',
+              headerBackVisible: true,
+              headerShown: true,
+              headerTitleAlign: 'center',
+              headerTintColor: colors.white,
+              headerStyle: {
+                backgroundColor: colors.mainBlue,
+              },
+            }}
+          />
+          <UserNavigator.Screen
+            name="ContactInformationScreen"
+            component={ContactInformationScreen}
+            options={{
+              title: 'Información de contacto',
               headerBackVisible: true,
               headerShown: true,
               headerTitleAlign: 'center',

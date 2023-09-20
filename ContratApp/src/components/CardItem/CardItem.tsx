@@ -1,29 +1,50 @@
 import React from 'react';
-import {View, Text, Image} from 'react-native';
-import {styles} from './StyleCardItem';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
+import { styles } from './StyleCardItem';
 
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faBriefcase, faUser, faPhone, faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import { colors } from '../../../constants/colors';
+import { truncate } from '../../utils/truncate';
 
 interface props {
   name: string;
   job: string;
   price: string;
   description: string;
-  img: string;
+  dueDate: string;
+  employerId: string;
+  navigation: any;
 }
 
-export const CardItem = ({name, job, description, price, img}: props) => {
+export const CardItem = ({ name, job, description, price, dueDate, navigation, employerId }: props) => {
   return (
-    <View style={styles.container}>
-      <FontAwesomeIcon size={50} icon={faUser} style={styles.image} />
-      <View>
-        <Text style={styles.textName}>{name}</Text>
-        <Text style={styles.text}>{job}</Text>
-        <Text style={styles.text}>{price}</Text>
-        <Text style={styles.text}>{description}</Text>
+    <TouchableOpacity onPress={() => navigation.navigate('ContactInformationScreen', employerId)}>
+      <View style={styles.container}>
+        <FontAwesomeIcon size={50} icon={faUser} style={styles.image} />
+        <View style={{ left: 20 }}>
+          <View style={{ flexDirection: 'row' }}>
+            <Text style={styles.textName}>{truncate(name, 15)}</Text>
+          </View>
+          <View style={{ flexDirection: 'row', alignSelf: 'flex-start' }}>
+            <Text style={{ fontSize: 16, color: colors.black, fontWeight: '800' }}>Oficio: </Text>
+            <Text style={styles.text}>{job}</Text>
+          </View>
+          <View style={{ flexDirection: 'row', alignSelf: 'flex-start' }}>
+            <Text style={{ fontSize: 16, color: colors.black, fontWeight: '800' }}>Presupuesto: </Text>
+            <Text style={styles.text}>{`$${price}.00 MXN`}</Text>
+          </View>
+          <View style={{ flexDirection: 'row', alignSelf: 'flex-start' }}>
+            <Text style={{ fontSize: 16, color: colors.black, fontWeight: '800' }}>Fecha límite: </Text>
+            <Text style={styles.text}>{truncate(dueDate, 15)}</Text>
+          </View>
+          <View style={{ flexDirection: 'row', alignSelf: 'flex-start' }}>
+            <Text style={{ fontSize: 16, color: colors.black, fontWeight: '800' }}>Descripción: </Text>
+            <Text style={styles.text}>{truncate(description, 15)}...</Text>
+          </View>
+        </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 export default CardItem;

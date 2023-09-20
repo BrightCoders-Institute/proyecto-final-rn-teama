@@ -20,6 +20,24 @@ export const fetchUserData = async () => {
         console.error('Error fetching data: ', error);
         throw error;
     }
+
+}
+export const fetchUserDataById = async (userId: any) => {
+    try {
+        const userSnapshot = await firestore()
+            .collection('Users')
+            .doc(userId)
+            .get();
+        if (userSnapshot.exists) {
+            const userData = userSnapshot.data()?.userData;
+            return userData;
+        } else {
+            console.log('User has no info');
+        }
+    } catch (error) {
+        console.error('Error fetching data: ', error);
+        throw error;
+    }
 }
 
 export const fetchUserType = async () => {
@@ -48,7 +66,6 @@ export const fetchUserIdentifier = async () => {
             .get();
         if (userSnapshot.exists) {
             const userIdentifier = userSnapshot.data()?.userData.identifier;
-            console.log(userIdentifier);
             return userIdentifier;
         } else {
             console.log('User has no identifier');
@@ -86,6 +103,22 @@ export const fetchUserJobs = async () => {
     }
 }
 
+export const fetcEmployeeJobs = async () => {
+    try {
+        const querySnapshot = await firestore()
+            .collection('Users')
+            .doc(uid)
+            .collection('jobs')
+            .get();
+        const jobsSnapshot = querySnapshot.docs.map(doc => doc.data());
+        console.log(jobsSnapshot);
+        return jobsSnapshot;
+    } catch (error) {
+        console.error('Error fetching data: ', error);
+        throw error;
+    }
+}
+
 export const fetchEmployerAcceptedUsers = async (employerId: string) => {
     try {
         const acceptedIds: any = [];
@@ -93,13 +126,9 @@ export const fetchEmployerAcceptedUsers = async (employerId: string) => {
             .collection('Users')
             .doc(employerId)
             .collection('accepted')
-            // .where('userData.userType', '==', 1)
             .get();
         const employersSnapshot = querySnapshot.docs.map(doc => doc.data());
         employersSnapshot.forEach((acceptedEmployeeId) => {
-            // if (employer) {
-            //     employers.push(user)
-            // }
             acceptedIds.push(acceptedEmployeeId)
         });
         return acceptedIds;

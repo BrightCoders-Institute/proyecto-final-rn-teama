@@ -1,4 +1,5 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
+import { colors } from '../../../constants/colors';
 export const styles = StyleSheet.create({
   container: {
     borderRadius: 12,
@@ -20,13 +21,13 @@ export const styles = StyleSheet.create({
   },
   textName: {
     color: 'black',
-    fontSize: 14,
+    fontSize: 20,
     fontWeight: '900',
     textAlign: 'left',
   },
   text: {
-    color: 'black',
-    fontSize: 14,
+    color: colors.gray,
+    fontSize: 16,
     fontWeight: '600',
     textAlign: 'left',
     width: 220,

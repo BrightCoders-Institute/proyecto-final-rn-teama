@@ -6,4 +6,5 @@ export interface JobData {
     location?: string;
     limitDate?: string;
     photo?: string;
+    userId?: string;
 }
