@@ -36,7 +36,7 @@ export const testFilters = [
         name: 'Restaurante',
     },
     {
-        id: '20',
-        name: 'Barbería',
+        id: '10',
+        name: 'Otros',
     },
 ];

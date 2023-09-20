@@ -49,7 +49,7 @@ export const styles = StyleSheet.create({
   cardText: {
     color: colors.white,
     textAlign: 'center',
-    fontSize: 30,
+    fontSize: 26,
     fontWeight: 'bold',
     textShadowColor: colors.black,
     textShadowRadius: 10,

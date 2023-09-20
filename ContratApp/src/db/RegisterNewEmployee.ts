@@ -6,13 +6,13 @@ import { generarID } from './generarId';
 
 interface NewEmployee {
   userType: number;
-  name: string;
-  phone: string;
-  address: string;
-  service: string;
-  description: string;
-  daysWork: string;
-  location: string;
+  employeeName: string;
+  employeePhone: string;
+  employeeAddress: string;
+  employeeService: string;
+  employeeDescription: string;
+  employeeDaysWork: string;
+  employeeLocation: string
 }
 
 const currentUser = auth().currentUser;
@@ -30,15 +30,15 @@ const addUserInfo = ({ uid }: FirebaseAuthTypes.User, userData: NewEmployee) => 
 
 export const registerEmployee = async (props: NewEmployee) => {
   const employeeData = {
+    identifier: generarID() || '',
+    name: props.employeeName || '',
+    phone: props.employeePhone || '',
+    address: props.employeeAddress || '',
+    service: props.employeeService || '',
+    description: props.employeeDescription || '',
+    daysWork: props.employeeDaysWork || '',
+    location: props.employeeLocation,
     userType: props.userType || 0,
-    name: props.name || '',
-    phone: props.phone || '',
-    address: props.address || '',
-    service: props.service || '',
-    description: props.description || '',
-    daysWork: props.daysWork || '',
-    location: props.location || '',
-    identifier: generarID() || ''
   }
 
 

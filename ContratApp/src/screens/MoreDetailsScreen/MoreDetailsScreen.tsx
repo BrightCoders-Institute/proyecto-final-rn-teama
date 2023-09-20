@@ -7,17 +7,17 @@ import {
   Animated,
   Image,
 } from 'react-native';
-import {dummyText} from '../../../assets/dummyText';
-import {colors} from '../../../constants/colors';
+import { dummyText } from '../../../assets/dummyText';
+import { colors } from '../../../constants/colors';
 
-import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {faUser} from '@fortawesome/free-regular-svg-icons';
-import {Button} from '../../components/Button/Button';
-import {StackNavigationProp} from '@react-navigation/stack';
-import {RootStackParamList} from '../../navigation/Navigator';
-import {ButtonSecondary} from '../../components/ButtonSecondary/ButtonSecondary';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faUser } from '@fortawesome/free-regular-svg-icons';
+import { Button } from '../../components/Button/Button';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../../navigation/Navigator';
+import { ButtonSecondary } from '../../components/ButtonSecondary/ButtonSecondary';
 
-import {MoreDetailsData} from '../../interfaces/MoreDetailsData';
+import { MoreDetailsData } from '../../interfaces/MoreDetailsData';
 
 type MoreDetailsScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -51,7 +51,7 @@ const MoreDetailsScreen: React.FC<MoreDetailsProps> = ({
       <ScrollView
         style={styles.scrollView}
         onScroll={Animated.event(
-          [{nativeEvent: {contentOffset: {y: scrollY}}}],
+          [{ nativeEvent: { contentOffset: { y: scrollY } } }],
           {
             useNativeDriver: false,
           },
@@ -66,17 +66,17 @@ const MoreDetailsScreen: React.FC<MoreDetailsProps> = ({
                 navigation.navigate('Home');
               }}
             />
-            <Button title="Aceptar" onPress={() => {}} />
+            <Button title="Aceptar" onPress={() => { }} />
           </View>
         </View>
       </ScrollView>
 
       <Animated.View
-        style={[styles.header, {height: headerHeightInterpolated}]}>
+        style={[styles.header, { height: headerHeightInterpolated }]}>
         <Text style={styles.headerText}>
-          {userData.name || userData.companyName}
+          {userData.name}
         </Text>
-        <View style={{flexDirection: 'column'}}>
+        <View style={{ flexDirection: 'column' }}>
           <View
             style={{
               flexDirection: 'row',
@@ -95,7 +95,7 @@ const MoreDetailsScreen: React.FC<MoreDetailsProps> = ({
                   alignSelf: 'flex-start',
                 }}>
                 <Text style={styles.subtitlesText}>Oficio:</Text>
-                <Text style={styles.infoText}>Plomero</Text>
+                <Text style={styles.infoText}>{userData.employTypeService}</Text>
               </View>
               <View
                 style={{
@@ -103,15 +103,13 @@ const MoreDetailsScreen: React.FC<MoreDetailsProps> = ({
                   alignSelf: 'flex-start',
                 }}>
                 <Text style={styles.subtitlesText}>Ubicación:</Text>
-                <Text style={styles.infoText}>Colima, Col.</Text>
+                <Text style={styles.infoText}>{userData.employLocation}</Text>
               </View>
               <View
                 style={{
                   flexDirection: 'column',
                   alignSelf: 'center',
                 }}>
-                <Text style={styles.subtitlesText}>Rango de precios:</Text>
-                <Text style={styles.infoText}>$500 a $1000 por servicio</Text>
               </View>
             </View>
           </View>

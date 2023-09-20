@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native';
+import { View, Text, ScrollView } from 'react-native';
 import React from 'react';
 import HeaderForm from '../../../components/HeaderForm/HeaderForm';
 import UploadPicProfile from '../../../components/UploadPicProfile/UploadPicProfile';
@@ -98,7 +98,7 @@ const UploadPicEmployScreen: React.FC<UploadPicEmployScreenNavigationProps> = ({
   };
 
   return (
-    <View>
+    <ScrollView>
       <HeaderForm
         title="¡Un último paso y estarás listo!"
         navigation={navigation}
@@ -108,10 +108,10 @@ const UploadPicEmployScreen: React.FC<UploadPicEmployScreenNavigationProps> = ({
         Agregar una foto ayuda a generar confiaza y que quieran trabajar
         contigo.
       </Text>
-      <View style={{ paddingHorizontal: wp('8%') }}>
+      <View style={{ paddingHorizontal: wp('4%') }}>
         <Button title="Finalizar" onPress={handleFinishButtonPress} />
       </View>
-    </View>
+    </ScrollView>
   );
 };
 

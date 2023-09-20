@@ -37,8 +37,8 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ navigation }) => {
   };
 
   useEffect(() => {
+    setIsLoading(true);
     const fetchUser = async () => {
-      setIsLoading(true);
       try {
         const res = await fetchUserData();
         setUserData(res);

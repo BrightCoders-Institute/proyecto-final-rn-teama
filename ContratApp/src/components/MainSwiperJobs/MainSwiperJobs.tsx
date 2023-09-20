@@ -7,9 +7,7 @@ import TinderCard from 'react-tinder-card';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../../navigation/Navigator';
 
-import { UserData } from '../../interfaces/UserData';
 import { ButtonIcon } from '../ButtonIcon/ButtonIcon';
-import { CardEmployee } from '../SwiperCards/CardEmployee';
 
 import {
   faThumbsUp,
@@ -20,17 +18,19 @@ import {
 import { colors } from '../../../constants/colors';
 import { fetchUserData } from '../../db/fetchCollections';
 import ModalCustom from '../ModalCustom/ModalCustom';
+import { JobData } from '../../interfaces/JobData';
+import { CardJob } from '../SwiperCards/CardJob';
 
 type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
 
-interface MainSwiperProps {
+interface MainSwiperJobsProps {
   navigation: HomeScreenNavigationProp;
-  userData: UserData[] | [];
+  jobsData: JobData[] | [];
 }
 
-export const MainSwiper: React.FC<MainSwiperProps> = ({
+export const MainSwiperJobs: React.FC<MainSwiperJobsProps> = ({
   navigation,
-  userData,
+  jobsData,
 }) => {
   const [lastDirection, setLastDirection] = useState();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -55,12 +55,12 @@ export const MainSwiper: React.FC<MainSwiperProps> = ({
     <View>
       <View style={styles.cardContainer}>
         {
-          userData.map(user => (
+          jobsData.map(job => (
             <TinderCard
-              key={user.companyName || user.name}
-              onSwipe={dir => swiped(dir, user.companyName || user.name)}
-              onCardLeftScreen={() => outOfFrame(user.companyName || user.name)}>
-              <CardEmployee card={user} navigation={navigation} />
+              key={job.title}
+              onSwipe={dir => swiped(dir, job.title)}
+              onCardLeftScreen={() => outOfFrame(job.title)}>
+              <CardJob cardJob={job} navigation={navigation} />
             </TinderCard>
           ))
         }

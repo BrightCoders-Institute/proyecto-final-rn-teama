@@ -5,7 +5,6 @@ import firestore from '@react-native-firebase/firestore';
 const uid = auth().currentUser?.uid;
 
 export const fetchUserData = async () => {
-    console.log(uid);
     try {
         const userSnapshot = await firestore()
             .collection('Users')
@@ -22,6 +21,38 @@ export const fetchUserData = async () => {
         throw error;
     }
 
+}
+
+export const fetchUserType = async () => {
+    try {
+        const userSnapshot = await firestore()
+            .collection('Users')
+            .doc(uid)
+            .get();
+        if (userSnapshot.exists) {
+            const userType = userSnapshot.data()?.userData.userType;
+            return userType;
+        } else {
+            console.log('User has no inof');
+        }
+    } catch (error) {
+        console.error('Error fetching user type: ', error);
+        throw error;
+    }
+
+}
+
+export const fetchJobs = async () => {
+    try {
+        const querySnapshot = await firestore()
+            .collection('Jobs')
+            .get();
+        const jobsSnapshot = querySnapshot.docs.map(doc => doc.data().jobData);
+        return jobsSnapshot;
+    } catch (error) {
+        console.error('Error fetching data: ', error);
+        throw error;
+    }
 }
 
 export const fetchEmployers = async () => {

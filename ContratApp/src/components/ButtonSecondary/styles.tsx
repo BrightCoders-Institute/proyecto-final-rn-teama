@@ -1,6 +1,6 @@
-import {StyleSheet} from 'react-native';
-import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
-import {colors} from '../../../constants/colors';
+import { StyleSheet } from 'react-native';
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import { colors } from '../../../constants/colors';
 
 export const styles = StyleSheet.create({
   btn__container: {
@@ -18,7 +18,7 @@ export const styles = StyleSheet.create({
     backgroundColor: 'gray',
   },
   btn__active: {
-    backgroundColor: colors.lighterGray,
+    backgroundColor: colors.lightGray,
   },
   row: {
     flexDirection: 'row',

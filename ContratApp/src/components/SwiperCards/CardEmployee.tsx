@@ -22,16 +22,15 @@ const { height } = Dimensions.get('window');
 
 type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
 
-interface CardJobProps {
+interface CardEmployeeProps {
     card: UserData;
     navigation: HomeScreenNavigationProp;
 }
-
-export const CardJob: React.FC<CardJobProps> = ({ card, navigation }) => {
+export const CardEmployee: React.FC<CardEmployeeProps> = ({ card, navigation }) => {
     return (
         <View style={styles.card}>
             <View style={styles.tag}>
-                <PriceTag isEmployee={false} price={card.employPriceMax || '0'} />
+                <PriceTag isEmployee={false} location={card.location || '...'} />
             </View>
             {card.photo ? (
                 <ImageBackground
@@ -74,12 +73,12 @@ export const CardJob: React.FC<CardJobProps> = ({ card, navigation }) => {
                             <Text style={styles.title}>Descripción:</Text>
                             <Text style={styles.subtitle}>
                                 {card.employDescription}
-                                {dummyText.substring(0, 150)}...
+                                {dummyText.substring(0, 50)}...
                             </Text>
                         </View>
                     </View>
                 </TouchableOpacity>
             </View>
         </View>
-    );
-};
+    )
+}

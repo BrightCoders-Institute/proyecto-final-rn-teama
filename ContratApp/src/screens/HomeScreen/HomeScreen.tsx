@@ -16,13 +16,16 @@ interface HomeScreenProps {
   navigation: HomeScreenNavigationProp;
 }
 
-import { fetchDataByUserType } from '../../db/fetchCollections';
+import { fetchDataByUserType, fetchJobs, fetchUserType } from '../../db/fetchCollections';
 import { UserData } from '../../interfaces/UserData';
 import EmptySwiperMessage from '../../components/EmptySwiperMsg/EmptySwiperMessage';
+import { JobData } from '../../interfaces/JobData';
+import { MainSwiperJobs } from '../../components/MainSwiperJobs/MainSwiperJobs';
 
 export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
-  // const [userType, setUserType] = useState(undefined);
+  let [userType, setUserType] = useState();
   let [usersData, setUsersData] = useState<UserData[] | []>([]);
+  let [jobsData, setJobsData] = useState<JobData[] | []>([]);
   const [hasData, setHasData] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
@@ -37,9 +40,12 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetchDataByUserType();
+        let res = await fetchDataByUserType();
+        let jobs = await fetchJobs();
+        let userType = await fetchUserType();
         setUsersData(res);
-        console.log(res);
+        setUserType(userType);
+        setJobsData(jobs);
       } catch (error) {
         console.error('An error happened:', error);
       }
@@ -52,6 +58,13 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
     }
   }, []);
 
+  const handleSwiperType = () => {
+    if (userType === 0) {
+      return <MainSwiperJobs navigation={navigation} jobsData={jobsData} />;
+    }
+    return <MainSwiper navigation={navigation} userData={usersData} />;
+  }
+
   return (
     <View style={styles.container}>
       {/* <View style={styles.dropdownContainer}>
@@ -61,7 +74,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
         <QuickFilters />
       </View> */}
       {hasData ? (
-        <MainSwiper navigation={navigation} userData={usersData} />
+        handleSwiperType()
       ) : (
         <EmptySwiperMessage isNoData={true} isEmployee={true} />
       )}
