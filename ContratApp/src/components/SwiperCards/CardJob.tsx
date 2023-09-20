@@ -17,24 +17,26 @@ import { styles } from './styles';
 import LinearGradient from 'react-native-linear-gradient';
 import { colors } from '../../../constants/colors';
 import { dummyText } from '../../../assets/dummyText';
+import { JobData } from '../../interfaces/JobData';
 
 const { height } = Dimensions.get('window');
 
 type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
 
-interface CardEmployeeProps {
-    card: UserData;
+interface CardJobProps {
+    cardJob: JobData;
     navigation: HomeScreenNavigationProp;
 }
-export const CardEmployee: React.FC<CardEmployeeProps> = ({ card, navigation }) => {
+
+export const CardJob: React.FC<CardJobProps> = ({ cardJob, navigation }) => {
     return (
         <View style={styles.card}>
             <View style={styles.tag}>
-                <PriceTag isEmployee={true} location='Colima, Col.' />
+                <PriceTag isEmployee={true} price={cardJob.budget || ''} />
             </View>
-            {card.photo ? (
+            {cardJob.photo ? (
                 <ImageBackground
-                    source={{ uri: card.photo }}
+                    source={{ uri: cardJob.photo }}
                     style={styles.image}
                     resizeMode={'cover'}
                 />
@@ -47,7 +49,7 @@ export const CardEmployee: React.FC<CardEmployeeProps> = ({ card, navigation }) 
             )}
             <View style={styles.columnBottom}>
                 <View style={styles.descriptionContainer}>
-                    <Text style={styles.cardText}>{card.companyName || card.name}</Text>
+                    <Text style={styles.cardText}>{cardJob.title?.substring(0, 15)}...</Text>
                 </View>
                 <LinearGradient
                     colors={['rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, 1)']}
@@ -57,7 +59,7 @@ export const CardEmployee: React.FC<CardEmployeeProps> = ({ card, navigation }) 
                 <TouchableOpacity
                     activeOpacity={0.8}
                     onPress={() => {
-                        navigation.navigate('MoreDetailsScreen', card);
+                        navigation.navigate('JobDetailsScreen', cardJob);
                     }}>
                     <View style={styles.detailsContainer}>
                         <Text
@@ -72,13 +74,13 @@ export const CardEmployee: React.FC<CardEmployeeProps> = ({ card, navigation }) 
                         <View style={styles.column}>
                             <Text style={styles.title}>Descripción:</Text>
                             <Text style={styles.subtitle}>
-                                {card.employDescription}
-                                {dummyText.substring(0, 150)}...
+                                {cardJob.description?.substring(0, 50) || 'Sin descripción...'}...
+                                {/* {dummyText.substring(0, 50)}... */}
                             </Text>
                         </View>
                     </View>
                 </TouchableOpacity>
             </View>
         </View>
-    )
-}
+    );
+};

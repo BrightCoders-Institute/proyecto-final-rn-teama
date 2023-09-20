@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Dimensions } from 'react-native';
+import { View, Dimensions, ScrollView } from 'react-native';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { Input } from '../../components/Input/Input';
 import JobDescriptionTextarea from '../../components/JobDescriptionTextarea/JobDescriptionTextarea';
@@ -11,6 +11,8 @@ import { registerJob } from '../../db/RegisterNewJob';
 import { setBudget, setDescription, setJobType, setLocation, setTitle, setlimitDate } from '../../store/JobStore';
 import { RootState } from '../../store/Reducers';
 import { DropDownJob } from '../../components/DropDownJob/DropDownJob';
+import { fetchUserJobs } from '../../db/fetchCollections';
+import { setHasJob } from '../../store/DataStore';
 
 type ProfileScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -19,6 +21,7 @@ type ProfileScreenNavigationProp = StackNavigationProp<
 
 interface ProfileScreenProps {
   navigation: ProfileScreenNavigationProp;
+
 }
 
 export const CreateJobScreen: React.FC<ProfileScreenProps> = ({ navigation }) => {
@@ -49,15 +52,22 @@ export const CreateJobScreen: React.FC<ProfileScreenProps> = ({ navigation }) =>
       description,
       budget,
       location,
-      limitDate
+      limitDate,
+      userId: ''
     };
 
     await registerJob(newJob);
 
     clearJob();
+
+    await fetchUserJobs();
+
+    dispatch(setHasJob(true));
+
+    navigation.navigate('Home');
   };
   return (
-    <View style={{ width: wp('80%') }}>
+    <ScrollView style={{ paddingHorizontal: wp('5%') }}>
       <Input
         titleLocation="Titulo"
         hint="Ejemplo: Casita del árbol"
@@ -106,7 +116,7 @@ export const CreateJobScreen: React.FC<ProfileScreenProps> = ({ navigation }) =>
       <View style={{ marginBottom: 100 }}>
         <Button title="Crear empleo" onPress={handleCreateJob} />
       </View>
-    </View>
+    </ScrollView>
   );
 };
 

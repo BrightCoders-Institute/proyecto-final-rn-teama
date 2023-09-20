@@ -1,15 +1,22 @@
 import React from 'react';
-import {View, Text, Image} from 'react-native';
-import {styles} from './styles';
-import {Button} from '../Button/Button';
-import {fetchDataByUserType} from '../../db/fetchCollections';
+import { View, Text, Image } from 'react-native';
+import { styles } from './styles';
+import { Button } from '../Button/Button';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../../navigation/Navigator';
+
+type EmptyMessageProp = StackNavigationProp<
+  RootStackParamList,
+  'Home'
+>;
 
 interface MessageProps {
   isNoData: boolean;
   isEmployee?: boolean;
+  navigation: EmptyMessageProp;
 }
 
-const EmptySwiperMessage: React.FC<MessageProps> = ({isNoData, isEmployee}) => {
+const EmptySwiperMessage: React.FC<MessageProps> = ({ isNoData, isEmployee, navigation }) => {
   return (
     <View>
       <View style={styles.container}>
@@ -41,9 +48,9 @@ const EmptySwiperMessage: React.FC<MessageProps> = ({isNoData, isEmployee}) => {
         )}
       </View>
       {isNoData ? (
-        <Button title="Actualizar" onPress={() => fetchDataByUserType()} />
+        <></>
       ) : (
-        <Button title="Crear Empleo" />
+        <Button title="Crear Empleo" onPress={() => navigation.navigate('CreateJobScreen')} />
       )}
     </View>
   );

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useLayoutEffect } from 'react';
 import { View } from 'react-native';
 import { ButtonIcon } from '../../components/ButtonIcon/ButtonIcon';
 import { DropdownSearch } from '../../components/DropdownSearch/DropdownSearch';
@@ -16,15 +16,25 @@ interface HomeScreenProps {
   navigation: HomeScreenNavigationProp;
 }
 
-import { fetchDataByUserType } from '../../db/fetchCollections';
+import { fetchEmployees, fetchJobs, fetchUserJobs, fetchUserType, fetchUserIdentifier } from '../../db/fetchCollections';
 import { UserData } from '../../interfaces/UserData';
 import EmptySwiperMessage from '../../components/EmptySwiperMsg/EmptySwiperMessage';
+import { JobData } from '../../interfaces/JobData';
+import { MainSwiperJobs } from '../../components/MainSwiperJobs/MainSwiperJobs';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store/Reducers';
+import { LoadingScreen } from '../LoadingScreen';
 
 export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
-  // const [userType, setUserType] = useState(undefined);
+  let [userType, setUserType] = useState();
   let [usersData, setUsersData] = useState<UserData[] | []>([]);
+  let [jobsData, setJobsData] = useState<JobData[] | []>([]);
   const [hasData, setHasData] = useState<boolean>(false);
+  const [jobIsEmpty, setJobIsEmpty] = useState<boolean>();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
+  const { hasJob
+  } = useSelector((state: RootState) => state.data);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -37,9 +47,14 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetchDataByUserType();
-        setUsersData(res);
-        console.log(res);
+        let employees = await fetchEmployees();
+        let jobs = await fetchJobs();
+        let userType = await fetchUserType();
+        const userJobs = await fetchUserJobs();
+        setJobIsEmpty(userJobs);
+        setUsersData(employees);
+        setUserType(userType);
+        setJobsData(jobs);
       } catch (error) {
         console.error('An error happened:', error);
       }
@@ -50,7 +65,17 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
     } else {
       setHasData(false);
     }
-  }, []);
+  }, [])
+
+
+  const handleSwiperType = () => {
+    if (userType === 0) {
+      return <MainSwiperJobs navigation={navigation} jobsData={jobsData} />;
+    } else {
+      return jobIsEmpty ?
+        <EmptySwiperMessage navigation={navigation} isNoData={false} /> : <MainSwiper navigation={navigation} userData={usersData} />
+    }
+  }
 
   return (
     <View style={styles.container}>
@@ -61,9 +86,9 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
         <QuickFilters />
       </View> */}
       {hasData ? (
-        <MainSwiper navigation={navigation} userData={usersData} />
+        handleSwiperType()
       ) : (
-        <EmptySwiperMessage isNoData={true} isEmployee={true} />
+        <LoadingScreen></LoadingScreen>
       )}
       <ModalCustom
         title="¡Estás ContrApptado!"

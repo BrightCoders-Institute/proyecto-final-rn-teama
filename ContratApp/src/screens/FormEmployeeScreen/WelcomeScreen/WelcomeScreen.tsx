@@ -1,4 +1,4 @@
-import { View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import React from 'react';
 import HeaderForm from '../../../components/HeaderForm/HeaderForm';
 import { Input } from '../../../components/Input/Input';
@@ -37,7 +37,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ navigation }) => {
   };
 
   return (
-    <View>
+    <ScrollView>
       <HeaderForm
         title="¡Bienvenido!"
         subTitle="Busca trabajo ahora mismo"
@@ -80,7 +80,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ navigation }) => {
         }}>
         <Button title="Siguiente" onPress={handleNext} />
       </View>
-    </View>
+    </ScrollView>
   );
 };
 

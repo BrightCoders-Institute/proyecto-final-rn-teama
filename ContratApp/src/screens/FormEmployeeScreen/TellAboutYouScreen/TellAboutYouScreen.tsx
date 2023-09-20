@@ -2,11 +2,7 @@ import { View, Text, ScrollView } from 'react-native';
 import React from 'react';
 import HeaderForm from '../../../components/HeaderForm/HeaderForm';
 import JobDescriptionTextarea from '../../../components/JobDescriptionTextarea/JobDescriptionTextarea';
-import { PriceRangeInputs } from '../../../components/PriceRangeInputs/PriceRangeInputs';
-import { WorkScheduleInputs } from '../../../components/WorkScheduleInputs/WorkScheduleInputs';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
-
-import { styles } from './style';
 
 import { useDispatch, useSelector } from 'react-redux';
 import {

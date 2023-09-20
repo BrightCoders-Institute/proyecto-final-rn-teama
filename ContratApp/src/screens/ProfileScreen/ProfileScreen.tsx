@@ -9,13 +9,15 @@ import { setLoggedIn } from '../../store/DataStore';
 import { UserData } from '../../interfaces/UserData';
 //FIREBASE
 import auth from '@react-native-firebase/auth';
-import { fetchUserData } from '../../db/fetchCollections';
+import { fetchUserData, fetchUserJobs } from '../../db/fetchCollections';
 import { styles } from './styles';
 import { colors } from '../../../constants/colors';
 import CreateServiceScreen from '../CreateJobScreen/CreateJobScreen';
 import { Button } from '../../components/Button/Button';
 import { LoadingScreen } from '../LoadingScreen';
 import BtnLogout from '../../components/BtnLogout/BtnLogout';
+import { JobData } from '../../interfaces/JobData';
+import EmptySwiperMessage from '../../components/EmptySwiperMsg/EmptySwiperMessage';
 
 type ProfileScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -28,8 +30,11 @@ interface ProfileScreenProps {
 
 export const ProfileScreen: React.FC<ProfileScreenProps> = ({ navigation }) => {
   const [userData, setUserData] = useState<UserData>();
+  const [isEmpty, setIsEmpty] = useState<boolean>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const dispatch = useDispatch();
+
+  // const uid = auth().currentUser?.uid;
 
   const handleLogOut = (isLoggedIn: boolean) => {
     dispatch(setLoggedIn(isLoggedIn));
@@ -37,10 +42,12 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ navigation }) => {
   };
 
   useEffect(() => {
+    setIsLoading(true);
     const fetchUser = async () => {
-      setIsLoading(true);
       try {
         const res = await fetchUserData();
+        const userJobs = await fetchUserJobs();
+        setIsEmpty(userJobs);
         setUserData(res);
       } catch (error) {
         console.error('An error happened:', error);
@@ -61,35 +68,32 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ navigation }) => {
     <ScrollView>
       <View style={styles.container}>
         <ImgProfile />
-        {isLoading ? (
-          <LoadingScreen />
-        ) : (
-          <View>
-            <View style={styles.row}>
-              <Text
-                style={{ fontSize: 20, fontWeight: 'bold', color: colors.black }}>
-                Nombre:
-              </Text>
-              <Text
-                style={{ fontSize: 20, fontWeight: 'normal', color: colors.gray }}>
-                {userData?.name || userData?.companyName}
-              </Text>
-            </View>
-            <View style={styles.row}>
-              <Text
-                style={{ fontSize: 20, fontWeight: 'bold', color: colors.black }}>
-                Teléfono:
-              </Text>
-              <Text
-                style={{ fontSize: 20, fontWeight: 'normal', color: colors.gray }}>
-                {userData?.phone}
-              </Text>
-            </View>
+        <View>
+          <View style={styles.row}>
+            <Text
+              style={{ fontSize: 20, fontWeight: 'bold', color: colors.black }}>
+              Nombre:
+            </Text>
+            {isLoading ? <LoadingScreen /> : <Text
+              style={{ fontSize: 20, fontWeight: 'normal', color: colors.gray }}>
+              {userData?.name || userData?.companyName}
+            </Text>}
+
           </View>
-        )}
+          <View style={styles.row}>
+            <Text
+              style={{ fontSize: 20, fontWeight: 'bold', color: colors.black }}>
+              Teléfono:
+            </Text>
+            {isLoading ? <LoadingScreen /> : <Text
+              style={{ fontSize: 20, fontWeight: 'normal', color: colors.gray }}>
+              {userData?.phone}
+            </Text>}
+          </View>
+        </View>
         <BtnLogout title="Cerrar sesión" onPress={() => handleLogOut(false)} />
         {handleUserType() ? (
-          <CreateServiceScreen navigation={navigation} />
+          isEmpty ? <Button title='Crear un empleo' onPress={() => navigation.navigate('CreateJobScreen')} /> : <Text style={{ fontWeight: 'bold' }}>Por el momento sólo se puede crear un empleo por cuenta</Text>
         ) : (
           <View></View>
         )}
