@@ -24,6 +24,7 @@ import { MainSwiperJobs } from '../../components/MainSwiperJobs/MainSwiperJobs';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/Reducers';
 import { LoadingScreen } from '../LoadingScreen';
+import { faCross } from '@fortawesome/free-solid-svg-icons';
 
 export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
   let [userType, setUserType] = useState();
@@ -88,7 +89,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
       {hasData ? (
         handleSwiperType()
       ) : (
-        <LoadingScreen></LoadingScreen>
+        <ButtonIcon color='white' icon={faCross} onPress={() => { }} />
       )}
       <ModalCustom
         title="¡Estás ContrApptado!"

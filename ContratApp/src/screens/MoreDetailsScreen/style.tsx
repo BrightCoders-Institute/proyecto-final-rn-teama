@@ -4,23 +4,16 @@ import { colors } from '../../../constants/colors';
 export const styles = StyleSheet.create({
   background: {
     alignSelf: 'center',
-    marginVertical: 60,
+    marginVertical: 50,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: colors.lightGray,
-    borderRadius: 10,
-    width: 300,
-    height: 400,
+    borderRadius: 15,
+    paddingHorizontal: '25%',
+    height: '80%'
   },
   checkBox: {
     marginVertical: 10,
-  },
-  nameInput: {
-    marginBottom: -10,
-    marginLeft: 20,
-    fontSize: 16,
-    color: '#676E76',
-    fontWeight: '800',
   },
   icon1: {
     marginRight: 5,
@@ -35,6 +28,18 @@ export const styles = StyleSheet.create({
     width: 100,
     height: 100,
     marginBottom: '2%',
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: colors.gray,
+    marginBottom: 15,
+  },
+  subtitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: colors.black,
+    marginBottom: 15,
   },
   info: {
     fontSize: 20,

@@ -9,3 +9,7 @@ export interface JobDetailsData {
   key: string;
   params: JobData;
 }
+export interface ContactInformationData {
+  key: string;
+  params: string;
+}
