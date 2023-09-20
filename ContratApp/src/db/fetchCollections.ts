@@ -111,7 +111,6 @@ export const fetcEmployeeJobs = async () => {
             .collection('jobs')
             .get();
         const jobsSnapshot = querySnapshot.docs.map(doc => doc.data());
-        console.log(jobsSnapshot);
         return jobsSnapshot;
     } catch (error) {
         console.error('Error fetching data: ', error);

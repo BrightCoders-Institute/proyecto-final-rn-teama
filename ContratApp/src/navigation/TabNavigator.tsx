@@ -31,9 +31,9 @@ const TabNavigator = () => {
         tabBarShowLabel: false,
         tabBarStyle: styles.tabBar,
       }}
-      initialRouteName={'Home'}>
+      initialRouteName={'Página principal'}>
       <Tabs.Screen
-        name="Profile"
+        name="Perfil"
         component={ProfileScreen}
         options={{
           tabBarIcon: ({ focused }) => (
@@ -46,7 +46,7 @@ const TabNavigator = () => {
         }}
       />
       <Tabs.Screen
-        name="Home"
+        name="Página principal"
         component={Home}
         options={{
           tabBarIcon: ({ focused }) => (
@@ -59,7 +59,7 @@ const TabNavigator = () => {
         }}
       />
       <Tabs.Screen
-        name="Feed"
+        name="Empleos"
         component={Feed}
         options={{
           tabBarIcon: ({ focused }) => (
