@@ -66,7 +66,7 @@ const MoreDetailsScreen: React.FC<MoreDetailsProps> = ({
                 navigation.navigate('Home');
               }}
             />
-            <Button title="Aceptar" onPress={() => { }} />
+            {/* <Button title="Aceptar" onPress={() => { }} /> */}
           </View>
         </View>
       </ScrollView>
@@ -95,7 +95,7 @@ const MoreDetailsScreen: React.FC<MoreDetailsProps> = ({
                   alignSelf: 'flex-start',
                 }}>
                 <Text style={styles.subtitlesText}>Oficio:</Text>
-                <Text style={styles.infoText}>{userData.employTypeService}</Text>
+                <Text style={styles.infoText}>{userData.service}</Text>
               </View>
               <View
                 style={{
@@ -103,7 +103,7 @@ const MoreDetailsScreen: React.FC<MoreDetailsProps> = ({
                   alignSelf: 'flex-start',
                 }}>
                 <Text style={styles.subtitlesText}>Ubicación:</Text>
-                <Text style={styles.infoText}>{userData.employLocation}</Text>
+                <Text style={styles.infoText}>{userData.location}</Text>
               </View>
               <View
                 style={{

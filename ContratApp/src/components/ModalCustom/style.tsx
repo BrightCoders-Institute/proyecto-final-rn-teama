@@ -1,5 +1,5 @@
-import {StyleSheet} from 'react-native';
-import {colors} from '../../../constants/colors';
+import { StyleSheet } from 'react-native';
+import { colors } from '../../../constants/colors';
 
 export const style = StyleSheet.create({
   container: {
@@ -25,6 +25,7 @@ export const style = StyleSheet.create({
     fontWeight: 'bold',
     color: colors.black,
     fontSize: 26,
+    textAlign: 'center'
   },
   message: {
     fontWeight: 'normal',

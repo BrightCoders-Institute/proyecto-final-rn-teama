@@ -16,10 +16,14 @@ import {
   faInfoCircle,
 } from '@fortawesome/free-solid-svg-icons';
 import { colors } from '../../../constants/colors';
-import { fetchUserData } from '../../db/fetchCollections';
+import { fetchEmployerAcceptedUsers, fetchUserData, fetchUserIdentifier } from '../../db/fetchCollections';
 import ModalCustom from '../ModalCustom/ModalCustom';
 import { JobData } from '../../interfaces/JobData';
 import { CardJob } from '../SwiperCards/CardJob';
+//FIREBASE
+import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
+import { UserData } from '../../interfaces/UserData';
 
 type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
 
@@ -30,22 +34,86 @@ interface MainSwiperJobsProps {
 
 export const MainSwiperJobs: React.FC<MainSwiperJobsProps> = ({
   navigation,
-  jobsData,
+  jobsData
 }) => {
   const [lastDirection, setLastDirection] = useState();
+  let [currentUserId, setUserIdentifier] = useState();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isModalOpen2, setIsModalOpen2] = useState<boolean>(false);
+  const [isModalOpen3, setIsModalOpen3] = useState<boolean>(false);
+  const [isMatchModalOpen, setIsMatchModalOpen] = useState<boolean>(false);
+
+  const uid = auth().currentUser?.uid;
+
+  useEffect(() => {
+    const fetchUserId = async () => {
+      try {
+        let currentId = await fetchUserIdentifier();
+        console.log(currentId);
+        setUserIdentifier(currentId);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    fetchUserId();
+  }, [])
+
 
   const openModal = () => {
     setIsModalOpen(true);
+  };
+  const openThumbsUpModal = () => {
+    setIsModalOpen2(true);
+  };
+  const openThumbsDownModal = () => {
+    setIsModalOpen3(true);
+  };
+  const openMatchModal = () => {
+    setIsMatchModalOpen(true);
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
   };
+  const closeModal2 = () => {
+    setIsModalOpen2(false);
+  };
+  const closeModal3 = () => {
+    setIsModalOpen3(false);
+  };
+  const closeModalMatch = () => {
+    setIsMatchModalOpen(false);
+  };
 
-  const swiped = (direction: any, nameToDelete: any) => {
-    console.log('removing: ' + nameToDelete);
+  const swipedLeft = (job: any) => {
+    if (!job) return;
+    console.log('Job: ', job.title, 'swiped left');
+    // firestore().collection('Jobs').doc(uid).collection("passes").add(job);
+  }
+
+  const swipedRight = async (job: any) => {
+    if (!job) return;
+    // console.log('Job: ', job.title, 'swiped right');
+    let employerAcceptedUsers = await fetchEmployerAcceptedUsers(job.userId);
+    employerAcceptedUsers.map((employee: any) => {
+      if (employee.uid == currentUserId) {
+        console.log('MATCH!');
+        openMatchModal();
+        return true;
+      } else {
+        return false;
+      }
+    })
+    // firestore().collection('Jobs').doc(uid).collection("accepted").add(job);
+  }
+
+  const swiped = (direction: any, job: any) => {
     setLastDirection(direction);
+    if ('left' === direction) {
+      swipedLeft(job)
+    } else {
+      swipedRight(job)
+    }
   };
 
   const outOfFrame = (name: any) => {
@@ -58,32 +126,23 @@ export const MainSwiperJobs: React.FC<MainSwiperJobsProps> = ({
           jobsData.map(job => (
             <TinderCard
               key={job.title}
-              onSwipe={dir => swiped(dir, job.title)}
-              onCardLeftScreen={() => outOfFrame(job.title)}>
+              onCardLeftScreen={(direction) => swiped(direction, job)}>
               <CardJob cardJob={job} navigation={navigation} />
             </TinderCard>
           ))
         }
       </View>
-      {lastDirection ? (
-        <Text style={styles.infoText}>You swiped {lastDirection}</Text>
-      ) : (
-        <Text style={styles.infoText} />
-      )}
-
       <View style={styles.buttonsContainer}>
-        <ButtonIcon
-          icon={faThumbsUp}
-          color={colors.mainBlue}
-          onPress={() => { }}
-        />
-        <ButtonIcon icon={faInfo} color={colors.gray} onPress={openModal} />
         <ButtonIcon
           icon={faThumbsDown}
           color={colors.red}
-          onPress={() => {
-            fetchUserData();
-          }}
+          onPress={openThumbsDownModal}
+        />
+        <ButtonIcon icon={faInfo} color={colors.gray} onPress={openModal} />
+        <ButtonIcon
+          icon={faThumbsUp}
+          color={colors.mainBlue}
+          onPress={openThumbsUpModal}
         />
       </View>
       <ModalCustom
@@ -94,6 +153,34 @@ export const MainSwiperJobs: React.FC<MainSwiperJobsProps> = ({
         visible={isModalOpen}
         onClose={closeModal}
         onAccept={closeModal}
+      />
+      <ModalCustom
+        icon={faThumbsUp}
+        title="Acepta un empleo"
+        message="Desliza la tarjeta a la derecha para probar suerte con un empleo"
+        btnAcceptMsg="Entendido"
+        visible={isModalOpen2}
+        onClose={closeModal2}
+        onAccept={closeModal2}
+      />
+      <ModalCustom
+        icon={faThumbsDown}
+        title="Rechaza un empleo"
+        message="Desliza la tarjeta a la izquierda para eliminar un empleo"
+        btnAcceptMsg="Entendido"
+        visible={isModalOpen3}
+        onClose={closeModal3}
+        onAccept={closeModal3}
+      />
+      <ModalCustom
+        icon={faThumbsUp}
+        title="¡Estás ContrApptado!"
+        message="Mira la información de contacto del empleador en el apartado de guardados"
+        btnAcceptMsg="¡Vamos!"
+        btnCloseMsg='Cerrar'
+        visible={isMatchModalOpen}
+        onClose={closeModalMatch}
+        onAccept={closeModalMatch} //TODO: Redirect to contact info
       />
     </View>
   );

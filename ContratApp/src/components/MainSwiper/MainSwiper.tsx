@@ -20,6 +20,9 @@ import {
 import { colors } from '../../../constants/colors';
 import { fetchUserData } from '../../db/fetchCollections';
 import ModalCustom from '../ModalCustom/ModalCustom';
+//FIREBASE
+import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 
 type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
 
@@ -30,10 +33,12 @@ interface MainSwiperProps {
 
 export const MainSwiper: React.FC<MainSwiperProps> = ({
   navigation,
-  userData,
+  userData
 }) => {
   const [lastDirection, setLastDirection] = useState();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
+  const uid = auth().currentUser?.uid;
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -43,47 +48,60 @@ export const MainSwiper: React.FC<MainSwiperProps> = ({
     setIsModalOpen(false);
   };
 
-  const swiped = (direction: any, nameToDelete: any) => {
-    console.log('removing: ' + nameToDelete);
+  const swipedLeft = (user: any) => {
+    if (!user) return;
+    console.log('User: ', user.name, 'swiped left');
+    firestore().collection('Users').doc(uid).collection("passes").add(user);
+  }
+
+  const swipedRight = (user: any) => {
+    if (!user) return;
+    console.log('User: ', user.name, 'swiped right');
+    firestore().collection('Users').doc(uid).collection("accepted").add(user);
+  }
+
+  const swiped = (direction: any, user: any) => {
+    // console.log('removing: ' + nameToDelete);
     setLastDirection(direction);
+    if ('left' === direction) {
+      swipedLeft(user)
+    } else {
+      swipedRight(user)
+    }
   };
 
   const outOfFrame = (name: any) => {
     console.log(name + ' left the screen!');
   };
+
   return (
     <View>
       <View style={styles.cardContainer}>
         {
-          userData.map(user => (
+          userData.map((user, index) => (
             <TinderCard
-              key={user.companyName || user.name}
-              onSwipe={dir => swiped(dir, user.companyName || user.name)}
-              onCardLeftScreen={() => outOfFrame(user.companyName || user.name)}>
+              key={index}
+              // onSwipe={dir => swiped(dir, user)}
+              onCardLeftScreen={dir => swiped(dir, user)}
+              preventSwipe={['up', 'down']}
+            >
               <CardEmployee card={user} navigation={navigation} />
             </TinderCard>
           ))
         }
       </View>
-      {lastDirection ? (
-        <Text style={styles.infoText}>You swiped {lastDirection}</Text>
-      ) : (
-        <Text style={styles.infoText} />
-      )}
 
       <View style={styles.buttonsContainer}>
         <ButtonIcon
-          icon={faThumbsUp}
-          color={colors.mainBlue}
+          icon={faThumbsDown}
+          color={colors.red}
           onPress={() => { }}
         />
         <ButtonIcon icon={faInfo} color={colors.gray} onPress={openModal} />
         <ButtonIcon
-          icon={faThumbsDown}
-          color={colors.red}
-          onPress={() => {
-            fetchUserData();
-          }}
+          icon={faThumbsUp}
+          color={colors.mainBlue}
+          onPress={() => { }}
         />
       </View>
       <ModalCustom

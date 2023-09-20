@@ -63,7 +63,7 @@ export const JobDetailsScreen: React.FC<JobDetailsProps> = ({ navigation, route 
                                 navigation.navigate('Home');
                             }}
                         />
-                        <Button title="Aceptar" onPress={() => { }} />
+                        {/* <Button title="Aceptar" onPress={() => { }} /> */}
                     </View>
                 </View>
             </ScrollView>

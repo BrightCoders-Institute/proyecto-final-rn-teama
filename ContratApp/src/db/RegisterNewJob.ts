@@ -11,18 +11,17 @@ interface NewJob {
     budget: string;
     location: string;
     limitDate: string;
-    identifier: string;
+    userId: string;
 }
 
-const currentUser = auth().currentUser;
+const uid = auth().currentUser?.uid;
 
-const addJobInfo = ({ uid }: FirebaseAuthTypes.User, jobData: NewJob) => {
+const addJobInfo = (jobData: NewJob) => {
     firestore()
         .collection('Jobs')
-        .doc(uid)
+        .doc(generarID())
         .set({
-            jobData: jobData,
-            uid: uid,
+            jobData: jobData
         })
         .catch(error => console.log(error));
 };
@@ -35,12 +34,11 @@ export const registerJob = async (props: NewJob) => {
         budget: props.budget || '',
         location: props.location || '',
         limitDate: props.limitDate || '',
-        identifier: generarID()
+        userId: uid || ''
     };
 
     try {
-        if (currentUser)
-            addJobInfo(currentUser, jobData);
+        addJobInfo(jobData);
         Snackbar.show({
             text: 'Job created',
             backgroundColor: 'green',

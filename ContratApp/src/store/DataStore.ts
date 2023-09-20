@@ -17,6 +17,7 @@ interface DataState {
   address: string;
   phone: string;
   companyName: string;
+  hasJob: boolean;
 }
 
 const initialState: DataState = {
@@ -36,6 +37,7 @@ const initialState: DataState = {
   address: '',
   phone: '',
   companyName: '',
+  hasJob: false
 };
 
 const dataSlice = createSlice({
@@ -47,6 +49,9 @@ const dataSlice = createSlice({
     },
     setLoggedIn: (state, action: PayloadAction<boolean>) => {
       state.isLoggedIn = action.payload;
+    },
+    setHasJob: (state, action: PayloadAction<boolean>) => {
+      state.hasJob = action.payload;
     },
     setEmployeeName: (state, action: PayloadAction<string>) => {
       state.employeeName = action.payload;
@@ -110,6 +115,7 @@ export const {
   setAddress,
   setPhone,
   setCompanyName,
+  setHasJob
 } = dataSlice.actions;
 
 export const dataReducer = dataSlice.reducer;

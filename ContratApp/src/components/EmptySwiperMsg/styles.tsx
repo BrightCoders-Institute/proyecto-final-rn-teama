@@ -1,9 +1,9 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
-    marginVertical: 60,
+    marginVertical: 20,
     justifyContent: 'center',
     alignItems: 'center',
   },
