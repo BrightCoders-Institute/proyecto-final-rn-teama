@@ -96,7 +96,7 @@ export const MainSwiperJobs: React.FC<MainSwiperJobsProps> = ({
     let employerAcceptedUsers = await fetchEmployerAcceptedUsers(job.userId);
     setEmployerId(job.userId);
     employerAcceptedUsers.map((employee: any) => {
-      if (employee.uid == currentUserId) {
+      if (employee.uid === currentUserId) {
         openMatchModal();
         return true;
       } else {

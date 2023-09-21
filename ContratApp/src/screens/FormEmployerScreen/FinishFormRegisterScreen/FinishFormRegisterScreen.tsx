@@ -1,13 +1,13 @@
-import {View, Text, StyleSheet} from 'react-native';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import React from 'react';
 import HeaderForm from '../../../components/HeaderForm/HeaderForm';
 import UploadPicProfile from '../../../components/UploadPicProfile/UploadPicProfile';
-import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
-import {StackNavigationProp} from '@react-navigation/stack';
-import {RootStackParamList} from '../../../navigation/Navigator';
-import {useDispatch, useSelector} from 'react-redux';
-import {RootState} from '../../../store/Reducers';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../../../navigation/Navigator';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../../store/Reducers';
 import {
   setAddress,
   setCompanyName,
@@ -17,9 +17,9 @@ import {
   setPhone,
   setUserType,
 } from '../../../store/DataStore';
-import {registerEmployer} from '../../../db/RegisterNewEmployer';
-import {Button} from '../../../components/Button/Button';
-import {signIn} from '../../../auth/SignInUser';
+import { registerEmployer } from '../../../db/RegisterNewEmployer';
+import { Button } from '../../../components/Button/Button';
+import { signIn } from '../../../auth/SignInUser';
 
 type FinishFormRegisterScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -39,7 +39,7 @@ const FinishFormRegisterScreen: React.FC<FinishFormRegisterScreenProps> = ({
     dispatch(setLoggedIn(isLoggedIn));
   };
 
-  const {email, password, userType, phone, address, companyName} = useSelector(
+  const { email, password, userType, phone, address, companyName } = useSelector(
     (state: RootState) => state.data,
   );
 
@@ -74,17 +74,17 @@ const FinishFormRegisterScreen: React.FC<FinishFormRegisterScreenProps> = ({
   };
 
   return (
-    <View>
+    <ScrollView>
       <HeaderForm title="¡Ya casi terminamos!" navigation={navigation} />
       <UploadPicProfile />
       <Text style={style.text}>
         Agrega una foto, esto ayuda a que el profesional sepa con quien esta
         tratando.
       </Text>
-      <View style={{paddingHorizontal: wp('8%')}}>
+      <View style={{ paddingHorizontal: wp('8%') }}>
         <Button title="Finalizar" onPress={handleFinishButtonPress} />
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -96,7 +96,7 @@ const style = StyleSheet.create({
     alignSelf: 'center',
     textAlign: 'center',
     width: 260,
-    height: 220,
+    height: 100,
     color: 'black',
     fontSize: 20,
     fontWeight: '800',
