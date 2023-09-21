@@ -17,7 +17,6 @@ import { styles } from './styles';
 import LinearGradient from 'react-native-linear-gradient';
 import { colors } from '../../../constants/colors';
 import { dummyText } from '../../../assets/dummyText';
-import { truncate } from '../../utils/truncate';
 
 const { height } = Dimensions.get('window');
 
@@ -73,7 +72,7 @@ export const CardEmployee: React.FC<CardEmployeeProps> = ({ card, navigation }) 
                         <View style={styles.column}>
                             <Text style={styles.title}>Descripción:</Text>
                             <Text style={styles.subtitle}>
-                                {truncate(card.employDescription, 50)}
+                                {card.employDescription?.substring(0, 50)}
                             </Text>
                         </View>
                     </View>
